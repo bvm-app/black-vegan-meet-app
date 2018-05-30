@@ -1,0 +1,30 @@
+page-login {
+  ion-content {
+    .scroll-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+
+    .action-buttons {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

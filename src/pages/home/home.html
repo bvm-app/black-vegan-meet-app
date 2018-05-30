@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title align-title="left">
+      Black Vegan Meet
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="navigateTo('SettingsPage')" ion-button icon-only>
+        <ion-icon name="md-settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="menu-container">
+    <div class="menu-row">
+      <div class="menu-item col-4" (click)="navigateTo('SearchPage')">
+        <ion-icon color="primary" name="ios-search"></ion-icon>
+        Search
+      </div>
+      <div class="menu-item col-4" (click)="navigateTo('ChatPage')">
+        <ion-icon color="primary" name="md-chatbubbles"></ion-icon>
+        Messages
+      </div>
+      <div class="menu-item col-4" (click)="navigateTo('ViewedMePage')">
+        <ion-icon color="primary" name="md-contacts"></ion-icon>
+        Viewed Me
+      </div>
+    </div>
+
+    <div class="menu-row">
+      <div class="menu-item col-4" (click)="navigateTo('ProfilePage')">
+        <ion-icon color="primary" name="md-person"></ion-icon>
+        My Profile
+      </div>
+      <div class="menu-item col-4" (click)="navigateTo('EventsPage')">
+        <ion-icon color="primary" name="md-calendar"></ion-icon>
+        Events
+      </div>
+      <div class="menu-item col-4" (click)="navigateTo('RestaurantsPage')">
+        <ion-icon color="primary" name="md-restaurant"></ion-icon>
+        Restaurants
+      </div>
+    </div>
+
+    <div class="menu-row">
+      <div class="menu-item col-4" (click)="navigateTo('GroceryStoresPage')">
+        <ion-icon color="primary" name="ios-cart"></ion-icon>
+        Grocery Stores
+      </div>
+      <div class="menu-item col-4" (click)="navigateTo('SwipeToLikePage')">
+        <ion-icon color="primary" name="md-thumbs-up"></ion-icon>
+        Swipe to Like
+      </div>
+      <div class="menu-item col-4">
+        <ion-icon color="primary" ios="md-bulb" md="md-bulb"></ion-icon>
+        Advice Corner
+      </div>
+    </div>
+  </div>
+
+  <div class="prospect-dates-header">
+    Prospect Dates
+  </div>
+
+  <div class="prospect-dates-container">
+    <div class="prospect-dates">
+      <div *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" class="image-container col-4">
+        <img class="image" [src]="defaultUserImage" alt="User Image">
+      </div>
+    </div>
+  </div>
+</ion-content>
