@@ -60,8 +60,6 @@ export class LoginPage {
       .signInAndRetrieveDataWithEmailAndPassword(this.email, this.password)
       .then((userCredential: UserCredential) => {
         console.log('Sign in success:', userCredential);
-        this.navCtrl.setRoot(HomePage);
-
         this.presentToast('You have successfully signed in!');
       })
       .catch((error: Error) => {
