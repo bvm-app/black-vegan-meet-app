@@ -12,7 +12,7 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public userProvider: UserProvider
+    public userProvider: UserProvider  // Trigger constructor of userProvider
   ) {}
 
   navigateTo(page) {

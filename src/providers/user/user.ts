@@ -12,13 +12,33 @@ import { Subscription } from 'rxjs';
 */
 @Injectable()
 export class UserProvider {
-  user: IUser;
-  userSubscription: Subscription;
+  private user: IUser;
+  private userSubscription: Subscription;
 
   constructor(public db: AngularFireDatabase) {
     console.log('Hello UserProvider Provider');
+
+    this.initCurrentUser();
+    this.initOnlinePresence();
+  }
+
+  private initCurrentUser() {
     this.userSubscription = this.db.object(`userData/${firebase.auth().currentUser.uid}`).valueChanges().subscribe((user: IUser) => {
       this.user = user;
+    });
+  }
+
+  private initOnlinePresence() {
+    let amOnline = firebase.database().ref('/.info/connected');
+    let userRef = firebase
+      .database()
+      .ref('/presence/' + firebase.auth().currentUser.uid);
+
+    amOnline.on('value', snapshot => {
+      if (snapshot.val()) {
+        userRef.onDisconnect().remove();
+        userRef.set(true);
+      }
     });
   }
 
