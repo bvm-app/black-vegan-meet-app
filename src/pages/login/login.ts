@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the LoginPage page.
@@ -12,15 +14,20 @@ import { HomePage } from '../home/home';
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public afAuth: AngularFireAuth
+  ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    this.afAuth.authState.subscribe((user: firebase.User) => {
+      // this.navCtrl.setRoot(!user ? LoginPage : TabsPage);
+    });
   }
 
   login() {
