@@ -19,18 +19,20 @@ export class UserProvider {
     console.log('Hello UserProvider Provider');
 
     this.initCurrentUser();
-    this.initOnlinePresence();
   }
 
   private initCurrentUser() {
-    this.userSubscription = this.db.object(`userData/${firebase.auth().currentUser.uid}`).valueChanges().subscribe((user: IUser) => {
-      this.user = user;
-    });
+    this.userSubscription = this.db
+      .object(`userData/${firebase.auth().currentUser.uid}`)
+      .valueChanges()
+      .subscribe((user: IUser) => {
+        this.user = user;
+      });
   }
 
-  private initOnlinePresence() {
-    let amOnline = firebase.database().ref('/.info/connected');
-    let userRef = firebase
+  initOnlinePresence() {
+    var amOnline = firebase.database().ref('/.info/connected');
+    var userRef = firebase
       .database()
       .ref('/presence/' + firebase.auth().currentUser.uid);
 

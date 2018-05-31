@@ -15,6 +15,12 @@ export class HomePage {
     public userProvider: UserProvider  // Trigger constructor of userProvider
   ) {}
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
+
+    this.userProvider.initOnlinePresence();
+  }
+
   navigateTo(page) {
     this.navCtrl.push(page);
   }
