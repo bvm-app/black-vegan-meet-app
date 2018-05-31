@@ -29,6 +29,8 @@ import { HomePage } from '../pages/home/home';
 // Modules
 import { LoginPageModule } from '../pages/login/login.module';
 import { UserProvider } from '../providers/user/user';
+import { RegisterPageModule } from '../pages/register/register.module';
+import { StartPageModule } from '../pages/start/start.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,10 @@ import { UserProvider } from '../providers/user/user';
     LoginPageModule,
     AngularFireModule.initializeApp(env.FIREBASE),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    RegisterPageModule,
+    LoginPageModule,
+    StartPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

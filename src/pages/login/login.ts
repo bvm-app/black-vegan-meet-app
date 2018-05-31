@@ -9,6 +9,8 @@ import {
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UserCredential } from '@firebase/auth-types';
+import { RegisterPage } from '../register/register';
+import { StartPage } from '../start/start';
 
 /**
  * Generated class for the LoginPage page.
@@ -23,8 +25,8 @@ import { UserCredential } from '@firebase/auth-types';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  email: string;
-  password: string;
+  email: string = '';
+  password: string = '';
 
   constructor(
     public navCtrl: NavController,
@@ -39,6 +41,13 @@ export class LoginPage {
   }
 
   login() {
+    this.email = this.email.trim();
+
+    if (this.email.length === 0 || this.password.length === 0) {
+      this.presentToast('Invalid credentials');
+      return;
+    }
+
     // Authenticate
     let loader = this.loadingCtrl.create({
       content: 'Logging in...',
@@ -51,18 +60,19 @@ export class LoginPage {
       .signInAndRetrieveDataWithEmailAndPassword(this.email, this.password)
       .then((userCredential: UserCredential) => {
         console.log('Sign in success:', userCredential);
-        this.navCtrl.setRoot('StartPage');
+        this.navCtrl.setRoot(HomePage);
 
         this.presentToast('You have successfully signed in!');
       })
       .catch((error: Error) => {
-        this.presentToast(error.message);
+        console.log('login error:', error.message);
+        this.presentToast('Wrong username or password!');
         loader.dismiss();
       });
   }
 
   register() {
-    this.navCtrl.push('RegisterPage');
+    this.navCtrl.push(RegisterPage);
   }
 
   presentToast(message: string, duration: number = 3000) {

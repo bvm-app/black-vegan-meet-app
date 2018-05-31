@@ -78,20 +78,17 @@ export class RegisterPage {
             searchName: `${firstName.toLowerCase()} ${lastName.toLowerCase()}`
           })
           .then(() => {
-            console.log('fire');
-            this.navCtrl.pop();
             this.presentToast('You have successfully registered');
-            loader.dismiss();
           })
           .catch((error: Error) => {
-            this.presentToast(error.message);
-            console.log(error.message);
+            console.log('Saving user to DB failed:', error.message);
+            this.presentToast('Oops something went wrong!');
             loader.dismiss();
           });
       })
       .catch((error: Error) => {
+        console.log('register error:', error.message);
         this.presentToast(error.message);
-        console.log(error.message);
         loader.dismiss();
       });
   }

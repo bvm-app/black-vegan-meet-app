@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the StartPage page.
@@ -27,7 +28,7 @@ export class StartPage {
     console.log('ionViewDidLoad StartPage');
 
     this.afAuth.authState.subscribe((user: firebase.User) => {
-      this.navCtrl.setRoot(!user ? 'LoginPage' : HomePage);
+      this.navCtrl.setRoot(!user ? LoginPage : HomePage);
     });
   }
 }
