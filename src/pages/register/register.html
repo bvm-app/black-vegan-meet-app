@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>register</ion-title>
+    <ion-title>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,4 +15,37 @@
 
 <ion-content padding>
 
+  <form #registerForm="ngForm" (ngSubmit)="submitForm(registerForm.value)">
+    <ion-item no-padding>
+      <ion-label color="primary" stacked>Email</ion-label>
+      <ion-input ngModel required name="email" type="email" placeholder="Email"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label color="primary" stacked>Password</ion-label>
+      <ion-input ngModel required minlength="4" name="password" type="password" placeholder="Password"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label color="primary" stacked>First Name</ion-label>
+      <ion-input ngModel required name="firstName" type="text" placeholder="First Name"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label color="primary" stacked>Last Name</ion-label>
+      <ion-input ngModel required name="lastName" type="text" placeholder="Last Name"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label color="primary" stacked>Birthdate</ion-label>
+      <ion-input ngModel required name="birthdate" type="date" placeholder="Birthdate"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label color="primary" stacked>Address</ion-label>
+      <ion-input ngModel required name="address" type="text" placeholder="Address"></ion-input>
+    </ion-item>
+
+    <button class="register-button" [disabled]="!registerForm.valid" type="submit" ion-button full round>Register</button>
+  </form>
 </ion-content>

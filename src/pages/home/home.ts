@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { env } from '../../app/env';
+import { UserProvider } from '../../providers/user/user';
 
 @Component({
   selector: 'page-home',
@@ -9,9 +10,10 @@ import { env } from '../../app/env';
 export class HomePage {
   defaultUserImage = env.DEFAULT.userImagePlaceholder;
 
-  constructor(public navCtrl: NavController) {
-
-  }
+  constructor(
+    public navCtrl: NavController,
+    public userProvider: UserProvider
+  ) {}
 
   navigateTo(page) {
     this.navCtrl.push(page);

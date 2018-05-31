@@ -28,6 +28,7 @@ import { HomePage } from '../pages/home/home';
 
 // Modules
 import { LoginPageModule } from '../pages/login/login.module';
+import { UserProvider } from '../providers/user/user';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { LoginPageModule } from '../pages/login/login.module';
     FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireDatabase,
-    FirebaseStorageProvider
+    FirebaseStorageProvider,
+    UserProvider
   ]
 })
 export class AppModule {}
