@@ -42,6 +42,7 @@ page-home {
     padding: 0 16px;
     position: relative;
     overflow: auto;
+    overflow-y: hidden;
 
     display: flex;
     flex-wrap: nowrap;
