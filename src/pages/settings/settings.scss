@@ -8,11 +8,13 @@ page-settings {
 
     .user-image {
       display: flex;
+      align-items: center;
+      justify-content: center;
 
       img {
         object-fit: cover;
-        width: 50vw;
-        height: 50vw;
+        width: 50%;
+        height: 50%;
         border-radius: 50%;
       }
     }

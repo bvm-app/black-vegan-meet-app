@@ -70,7 +70,7 @@ $colors: (
 
   danger: $danger,
 
-  light: $primary-0,
+  light: $primary-1,
   dark: $primary-4
 );
 
@@ -94,6 +94,8 @@ $colors: (
 // default are overridden.
 
 @import 'ionic.theme.default';
+
+$list-background-color: $primary-1;
 
 // Ionicons
 // --------------------------------------------------

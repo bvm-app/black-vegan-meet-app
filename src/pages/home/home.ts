@@ -9,6 +9,7 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class HomePage {
   defaultUserImage = env.DEFAULT.userImagePlaceholder;
+  icons = env.DEFAULT.icons;
 
   constructor(
     public navCtrl: NavController,

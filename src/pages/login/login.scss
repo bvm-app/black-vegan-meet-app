@@ -8,12 +8,16 @@ page-login {
     }
   }
 
-  .header {
+  .logo {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
     width: 100%;
+
+    img {
+      width: 75%;
+    }
   }
 
   .login-form {

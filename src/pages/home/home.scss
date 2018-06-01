@@ -17,9 +17,15 @@ page-home {
       justify-content: center;
       font-size: 1.1em;
 
-      ion-icon {
-        padding-bottom: 10px;
-        font-size: 20vw
+      .menu-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 60px;
+          height: 60px;
+        }
       }
     }
   }
@@ -46,7 +52,7 @@ page-home {
 
       .image-container {
         flex: 0 0 auto;
-        width: 30vw;
+        width: 30%;
         height: auto;
         padding-right: 4px;
 

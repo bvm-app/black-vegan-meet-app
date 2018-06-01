@@ -15,46 +15,64 @@
   <div class="menu-container">
     <div class="menu-row">
       <div class="menu-item col-4" (click)="navigateTo('SearchPage')">
-        <ion-icon color="primary" name="ios-search"></ion-icon>
-        Search
+        <div class="menu-icon">
+          <img [src]="icons.Search" alt="icon">
+        </div>
+        <span>Search</span>
       </div>
       <div class="menu-item col-4" (click)="navigateTo('ChatPage')">
-        <ion-icon color="primary" name="md-chatbubbles"></ion-icon>
-        Messages
+        <div class="menu-icon">
+          <img [src]="icons.Messages" alt="icon">
+        </div>
+        <span>Messages</span>
       </div>
       <div class="menu-item col-4" (click)="navigateTo('ViewedMePage')">
-        <ion-icon color="primary" name="md-contacts"></ion-icon>
-        Viewed Me
+        <div class="menu-icon">
+          <img [src]="icons.ViewedMe" alt="icon">
+        </div>
+        <span>Viewed Me</span>
       </div>
     </div>
 
     <div class="menu-row">
       <div class="menu-item col-4" (click)="navigateTo('ProfilePage')">
-        <ion-icon color="primary" name="md-person"></ion-icon>
-        My Profile
+        <div class="menu-icon">
+          <img [src]="icons.MyProfile" alt="icon">
+        </div>
+        <span>My Profile</span>
       </div>
       <div class="menu-item col-4" (click)="navigateTo('EventsPage')">
-        <ion-icon color="primary" name="md-calendar"></ion-icon>
-        Events
+        <div class="menu-icon">
+          <img [src]="icons.Events" alt="icon">
+        </div>
+        <span>Events</span>
       </div>
       <div class="menu-item col-4" (click)="navigateTo('RestaurantsPage')">
-        <ion-icon color="primary" name="md-restaurant"></ion-icon>
-        Restaurants
+        <div class="menu-icon">
+          <img [src]="icons.Restaurants" alt="icon">
+        </div>
+        <span>Restaurants</span>
       </div>
     </div>
 
     <div class="menu-row">
       <div class="menu-item col-4" (click)="navigateTo('GroceryStoresPage')">
-        <ion-icon color="primary" name="ios-cart"></ion-icon>
-        Grocery Stores
+        <div class="menu-icon">
+          <img [src]="icons.GroceryStores" alt="icon">
+        </div>
+        <span>Grocery Stores</span>
       </div>
       <div class="menu-item col-4" (click)="navigateTo('SwipeToLikePage')">
-        <ion-icon color="primary" name="md-thumbs-up"></ion-icon>
-        Swipe to Like
+        <div class="menu-icon">
+          <img [src]="icons.Swipe" alt="icon">
+        </div>
+        <span>Swipe to Like</span>
       </div>
       <div class="menu-item col-4">
-        <ion-icon color="primary" ios="md-bulb" md="md-bulb"></ion-icon>
-        Advice Corner
+        <div class="menu-icon">
+          <img [src]="icons.AdviceCorner" alt="icon">
+        </div>
+        <span>Advice Corner</span>
       </div>
     </div>
   </div>

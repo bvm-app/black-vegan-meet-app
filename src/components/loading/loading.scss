@@ -1,0 +1,46 @@
+loading {
+  $opacityMidway: 0.2;
+  $opacityEnd: 1;
+  $animationDuration: 2s;
+
+  @keyframes flickerAnimation {
+    0%   { opacity: $opacityEnd; }
+    50%  { opacity: $opacityMidway; }
+    100% { opacity: $opacityEnd; }
+  }
+  @-o-keyframes flickerAnimation {
+    0%   { opacity: $opacityEnd; }
+    50%  { opacity: $opacityMidway; }
+    100% { opacity: $opacityEnd; }
+  }
+  @-moz-keyframes flickerAnimation {
+    0%   { opacity: $opacityEnd; }
+    50%  { opacity: $opacityMidway; }
+    100% { opacity: $opacityEnd; }
+  }
+  @-webkit-keyframes flickerAnimation {
+    0%   { opacity: $opacityEnd; }
+    50%  { opacity: $opacityMidway; }
+    100% { opacity: $opacityEnd; }
+  }
+
+  .animate-flicker {
+     -webkit-animation: flickerAnimation $animationDuration infinite;
+     -moz-animation: flickerAnimation $animationDuration infinite;
+     -o-animation: flickerAnimation $animationDuration infinite;
+      animation: flickerAnimation $animationDuration infinite;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    flex-direction: center;
+    justify-content: center;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

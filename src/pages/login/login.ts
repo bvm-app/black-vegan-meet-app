@@ -11,6 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { UserCredential } from '@firebase/auth-types';
 import { RegisterPage } from '../register/register';
 import { StartPage } from '../start/start';
+import { env } from '../../app/env';
 
 /**
  * Generated class for the LoginPage page.
@@ -27,6 +28,7 @@ import { StartPage } from '../start/start';
 export class LoginPage {
   email: string = '';
   password: string = '';
+  logo: string = env.DEFAULT.icons.LogoWithText;
 
   constructor(
     public navCtrl: NavController,

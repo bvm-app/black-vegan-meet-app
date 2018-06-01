@@ -1,9 +1,9 @@
 page-start {
-  .loader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+  ion-content {
+    .scroll-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

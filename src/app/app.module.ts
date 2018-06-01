@@ -27,6 +27,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
 // Modules
+import { ComponentsModule } from '../components/components.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { UserProvider } from '../providers/user/user';
 import { RegisterPageModule } from '../pages/register/register.module';
@@ -39,6 +40,7 @@ import { StartPageModule } from '../pages/start/start.module';
   ],
   imports: [
     BrowserModule,
+    ComponentsModule,
     IonicModule.forRoot(MyApp),
     LoginPageModule,
     AngularFireModule.initializeApp(env.FIREBASE),
