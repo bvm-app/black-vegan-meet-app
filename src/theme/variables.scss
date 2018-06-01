@@ -41,6 +41,12 @@ $secondary-2:#7B8B96;
 $secondary-3:#405A6A;
 $secondary-4:#294151;
 
+$accent-0: #706187 ;
+$accent-1: #B9B3C3 ;
+$accent-2: #8F84A0 ;
+$accent-3: #574571 ;
+$accent-4: #3E2D57 ;
+
 $danger: #f53d3d;
 
 $colors: (
@@ -55,6 +61,12 @@ $colors: (
   secondary-2: $secondary-2,
   secondary-3: $secondary-3,
   secondary-4: $secondary-4,
+
+  accent: $accent-0,
+  accent-1: $accent-1,
+  accent-2: $accent-2,
+  accent-3: $accent-3,
+  accent-4: $accent-4,
 
   danger: $danger,
 
