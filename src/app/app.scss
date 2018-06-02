@@ -21,6 +21,11 @@
   }
 }
 
+// For ng-lazyload-image
+html, body {
+  overflow-x: hidden;
+}
+
 .fixed-content, .scroll-content {
   background: $primary-1;
 }

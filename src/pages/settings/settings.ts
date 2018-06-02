@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   IonicPage,
   NavController,
   NavParams,
   AlertController,
-  ToastController
+  ToastController,
 } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { env } from '../../app/env';
 import { IUser } from '../../models/IUser';
 import { UserProvider } from '../../providers/user/user';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the SettingsPage page.
@@ -25,6 +26,8 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class SettingsPage {
   defaultUserImagePlaceholder = env.DEFAULT.userImagePlaceholder;
+  scrollObservable = Observable.fromEvent(document.querySelector('.scroll-content'), 'scroll');
+
   user: IUser;
   isAdmin: boolean = false;
 

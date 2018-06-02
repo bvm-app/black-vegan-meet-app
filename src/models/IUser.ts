@@ -8,5 +8,5 @@ export interface IUser {
   email: string;
   address: string;
   searchName: string;
-  profilePictureUrl: string;
+  profilePictureUrl?: string;
 }

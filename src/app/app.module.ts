@@ -13,12 +13,15 @@ import { env } from './env';
 
 // 3rd party
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import {
+  AngularFireDatabaseModule,
+  AngularFireDatabase
+} from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 // Services/Providers
 import { FirebaseStorageProvider } from '../providers/firebase-storage/firebase-storage';
-
 
 // Components
 import { MyApp } from './app.component';
@@ -34,13 +37,11 @@ import { RegisterPageModule } from '../pages/register/register.module';
 import { StartPageModule } from '../pages/start/start.module';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage
-  ],
+  declarations: [MyApp, HomePage],
   imports: [
     BrowserModule,
     ComponentsModule,
+    LazyLoadImageModule,
     IonicModule.forRoot(MyApp),
     LoginPageModule,
     AngularFireModule.initializeApp(env.FIREBASE),
@@ -51,17 +52,14 @@ import { StartPageModule } from '../pages/start/start.module';
     StartPageModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage
-  ],
+  entryComponents: [MyApp, HomePage],
   providers: [
     StatusBar,
     SplashScreen,
     Camera,
     FileChooser,
     FilePath,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireDatabase,
     FirebaseStorageProvider,
     UserProvider
