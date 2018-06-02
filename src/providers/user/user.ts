@@ -12,21 +12,36 @@ import { Subscription } from 'rxjs';
 */
 @Injectable()
 export class UserProvider {
+  currentLoggedInUserId: string = firebase.auth().currentUser.uid;
+  isAdmin: boolean = false;
+
   private user: IUser;
   private userSubscription: Subscription;
+  private adminSubscription: Subscription;
+
 
   constructor(public db: AngularFireDatabase) {
     console.log('Hello UserProvider Provider');
 
     this.initCurrentUser();
+    this.initAdminStatus();
   }
 
   private initCurrentUser() {
     this.userSubscription = this.db
-      .object(`userData/${firebase.auth().currentUser.uid}`)
+      .object(`userData/${this.currentLoggedInUserId}`)
       .valueChanges()
       .subscribe((user: IUser) => {
         this.user = user;
+      });
+  }
+
+  private initAdminStatus() {
+    this.adminSubscription = this.db
+      .object(`appAdmins/${this.currentLoggedInUserId}`)
+      .valueChanges()
+      .subscribe(value => {
+        this.isAdmin = !!value;
       });
   }
 
@@ -34,7 +49,7 @@ export class UserProvider {
     var amOnline = firebase.database().ref('/.info/connected');
     var userRef = firebase
       .database()
-      .ref('/presence/' + firebase.auth().currentUser.uid);
+      .ref('/presence/' + this.currentLoggedInUserId);
 
     amOnline.on('value', snapshot => {
       if (snapshot.val()) {
@@ -50,5 +65,6 @@ export class UserProvider {
 
   unsubscribeSubscriptions() {
     if (this.userSubscription) this.userSubscription.unsubscribe();
+    if (this.adminSubscription) this.adminSubscription.unsubscribe();
   }
 }

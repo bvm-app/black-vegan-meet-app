@@ -24,6 +24,10 @@
 
   </div>
   <ion-list>
+    <ion-item *ngIf="userProvider.isAdmin" (click)="navigateTo('AdminPage')">
+      <ion-icon name="md-information-circle" item-start></ion-icon>
+      Admin Panel
+    </ion-item>
     <ion-item (click)="navigateTo('EditProfilePage')">
       <ion-icon name="md-person" item-start></ion-icon>
       Edit Profile
