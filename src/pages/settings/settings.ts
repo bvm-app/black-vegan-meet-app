@@ -26,6 +26,7 @@ import { UserProvider } from '../../providers/user/user';
 export class SettingsPage {
   defaultUserImagePlaceholder = env.DEFAULT.userImagePlaceholder;
   user: IUser;
+  isAdmin: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -38,6 +39,7 @@ export class SettingsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
     this.user = this.userProvider.getCurrentUser();
+    this.isAdmin = this.userProvider.getAdminStatus();
   }
 
   logout() {

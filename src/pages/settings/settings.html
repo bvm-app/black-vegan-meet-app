@@ -24,7 +24,7 @@
 
   </div>
   <ion-list>
-    <ion-item *ngIf="userProvider.isAdmin" (click)="navigateTo('AdminPage')">
+    <ion-item *ngIf="isAdmin" (click)="navigateTo('AdminPage')">
       <ion-icon name="md-information-circle" item-start></ion-icon>
       Admin Panel
     </ion-item>

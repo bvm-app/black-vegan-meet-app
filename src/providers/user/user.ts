@@ -12,9 +12,8 @@ import { Subscription } from 'rxjs';
 */
 @Injectable()
 export class UserProvider {
-  currentLoggedInUserId: string = firebase.auth().currentUser.uid;
-  isAdmin: boolean = false;
-
+  private currentLoggedInUserId: string = firebase.auth().currentUser.uid;
+  private isAdmin: boolean = false;
   private user: IUser;
   private userSubscription: Subscription;
   private adminSubscription: Subscription;
@@ -61,6 +60,10 @@ export class UserProvider {
 
   getCurrentUser() {
     return this.user;
+  }
+
+  getAdminStatus() {
+    return this.isAdmin;
   }
 
   unsubscribeSubscriptions() {
