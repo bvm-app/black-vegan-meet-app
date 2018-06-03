@@ -14,5 +14,23 @@
 
 
 <ion-content padding>
-
+  <div class="event-list-container" *ngFor="let event of events" (click)="openEventDetail(event)">
+    <div class="event-image">
+      <img [defaultImage]="defaultEventImagePlaceholder" [lazyLoad]="event.pic_cover.source">
+    </div>
+    <div class="event-details">
+      <span class="name">
+        {{ event.name }}
+      </span>
+      <span class="date">
+        {{ event.start_time | date: 'EEE MMM dd hh:mm a' }} to {{ event.end_time | date: 'hh:mm a' }}
+      </span>
+      <span class="location">
+        {{ event.location }}
+      </span>
+      <span class="createdBy">
+        By: {{ event.creator }}
+      </span>
+    </div>
+  </div>
 </ion-content>

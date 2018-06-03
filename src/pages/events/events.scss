@@ -1,3 +1,24 @@
 page-events {
+    .event-list-container{
+        display:flex;
 
+        .event-image{
+            width:150px;
+        }
+
+        .event-details{
+            padding:5px;
+            .name{
+                font-weight:500;
+                margin-bottom:5px;
+            }
+            .date, .location, .createdBy{
+                font-size: 13px;
+            }
+            span{
+                display:block;
+            }
+        }
+
+    }
 }
