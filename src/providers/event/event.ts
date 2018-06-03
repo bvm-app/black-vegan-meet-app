@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import moment, { Moment } from 'moment';
+import { Event } from '../../models/Event';
+
 
 /*
   Generated class for the EventProvider provider.
@@ -11,14 +14,21 @@ import moment, { Moment } from 'moment';
 @Injectable()
 export class EventProvider {
 
+  private dbPath = '/events';
+
+  eventsRef;
+
   apiUrl = 'https://cors-anywhere.herokuapp.com/https://world.timeout.com/api/events';
 
-  constructor(public http: HttpClient) {
+  constructor(
+    public http: HttpClient,
+    private db: AngularFireDatabase
+  ) {
     console.log('Hello EventProvider Provider');
+    this.eventsRef = db.list(this.dbPath);
   }
 
   getEvents(query: string) {
-
     return this.http.get(this.apiUrl,
       {
         params: {
@@ -36,7 +46,30 @@ export class EventProvider {
         }
       }
     );
+  }
 
+  createEvent(event: Event): void {
+    this.eventsRef.push(event);
+  }
+
+  updateEvent(key: string, value: any): void {
+    this.eventsRef.update(key,value).catch(error => this.handleError(error));
+  }
+
+  deleteEvent(key: string): void{
+    this.eventsRef.remove(key).catch( error => this.handleError(error));
+  }
+
+  getEventList() {
+    return this.eventsRef.valueChanges();
+  }
+
+  deleteAll(): void{
+    this.eventsRef.remove().catch( error => this.handleError(error));
+  }
+
+  private handleError(error){
+    console.log(error);
   }
 
 }
