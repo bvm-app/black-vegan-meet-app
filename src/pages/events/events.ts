@@ -35,8 +35,7 @@ export class EventsPage {
     console.log('ionViewDidLoad EventsPage');
 
     let loader = this.loadingCtrl.create({
-      content: 'Searching for Events...',
-      dismissOnPageChange: true
+      content: 'Searching for Events...'
     });
 
     loader.present();

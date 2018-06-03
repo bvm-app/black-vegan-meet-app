@@ -40,6 +40,9 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { UserProvider } from '../providers/user/user';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { StartPageModule } from '../pages/start/start.module';
+import { ManageEventsPageModule } from '../pages/manage-events/manage-events.module';
+import { CreateEventPageModule } from '../pages/create-event/create-event.module';
+import { CreateEventPage } from '../pages/create-event/create-event';
 @NgModule({
   declarations: [MyApp, HomePage],
   imports: [
@@ -54,6 +57,8 @@ import { StartPageModule } from '../pages/start/start.module';
     RegisterPageModule,
     LoginPageModule,
     StartPageModule,
+    CreateEventPageModule,
+    ManageEventsPageModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],
