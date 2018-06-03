@@ -26,7 +26,6 @@ import { Observable } from 'rxjs/Observable';
 })
 export class SettingsPage {
   defaultUserImagePlaceholder = env.DEFAULT.userImagePlaceholder;
-  scrollObservable = Observable.fromEvent(document.querySelector('.scroll-content'), 'scroll');
 
   user: IUser;
   isAdmin: boolean = false;

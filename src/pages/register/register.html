@@ -16,6 +16,8 @@
 <ion-content padding>
 
   <form #registerForm="ngForm" (ngSubmit)="submitForm(registerForm.value)">
+    <pre>{{ genderOptions }}</pre>
+    <pre>{{ registerForm.value | json }}</pre>
     <ion-list>
       <ion-item no-padding>
         <ion-label color="primary" stacked>Email</ion-label>
@@ -35,6 +37,13 @@
       <ion-item no-padding>
         <ion-label color="primary" stacked>Last Name</ion-label>
         <ion-input ngModel required name="lastName" type="text" placeholder="Last Name"></ion-input>
+      </ion-item>
+
+      <ion-item no-padding>
+        <ion-label color="primary" stacked>Gender</ion-label>
+        <ion-select ngModel required name="gender" placeholder="Gender">
+          <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
+        </ion-select>
       </ion-item>
 
       <ion-item no-padding>

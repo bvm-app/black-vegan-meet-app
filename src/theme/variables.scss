@@ -12,6 +12,11 @@ $app-direction: ltr;
 
 @import 'ionic.globals';
 
+// App
+// --------------------------------------------------
+$border-style: 1px solid lightgrey;
+$section-spacer: 20px;
+
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -109,5 +114,3 @@ $list-background-color: $primary-1;
 
 @import 'roboto';
 @import 'noto-sans';
-
-$border-style: 1px solid lightgrey;

@@ -38,3 +38,9 @@ html, body {
     margin: auto;
   }
 }
+
+// All except select options triangle
+*:not(.select-icon-inner) {
+  border-color: $primary-0 !important;
+}
+
