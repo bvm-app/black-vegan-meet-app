@@ -21,6 +21,7 @@ import moment from 'moment';
   templateUrl: 'edit-profile.html'
 })
 export class EditProfilePage {
+  heightOptions: string[];
   genderOptions: string[];
   dietOptions: string[];
   religionOptions: string[];
@@ -30,6 +31,7 @@ export class EditProfilePage {
   childrenOptions: string[];
   educationOptions: string[];
   physicalActivityOptions: string[];
+  relationshipStatusOptions: string[];
 
   user: IUser;
   userSubscription: Subscription;
@@ -45,7 +47,9 @@ export class EditProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditProfilePage');
+    this.heightOptions = this.enumProvider.getHeightOptions();
     this.genderOptions = this.enumProvider.getGenderOptions();
+    this.relationshipStatusOptions = this.enumProvider.getRelationshipStatusOptions();
     this.dietOptions = this.enumProvider.getDietOptions();
     this.religionOptions = this.enumProvider.getReligionOptions();
     this.alcoholOptions = this.enumProvider.getAlcoholOptions();

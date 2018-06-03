@@ -30,6 +30,22 @@
       </ion-item>
 
       <ion-item>
+        <ion-label color="primary" stacked>Height</ion-label>
+        <ion-select [(ngModel)]="user.height" name="height" placeholder="Height">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let height of heightOptions" [value]="height">{{ height }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Relationship Status</ion-label>
+        <ion-select [(ngModel)]="user.relationshipStatus" name="relationshipStatus" placeholder="Relationship Status">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let relationshipStatus of relationshipStatusOptions" [value]="relationshipStatus">{{ relationshipStatus }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
         <ion-label color="primary" stacked>Gender</ion-label>
         <ion-select [(ngModel)]="user.gender" name="gender" placeholder="Gender">
           <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
@@ -44,6 +60,11 @@
       <ion-item>
         <ion-label color="primary" stacked>Address</ion-label>
         <ion-input [(ngModel)]="user.address" name="address" type="text" placeholder="Address"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Occupation</ion-label>
+        <ion-input [(ngModel)]="user.occupation" name="occupation" type="text" placeholder="Occupation"></ion-input>
       </ion-item>
     </ion-list>
 

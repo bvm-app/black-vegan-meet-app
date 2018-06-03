@@ -48,6 +48,10 @@ export class ProfilePage {
       .valueChanges()
       .subscribe((user: IUser) => {
         this.user = user;
+
+        if (!this.user.preferences) {
+          this.user.preferences = {};
+        }
       });
   }
 

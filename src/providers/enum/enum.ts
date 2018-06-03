@@ -8,6 +8,7 @@ import { DrugOptions } from '../../enums/DrugOptions';
 import { ChildrenOptions } from '../../enums/ChildrenOptions';
 import { EducationOptions } from '../../enums/EducationOptions';
 import { PhysicalActivityOptions } from '../../enums/PhysicalActivityOptions';
+import { RelationshipStatusOptions } from '../../enums/RelationshipStatusOptions';
 
 /*
   Generated class for the EnumProvider provider.
@@ -22,8 +23,46 @@ export class EnumProvider {
     console.log('Hello EnumProvider Provider');
   }
 
+  private getHeightFeetAndInches(height) {
+    let feet = +height.split(`'`)[0];
+    let inches = +height.split(`'`)[1].slice(0, -1);
+
+    return {
+      feet: +feet,
+      inches: +inches
+    }
+  }
+
+  private toHeightFormat(height) {
+    return `${height.feet}'${height.inches}"`
+  }
+
+  getHeightOptions() {
+    let minimumHeight = `4'0"`;
+    let maximumHeight = `7'0"`;
+    let heightOptions = [];
+
+    let currentHeight = this.getHeightFeetAndInches(minimumHeight);
+    do {
+      heightOptions.push(this.toHeightFormat(currentHeight));
+
+      currentHeight.inches += 1;
+      if (currentHeight.inches === 12) {
+        currentHeight.feet += 1;
+        currentHeight.inches = 0;
+      }
+    } while (this.toHeightFormat(currentHeight) !== maximumHeight);
+    heightOptions.push(maximumHeight);
+
+    return heightOptions;
+  }
+
   getGenderOptions() {
     return this.getValues(GenderOptions);
+  }
+
+  getRelationshipStatusOptions() {
+    return this.getValues(RelationshipStatusOptions);
   }
 
   getDietOptions() {

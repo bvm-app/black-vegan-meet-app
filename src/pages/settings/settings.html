@@ -15,7 +15,7 @@
 
 <ion-content #container no-padding>
   <div class="user-section">
-    <div class="user-image">
+    <div class="user-image" (click)="navigateTo('EditPhotosPage')">
       <img [defaultImage]="defaultUserImagePlaceholder" [lazyLoad]="user?.profilePictureUrl" [scrollObservable]="container.ionScroll">
     </div>
     <div class="user-name">

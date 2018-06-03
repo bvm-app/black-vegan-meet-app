@@ -16,8 +16,6 @@
 <ion-content padding>
 
   <form #registerForm="ngForm" (ngSubmit)="submitForm(registerForm.value)">
-    <pre>{{ genderOptions }}</pre>
-    <pre>{{ registerForm.value | json }}</pre>
     <ion-list>
       <ion-item no-padding>
         <ion-label color="primary" stacked>Email</ion-label>

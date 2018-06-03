@@ -12,87 +12,89 @@
 
 </ion-header>
 
-
 <ion-content #container no-padding>
-  <div class="user-section">
-    <div class="user-image">
-      <img [src]="user?.profilePictureUrl || defaultUserImagePlaceholder">
-    </div>
-    <div class="user-details" padding>
-      <div class="user-name-and-age">
-        {{ user?.firstName }} {{ user?.lastName }}, {{ calculateAge(user?.birthdate)}}
+  <loading *ngIf="!user"></loading>
+  <ng-container *ngIf="user">
+    <div class="user-section">
+      <div class="user-image">
+        <img [src]="user?.profilePictureUrl || defaultUserImagePlaceholder">
       </div>
-      <div class="user-location">
-        <ion-icon name="md-pin"></ion-icon> {{ user?.address }}
+      <div class="user-details" padding>
+        <div class="user-name-and-age">
+          {{ user?.firstName }} {{ user?.lastName }}, {{ calculateAge(user?.birthdate)}}
+        </div>
+        <div class="user-location">
+          <ion-icon name="md-pin"></ion-icon> {{ user?.address }}
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="edit-actions-container">
-    <button (click)="navigateTo('EditPhotosPage')" class="edit-button" ion-button outline>
-      <ion-icon item-start name="md-camera"></ion-icon>
-      Edit Photos
-    </button>
-    <button (click)="navigateTo('EditProfilePage')" class="edit-button" ion-button outline>
-      <ion-icon item-start name="md-create"></ion-icon>
-      Edit Profile
-    </button>
-  </div>
+    <div class="edit-actions-container">
+      <button (click)="navigateTo('EditPhotosPage')" class="edit-button" ion-button outline>
+        <ion-icon item-start name="md-camera"></ion-icon>
+        Edit Photos
+      </button>
+      <button (click)="navigateTo('EditProfilePage')" class="edit-button" ion-button outline>
+        <ion-icon item-start name="md-create"></ion-icon>
+        Edit Profile
+      </button>
+    </div>
 
-  <ion-list>
-    <ion-item>
-      Occupation
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+    <ion-list>
+      <ion-item>
+        <h2>Occupation</h2>
+        <p>{{ user.occupation ? user.occupation: 'No answer' }}</p>
+      </ion-item>
 
-    <ion-item>
-      Status
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Status
+        <ion-note item-end>{{ user.relationshipStatus ? user.relationshipStatus: 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Height
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Height
+        <ion-note item-end>{{ user.height ? user.height: 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Religion
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Religion
+        <ion-note item-end>{{ user.preferences.religion ? user.preferences.religion : 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Children
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Children
+        <ion-note item-end>{{ user.preferences.children ? user.preferences.children : 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Diet
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Diet
+        <ion-note item-end>{{ user.preferences.diet ? user.preferences.diet : 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Cigarettes
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Cigarettes
+        <ion-note item-end>{{ user.preferences.cigarette ? user.preferences.cigarette : 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Drugs
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Drugs
+        <ion-note item-end>{{ user.preferences.drug ? user.preferences.drug : 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Alcohol
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Alcohol
+        <ion-note item-end>{{ user.preferences.alcohol ? user.preferences.alcohol : 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Exercise
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
+      <ion-item>
+        Exercise
+        <ion-note item-end>{{ user.preferences.physicalActivity ? user.preferences.physicalActivity : 'No answer' }}</ion-note>
+      </ion-item>
 
-    <ion-item>
-      Education
-      <ion-note item-end>Test</ion-note>
-    </ion-item>
-  </ion-list>
+      <ion-item>
+        Education
+        <ion-note item-end>{{ user.preferences.education ? user.preferences.education : 'No answer' }}</ion-note>
+      </ion-item>
+    </ion-list>
+  </ng-container>
 </ion-content>

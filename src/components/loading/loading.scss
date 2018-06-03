@@ -36,10 +36,12 @@ loading {
     flex-direction: column;
     flex-direction: center;
     justify-content: center;
+    align-items: center;
     text-align: center;
+    height: 100%;
 
     img {
-      width: 100%;
+      width: 80%;
       height: auto;
     }
   }
