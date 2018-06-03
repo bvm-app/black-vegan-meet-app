@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { EventProvider } from '../../providers/event/event';
 import { Geolocation } from '@ionic-native/geolocation';
 import { env } from '../../app/env';
@@ -20,11 +20,11 @@ export class EventsPage {
   query: string = 'vegan';
   events: any;
   defaultEventImagePlaceholder = env.DEFAULT.eventImagePlaceholder;
-  isFetching = true;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     public geolocation: Geolocation,
     public eventProvider: EventProvider
@@ -34,11 +34,15 @@ export class EventsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventsPage');
 
+    let loader = this.loadingCtrl.create({
+      content: 'Searching for Events...'
+    });
+
+    loader.present();
 
     this.eventProvider.getEvents(this.query).subscribe(data => {
       this.events = data;
-      this.isFetching = false;
-      
+      loader.dismiss();
     });
 
     this.geolocation.getCurrentPosition().then((position) => {
