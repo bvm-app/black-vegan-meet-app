@@ -10,6 +10,7 @@ import moment, { Moment } from 'moment';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { UserCredential, Error } from '@firebase/auth-types';
+import { EnumProvider } from '../../providers/enum/enum';
 
 /**
  * Generated class for the RegisterPage page.
@@ -33,17 +34,22 @@ interface IRegisterForm {
   templateUrl: 'register.html'
 })
 export class RegisterPage {
+  genderOptions: string[];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public afAuth: AngularFireAuth,
     public db: AngularFireDatabase,
     public toastCtrl: ToastController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public enumProvider: EnumProvider
   ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+
+    this.genderOptions = this.enumProvider.getGenderOptions();
   }
 
   submitForm(registerFormValue: IRegisterForm) {

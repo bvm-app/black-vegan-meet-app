@@ -7,12 +7,114 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>editProfile</ion-title>
+    <ion-title>Edit Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <loading *ngIf="!user"></loading>
 
+  <ng-container *ngIf="user">
+    <ion-list>
+      <ion-list-header>The matchmaking essentials</ion-list-header>
+      <ion-item>
+        <ion-label color="primary" stacked>First Name</ion-label>
+        <ion-input [(ngModel)]="user.firstName" name="firstName" type="text" placeholder="First Name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Last Name</ion-label>
+        <ion-input [(ngModel)]="user.lastName" name="lastName" type="text" placeholder="Last Name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Gender</ion-label>
+        <ion-select [(ngModel)]="user.gender" name="gender" placeholder="Gender">
+          <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Birthdate</ion-label>
+        <ion-input [(ngModel)]="user.birthdate" name="birthdate" type="date" placeholder="Birthdate"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Address</ion-label>
+        <ion-input [(ngModel)]="user.address" name="address" type="text" placeholder="Address"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>Your Preferences</ion-list-header>
+      <ion-item>
+        <ion-label color="primary" stacked>Diet</ion-label>
+        <ion-select [(ngModel)]="user.preferences.diet" name="preferenceDiet" placeholder="Select">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let diet of dietOptions" [value]="diet">{{ diet }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Religion</ion-label>
+        <ion-select [(ngModel)]="user.preferences.religion" name="preferenceReligion" placeholder="Select">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let religion of religionOptions" [value]="religion">{{ religion }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Alcohol</ion-label>
+        <ion-select [(ngModel)]="user.preferences.alcohol" name="preferenceAlcohol" placeholder="Select">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let alcohol of alcoholOptions" [value]="alcohol">{{ alcohol }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Cigarettes</ion-label>
+        <ion-select [(ngModel)]="user.preferences.cigarette" name="preferenceCigarette" placeholder="Select">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let cigarette of cigaretteOptions" [value]="cigarette">{{ cigarette }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Drugs</ion-label>
+        <ion-select [(ngModel)]="user.preferences.drug" name="preferenceDrug" placeholder="Select">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let drug of drugOptions" [value]="drug">{{ drug }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Children</ion-label>
+        <ion-select [(ngModel)]="user.preferences.children" name="preferenceChildren" placeholder="Select">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let children of childrenOptions" [value]="children">{{ children }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Education</ion-label>
+        <ion-select [(ngModel)]="user.preferences.education" name="preferenceEducation" placeholder="Select">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let education of educationOptions" [value]="education">{{ education }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Physical Activity</ion-label>
+        <ion-select [(ngModel)]="user.preferences.physicalActivity" name="preferencePhysicalActivity" placeholder="Select">
+          <ion-option></ion-option>
+          <ion-option *ngFor="let physicalActivity of physicalActivityOptions" [value]="physicalActivity">{{ physicalActivity }}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <button class="update-profile-button" [disabled]="isUpdating" (click)="submitForm()" ion-button full round>{{ isUpdating ? 'Updating...': 'Update profile' }}</button>
+
+  </ng-container>
 </ion-content>

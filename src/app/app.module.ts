@@ -8,6 +8,8 @@ import { Camera } from '@ionic-native/camera';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpClientModule } from '@angular/common/http';
+import { Geolocation } from '@ionic-native/geolocation';
+
 
 // Environment configs
 import { env } from './env';
@@ -20,10 +22,11 @@ import {
 } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { Geolocation } from '@ionic-native/geolocation';
 
 // Services/Providers
 import { FirebaseStorageProvider } from '../providers/firebase-storage/firebase-storage';
+import { EventProvider } from '../providers/event/event';
+import { EnumProvider } from '../providers/enum/enum';
 
 // Components
 import { MyApp } from './app.component';
@@ -37,7 +40,6 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { UserProvider } from '../providers/user/user';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { StartPageModule } from '../pages/start/start.module';
-import { EventProvider } from '../providers/event/event';
 @NgModule({
   declarations: [MyApp, HomePage],
   imports: [
@@ -67,7 +69,14 @@ import { EventProvider } from '../providers/event/event';
     FirebaseStorageProvider,
     UserProvider,
     EventProvider,
-    Geolocation
+    Geolocation,
+    EnumProvider,
   ]
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    if (window.location.href.includes('#')) {
+      window.location.href = window.location.origin;
+    }
+  }
+}

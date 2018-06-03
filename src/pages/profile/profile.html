@@ -13,6 +13,86 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content #container no-padding>
+  <div class="user-section">
+    <div class="user-image">
+      <img [src]="user?.profilePictureUrl || defaultUserImagePlaceholder">
+    </div>
+    <div class="user-details" padding>
+      <div class="user-name-and-age">
+        {{ user?.firstName }} {{ user?.lastName }}, {{ calculateAge(user?.birthdate)}}
+      </div>
+      <div class="user-location">
+        <ion-icon name="md-pin"></ion-icon> {{ user?.address }}
+      </div>
+    </div>
+  </div>
 
+  <div class="edit-actions-container">
+    <button (click)="navigateTo('EditPhotosPage')" class="edit-button" ion-button outline>
+      <ion-icon item-start name="md-camera"></ion-icon>
+      Edit Photos
+    </button>
+    <button (click)="navigateTo('EditProfilePage')" class="edit-button" ion-button outline>
+      <ion-icon item-start name="md-create"></ion-icon>
+      Edit Profile
+    </button>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      Occupation
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Status
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Height
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Religion
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Children
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Diet
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Cigarettes
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Drugs
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Alcohol
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Exercise
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+
+    <ion-item>
+      Education
+      <ion-note item-end>Test</ion-note>
+    </ion-item>
+  </ion-list>
 </ion-content>
