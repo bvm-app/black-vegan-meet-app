@@ -69,6 +69,26 @@ export class ProfilePage {
     return moment().diff(birthdate, 'years');
   }
 
+  formatAddress() {
+    let address = [];
+
+    if (this.user) {
+      if (this.user.city) {
+        address.push(this.user.city);
+      }
+
+      if (this.user.state) {
+        address.push(this.user.state);
+      }
+
+      if (this.user.country) {
+        address.push(this.user.country);
+      }
+    }
+
+    return address.join(', ');
+  }
+
   navigateTo(page) {
     this.navCtrl.push(page);
   }

@@ -27,8 +27,8 @@
         <div class="user-name-and-age">
           {{ user?.firstName }} {{ user?.lastName }}, {{ calculateAge(user?.birthdate)}}
         </div>
-        <div class="user-location" *ngIf="user?.address">
-          <ion-icon name="md-pin"></ion-icon> {{ user?.address }}
+        <div class="user-location" *ngIf="formatAddress()">
+          <ion-icon name="md-pin"></ion-icon> {{ formatAddress() }}
         </div>
       </div>
     </div>
