@@ -21,7 +21,7 @@
 
 <ion-content no-padding>
   <div class="container" [dragula]='"first-bag"' [dragulaModel]="userImages">
-    <div class="image-container" *ngFor="let userImage of userImages;let idx = index" [id]="idx">
+    <div class="image-container" *ngFor="let userImage of userImages;let idx = index" id="{{ userImage }}">
       <div class="close-button" (click)="removeImage(userImage)">
         <ion-icon name="md-close"></ion-icon>
       </div>
