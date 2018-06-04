@@ -126,7 +126,7 @@ export class EditPhotosPage {
 
   addPhoto() {
     if (this.cordova) {
-      // Show action sheet
+      this.presentActionSheet();
     } else {
       let inputElem: any = document.querySelector('#fileElem');
       inputElem.click();
