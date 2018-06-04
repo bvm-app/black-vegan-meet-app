@@ -54,7 +54,7 @@ import { StartPageModule } from '../pages/start/start.module';
     RegisterPageModule,
     LoginPageModule,
     StartPageModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],

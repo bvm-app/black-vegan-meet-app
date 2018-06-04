@@ -21,7 +21,8 @@ import firebase from 'firebase';
   templateUrl: 'profile.html'
 })
 export class ProfilePage {
-  defaultUserImagePlaceholder = env.DEFAULT.userImagePlaceholder;
+  defaultUserImagePlaceholder = env.DEFAULT.icons.Logo;
+  centeredSlides = true;
 
   isCurrentLoggedInUser: boolean = true;;
   user: IUser;
@@ -34,8 +35,8 @@ export class ProfilePage {
     public userProvider: UserProvider
   ) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ProfilePage');
 
     let userId = firebase.auth().currentUser.uid;
     if (this.navParams.data.userId) {
@@ -48,6 +49,10 @@ export class ProfilePage {
       .valueChanges()
       .subscribe((user: IUser) => {
         this.user = user;
+
+        if (!this.user.images) {
+          this.user.images = [this.defaultUserImagePlaceholder];
+        }
 
         if (!this.user.preferences) {
           this.user.preferences = {};

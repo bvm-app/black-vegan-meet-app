@@ -15,15 +15,19 @@
 <ion-content #container no-padding>
   <loading *ngIf="!user"></loading>
   <ng-container *ngIf="user">
+
     <div class="user-section">
-      <div class="user-image">
-        <img [src]="user?.profilePictureUrl || defaultUserImagePlaceholder">
-      </div>
+      <ion-slides [centeredSlides]="centeredSlides" class="image-slider-container" pager>
+        <ion-slide *ngFor="let image of user.images">
+          <img [src]="image || defaultUserImagePlaceholder">
+        </ion-slide>
+      </ion-slides>
+
       <div class="user-details" padding>
         <div class="user-name-and-age">
           {{ user?.firstName }} {{ user?.lastName }}, {{ calculateAge(user?.birthdate)}}
         </div>
-        <div class="user-location">
+        <div class="user-location" *ngIf="user?.address">
           <ion-icon name="md-pin"></ion-icon> {{ user?.address }}
         </div>
       </div>

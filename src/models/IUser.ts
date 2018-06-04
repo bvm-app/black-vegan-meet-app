@@ -13,6 +13,7 @@ export interface IUser {
   address: string;
   searchName: string;
 
+  images?: string[];
   occupation?: string;
   height?: string;
   relationshipStatus?: RelationshipStatusOptions;
