@@ -24,6 +24,8 @@ interface IRegisterForm {
   password: string;
   firstName: string;
   lastName: string;
+  birthdate: string | Moment;
+  address: string;
 }
 
 @IonicPage()
@@ -59,6 +61,7 @@ export class RegisterPage {
     loader.present();
 
     let form = { ...registerFormValue };
+    form.birthdate = moment(form.birthdate).toISOString(true);
 
     this.afAuth.auth
       .createUserWithEmailAndPassword(form.email, form.password)
@@ -75,7 +78,9 @@ export class RegisterPage {
             id: userId,
             firstName: firstName,
             lastName: lastName,
+            birthdate: form.birthdate,
             email: form.email.trim(),
+            address: form.address.trim(),
             searchName: `${firstName.toLowerCase()} ${lastName.toLowerCase()}`
           })
           .then(() => {
