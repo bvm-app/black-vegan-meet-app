@@ -55,7 +55,7 @@ export class ViewedMePage {
       this.usersSubscription = this.db
         .list(
           `${this.viewedMeProvider.dbPath}/${this.currentLoggedInUserId}`,
-          ref => ref.limitToLast(this.users.length + limit).orderByValue()
+          ref => ref.limitToLast(this.users.length + limit).orderByChild('lastViewed')
         )
         .valueChanges()
         .pipe(
@@ -77,9 +77,9 @@ export class ViewedMePage {
           userViewedMeDataPromises.then(userViewedMeData => {
 
             if (concat) {
-              this.users = _.uniqBy([...this.users, ...userViewedMeData], 'id');
+              this.users = _.uniqBy([...this.users, ...userViewedMeData.reverse()], 'id');
             } else {
-              this.users = userViewedMeData;
+              this.users = userViewedMeData.reverse();
             }
 
             if (infiniteScroll) infiniteScroll.complete();
