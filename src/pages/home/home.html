@@ -83,8 +83,8 @@
 
   <div class="prospect-dates-container">
     <div class="prospect-dates">
-      <div *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" class="image-container col-4">
-        <img class="image" [src]="defaultUserImage" alt="User Image">
+      <div *ngFor="let prospectDate of prospectDates" (click)="navigateToProfile(prospectDate)" class="image-container col-4">
+        <img class="image" [src]="prospectDate?.profilePictureUrl || defaultUserImage">
       </div>
     </div>
   </div>

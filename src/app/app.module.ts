@@ -40,6 +40,7 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { UserProvider } from '../providers/user/user';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { StartPageModule } from '../pages/start/start.module';
+import { ViewedMeProvider } from '../providers/viewed-me/viewed-me';
 @NgModule({
   declarations: [MyApp, HomePage],
   imports: [
@@ -71,6 +72,7 @@ import { StartPageModule } from '../pages/start/start.module';
     EventProvider,
     Geolocation,
     EnumProvider,
+    ViewedMeProvider,
   ]
 })
 export class AppModule {

@@ -50,15 +50,34 @@ page-home {
     .prospect-dates {
       display: flex;
       flex-direction: row;
+      position: relative;
 
       .image-container {
         flex: 0 0 auto;
         width: 30%;
-        height: auto;
-        padding-right: 4px;
+        margin-right: 4px;
+        position: relative;
+
+        &:before {
+          content: '';
+          display: block;
+          padding-top: 100%;
+        }
+
+        overflow: hidden;
+        span {
+          position: absolute;
+          z-index: 1;
+          color: red;
+          font-size: 2rem;
+          top: 0;
+        }
 
         .image {
-          height: auto;
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
           width: 100%;
           object-fit: cover;
         }

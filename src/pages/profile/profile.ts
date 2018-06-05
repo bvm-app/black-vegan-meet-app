@@ -7,6 +7,7 @@ import { env } from '../../app/env';
 import { UserProvider } from '../../providers/user/user';
 import moment from 'moment';
 import firebase from 'firebase';
+import { ViewedMeProvider } from '../../providers/viewed-me/viewed-me';
 
 /**
  * Generated class for the ProfilePage page.
@@ -23,8 +24,9 @@ import firebase from 'firebase';
 export class ProfilePage {
   defaultUserImagePlaceholder = env.DEFAULT.icons.Logo;
   centeredSlides = true;
+  currentLoggedInUserId = firebase.auth().currentUser.uid;
 
-  isCurrentLoggedInUser: boolean = true;;
+  isCurrentLoggedInUser: boolean = true;
   user: IUser;
   userSubscription: Subscription;
 
@@ -32,7 +34,8 @@ export class ProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public db: AngularFireDatabase,
-    public userProvider: UserProvider
+    public userProvider: UserProvider,
+    public viewedMeProvider: ViewedMeProvider
   ) {}
 
   ionViewWillEnter() {
@@ -41,7 +44,7 @@ export class ProfilePage {
     let userId = firebase.auth().currentUser.uid;
     if (this.navParams.data.userId) {
       userId = this.navParams.data.userId;
-      this.isCurrentLoggedInUser = false;
+      this.isCurrentLoggedInUser = this.currentLoggedInUserId === userId;
     }
 
     this.userSubscription = this.db
@@ -58,6 +61,11 @@ export class ProfilePage {
           this.user.preferences = {};
         }
       });
+
+    // Update userViewedMeData of this user
+    if (!this.isCurrentLoggedInUser) {
+      this.viewedMeProvider.updateCurrentUserViewedMe(userId);
+    }
   }
 
   ionViewDidLeave() {
@@ -70,23 +78,7 @@ export class ProfilePage {
   }
 
   formatAddress() {
-    let address = [];
-
-    if (this.user) {
-      if (this.user.city) {
-        address.push(this.user.city);
-      }
-
-      if (this.user.state) {
-        address.push(this.user.state);
-      }
-
-      if (this.user.country) {
-        address.push(this.user.country);
-      }
-    }
-
-    return address.join(', ');
+    return this.userProvider.formatAddress(this.user);
   }
 
   navigateTo(page) {
