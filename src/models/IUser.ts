@@ -7,12 +7,19 @@ export interface IUser {
   id: string;
   firstName: string;
   lastName: string;
-  birthdate: string | Moment;
   gender: GenderOptions;
   email: string;
-  address: string;
+
   searchName: string;
 
+  city?: string;
+  state?: string;
+  country?: string;
+  searchAddress?: string;
+
+  birthdate?: string | Moment;
+
+  images?: string[];
   occupation?: string;
   height?: string;
   relationshipStatus?: RelationshipStatusOptions;

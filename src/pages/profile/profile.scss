@@ -6,10 +6,22 @@ page-profile {
     justify-content: center;
     margin-bottom: $section-spacer;
 
+    @media screen and (min-width: '720px'){
+      .image-slider-container {
+        height: 350px !important;
+      }
+    }
+
+    .image-slider-container {
+      height: 250px;
+      background-color: $primary-0;
+    }
+
     .user-image {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
 
       img {
         object-fit: cover;

@@ -18,7 +18,7 @@
 
   <ng-container *ngIf="user">
     <ion-list>
-      <ion-list-header>The matchmaking essentials</ion-list-header>
+      <ion-list-header>The Matchmaking Essentials</ion-list-header>
       <ion-item>
         <ion-label color="primary" stacked>First Name</ion-label>
         <ion-input [(ngModel)]="user.firstName" name="firstName" type="text" placeholder="First Name"></ion-input>
@@ -58,8 +58,18 @@
       </ion-item>
 
       <ion-item>
-        <ion-label color="primary" stacked>Address</ion-label>
-        <ion-input [(ngModel)]="user.address" name="address" type="text" placeholder="Address"></ion-input>
+        <ion-label color="primary" stacked>City</ion-label>
+        <ion-input [(ngModel)]="user.city" name="city" type="text" placeholder="City"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>State</ion-label>
+        <ion-input [(ngModel)]="user.state" name="state" type="text" placeholder="State"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Country</ion-label>
+        <ion-input [(ngModel)]="user.country" name="country" type="text" placeholder="Country"></ion-input>
       </ion-item>
 
       <ion-item>

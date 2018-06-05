@@ -4,6 +4,12 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as firebase from 'firebase';
 import { ToastController } from 'ionic-angular';
 
+interface FirebaseFileUpload {
+  downloadUrl: string;
+  contentType: string;
+  fileName: string;
+}
+
 /*
   Generated class for the FirebaseStorageProvider provider.
 
@@ -15,12 +21,13 @@ export class FirebaseStorageProvider {
   private currentLoggedInUserId;
   private loader;
 
-  constructor(
-    private camera: Camera,
-    private toastCtrl: ToastController
-  ) {
+  constructor(private camera: Camera, private toastCtrl: ToastController) {
     console.log('Hello FirebaseStorageProvider Provider');
     this.currentLoggedInUserId = firebase.auth().currentUser.uid;
+  }
+
+  uploadImageFromWeb(image) {
+    return this.uploadImage(image);
   }
 
   uploadImageFromGallery() {
@@ -71,7 +78,7 @@ export class FirebaseStorageProvider {
     return new Blob([new Uint8Array(array)], { type: type });
   }
 
-  private uploadImage(image) {
+  private uploadImage(image): Promise<FirebaseFileUpload> {
     if (image) {
       let fileName = `images/${new Date().getTime()}-${
         this.currentLoggedInUserId
@@ -104,11 +111,13 @@ export class FirebaseStorageProvider {
 
   private onSuccess = snapshot => {
     console.log('snapshot:', snapshot);
-    return {
-      downloadUrl: snapshot.downloadURL,
-      contentType: snapshot.metadata.contentType,
-      fileName: snapshot.metadata.name
-    };
+    return snapshot.ref.getDownloadURL().then(downloadURL => {
+      return {
+        downloadUrl: downloadURL,
+        contentType: snapshot.metadata.contentType,
+        fileName: snapshot.metadata.name
+      };
+    });
   };
 
   private onError = error => {
