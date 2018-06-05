@@ -26,10 +26,10 @@ body {
   overflow-x: hidden;
 }
 
-.fixed-content,
-.scroll-content {
-  background: $primary-1;
-}
+// .fixed-content,
+// .scroll-content {
+  // background: $primary-1;
+// }
 
 .scroll-content {
   @media screen and (min-width: '720px') {
@@ -42,7 +42,7 @@ body {
 
 // All except select options triangle
 *:not(.select-icon-inner) {
-  border-color: $primary-0 !important;
+  border-color: $secondary-0 !important;
 }
 
 // Dragula

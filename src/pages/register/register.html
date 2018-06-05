@@ -18,27 +18,27 @@
   <form #registerForm="ngForm" (ngSubmit)="submitForm(registerForm.value)">
     <ion-list>
       <ion-item no-padding>
-        <ion-label color="primary" stacked>Email</ion-label>
+        <ion-label stacked>Email</ion-label>
         <ion-input ngModel required name="email" type="email" placeholder="Email"></ion-input>
       </ion-item>
 
       <ion-item no-padding>
-        <ion-label color="primary" stacked>Password</ion-label>
+        <ion-label stacked>Password</ion-label>
         <ion-input ngModel required minlength="4" name="password" type="password" placeholder="Password"></ion-input>
       </ion-item>
 
       <ion-item no-padding>
-        <ion-label color="primary" stacked>First Name</ion-label>
+        <ion-label stacked>First Name</ion-label>
         <ion-input ngModel required name="firstName" type="text" placeholder="First Name"></ion-input>
       </ion-item>
 
       <ion-item no-padding>
-        <ion-label color="primary" stacked>Last Name</ion-label>
+        <ion-label stacked>Last Name</ion-label>
         <ion-input ngModel required name="lastName" type="text" placeholder="Last Name"></ion-input>
       </ion-item>
 
       <ion-item no-padding>
-        <ion-label color="primary" stacked>Gender</ion-label>
+        <ion-label stacked>Gender</ion-label>
         <ion-select ngModel required name="gender" placeholder="Gender">
           <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
         </ion-select>

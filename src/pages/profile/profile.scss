@@ -6,7 +6,7 @@ page-profile {
     justify-content: center;
     margin-bottom: $section-spacer;
 
-    @media screen and (min-width: '720px'){
+    @media screen and (min-width: '720px') {
       .image-slider-container {
         height: 350px !important;
       }
@@ -14,7 +14,7 @@ page-profile {
 
     .image-slider-container {
       height: 250px;
-      background-color: $primary-0;
+      background-color: $primary-1;
     }
 
     .user-image {
@@ -34,6 +34,7 @@ page-profile {
       display: flex;
       flex-direction: column;
       width: 100%;
+      background-color: $primary-1;
 
       .user-name-and-age {
         display: flex;
@@ -67,5 +68,10 @@ page-profile {
 
   .occupation {
     font-size: 1.7rem;
+  }
+
+  .occupation,
+  ion-note {
+    color: #8e9093 !important;
   }
 }

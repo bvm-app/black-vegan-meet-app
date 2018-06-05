@@ -1,46 +1,9 @@
 page-login {
-  // ion-content {
-  //   .fixed-content,
-  //   .scroll-content {
-  //     display: flex;
-  //     flex-direction: column;
-  //     align-items: center;
-  //     justify-content: center;
-  //   }
-  // }
-
-  // .logo {
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   margin-bottom: 20px;
-  //   height: auto;
-  //   width: 100%;
-
-  //   img {
-  //     height: auto;
-  //     width: 75%;
-  //   }
-  // }
-
-  // .login-form {
-  //   display: flex;
-  //   flex-direction: column;
-  //   width: 80%;
-
-  //   .action-buttons {
-  //     margin-top: 20px;
-  //     display: flex;
-  //     flex-direction: column;
-  //   }
-  // }
-
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $primary-1;
     height: 100vh;
     width: 100vw;
     position: relative;
