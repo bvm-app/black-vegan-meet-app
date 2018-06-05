@@ -43,6 +43,16 @@
           <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
         </ion-select>
       </ion-item>
+
+      <ion-item no-padding>
+        <ion-label color="primary" stacked>Birthdate</ion-label>
+        <ion-input ngModel required name="birthdate" type="date" placeholder="Birthdate"></ion-input>
+      </ion-item>
+
+      <ion-item no-padding>
+        <ion-label color="primary" stacked>Address</ion-label>
+        <ion-input ngModel required name="address" type="text" placeholder="Address"></ion-input>
+      </ion-item>
     </ion-list>
 
     <button class="register-button" [disabled]="!registerForm.valid" type="submit" ion-button full round>Register</button>

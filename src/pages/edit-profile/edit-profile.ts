@@ -82,7 +82,6 @@ export class EditProfilePage {
     let form = {...this.user};
     form.birthdate = moment(form.birthdate).toISOString(true);
     form.searchName = `${form.firstName.trim().toLowerCase()} ${form.lastName.trim().toLowerCase()}`
-    form.searchAddress = `${form.city.trim().toLowerCase()} ${form.state.trim().toLowerCase()} ${form.country.trim().toLowerCase()}`
 
     this.db.object(`userData/${firebase.auth().currentUser.uid}`).set(form).then(() => {
       this.isUpdating = false;

@@ -8,34 +8,11 @@
 
   <ion-navbar color="primary">
     <ion-title>Edit Photos</ion-title>
-
-    <ion-buttons end>
-      <button ion-button (click)="updateUserPhotos()">
-        Save
-      </button>
-    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content no-padding>
-  <div class="container" [dragula]='"first-bag"' [dragulaModel]="userImages">
-    <div class="image-container" *ngFor="let userImage of userImages;let idx = index" id="{{ userImage }}">
-      <div class="close-button" (click)="removeImage(userImage)">
-        <ion-icon name="md-close"></ion-icon>
-      </div>
-      <div class="image-container-inner">
-        <img [src]="userImage" alt="User Image {{ idx }}">
-      </div>
-    </div>
+<ion-content padding>
 
-    <div class="image-container" *ngIf="userImages.length < 5">
-      <div class="image-container-inner" (click)="addPhoto()">
-        <ion-icon name="md-camera"></ion-icon>
-        <input type="file" id="fileElem" accept="image/*" style="display:none" (change)="uploadImageFromWeb($event.target.files)">
-        <span>Add Photo</span>
-      </div>
-    </div>
-  </div>
 </ion-content>

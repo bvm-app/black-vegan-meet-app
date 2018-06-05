@@ -40,6 +40,12 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { UserProvider } from '../providers/user/user';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { StartPageModule } from '../pages/start/start.module';
+import { GroceryStoreModalPageModule } from '../pages/grocery-store-modal/grocery-store-modal.module';
+import { GroceryStoresPageModule } from '../pages/grocery-stores/grocery-stores.module';
+import { GroceryStoresProvider } from '../providers/grocery-stores/grocery-stores';
+import { GeoLocationProvider } from '../providers/geo-location/geo-location';
+import { HttpClient } from '@angular/common/http';
+
 @NgModule({
   declarations: [MyApp, HomePage],
   imports: [
@@ -55,6 +61,7 @@ import { StartPageModule } from '../pages/start/start.module';
     LoginPageModule,
     StartPageModule,
     HttpClientModule,
+    GroceryStoreModalPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
@@ -67,6 +74,10 @@ import { StartPageModule } from '../pages/start/start.module';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireDatabase,
     FirebaseStorageProvider,
+    UserProvider,
+    Geolocation,
+    GroceryStoresProvider,
+    GeoLocationProvider,
     UserProvider,
     EventProvider,
     Geolocation,

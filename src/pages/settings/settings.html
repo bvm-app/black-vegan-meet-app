@@ -13,10 +13,10 @@
 </ion-header>
 
 
-<ion-content no-padding>
+<ion-content #container no-padding>
   <div class="user-section">
     <div class="user-image" (click)="navigateTo('EditPhotosPage')">
-      <img [src]="user?.profilePictureUrl || defaultUserImagePlaceholder">
+      <img [defaultImage]="defaultUserImagePlaceholder" [lazyLoad]="user?.profilePictureUrl" [scrollObservable]="container.ionScroll">
     </div>
     <div class="user-name">
       {{ user?.firstName }} {{ user?.lastName }}
