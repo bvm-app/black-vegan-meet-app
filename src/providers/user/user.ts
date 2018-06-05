@@ -52,6 +52,9 @@ export class UserProvider {
 
     amOnline.on('value', snapshot => {
       if (snapshot.val()) {
+        this.db.object(`userData/${this.currentLoggedInUserId}`).update({
+          lastActive: firebase.database.ServerValue.TIMESTAMP
+        });
         userRef.onDisconnect().remove();
         userRef.set(true);
       }
@@ -69,5 +72,25 @@ export class UserProvider {
   unsubscribeSubscriptions() {
     if (this.userSubscription) this.userSubscription.unsubscribe();
     if (this.adminSubscription) this.adminSubscription.unsubscribe();
+  }
+
+  formatAddress(user: IUser) {
+    let address = [];
+
+    if (user) {
+      if (user.city) {
+        address.push(user.city);
+      }
+
+      if (user.state) {
+        address.push(user.state);
+      }
+
+      if (user.country) {
+        address.push(user.country);
+      }
+    }
+
+    return address.join(', ');
   }
 }

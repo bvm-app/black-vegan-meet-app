@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>My Profile</ion-title>
+    <ion-title>{{ isCurrentLoggedInUser ? 'My Profile': user?.firstName }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <div class="edit-actions-container">
+    <div class="edit-actions-container" *ngIf="isCurrentLoggedInUser">
       <button (click)="navigateTo('EditPhotosPage')" class="edit-button" ion-button outline>
         <ion-icon item-start name="md-camera"></ion-icon>
         Edit Photos

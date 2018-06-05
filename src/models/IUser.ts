@@ -26,4 +26,6 @@ export interface IUser {
   profilePictureUrl?: string;
 
   preferences?: IUserPreferences;
+
+  lastActive?: number;
 }

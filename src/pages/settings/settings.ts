@@ -38,8 +38,8 @@ export class SettingsPage {
     public userProvider: UserProvider
   ) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter SettingsPage');
     this.user = this.userProvider.getCurrentUser();
     this.isAdmin = this.userProvider.getAdminStatus();
   }
