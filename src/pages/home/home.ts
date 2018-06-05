@@ -28,6 +28,10 @@ export class HomePage {
     });
   }
 
+  ionViewDidLeave() {
+    if (this.prospectDatesSubscription) this.prospectDatesSubscription.unsubscribe();
+  }
+
   ionViewWillEnter() {
     this.prospectDatesSubscription = this.db
       .list('userData', ref => ref.orderByChild('lastActive'))

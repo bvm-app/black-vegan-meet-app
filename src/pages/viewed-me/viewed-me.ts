@@ -49,7 +49,6 @@ export class ViewedMePage {
   }
 
   fetchViewedMeUsers(infiniteScroll, concat: boolean = false, limit: number = 10) {
-    console.log('test');
     return new Promise(resolve => {
       if (!concat) this.isFetching = true;
 
@@ -61,7 +60,6 @@ export class ViewedMePage {
         .valueChanges()
         .pipe(
           map(userViewedMeData => {
-            console.log('data:', userViewedMeData);
             return Promise.all(
               userViewedMeData.map((data: any) => {
                 return firebase
@@ -77,7 +75,6 @@ export class ViewedMePage {
         )
         .subscribe(userViewedMeDataPromises => {
           userViewedMeDataPromises.then(userViewedMeData => {
-            console.log('userViewedMeData:', userViewedMeData);
 
             if (concat) {
               this.users = _.uniqBy([...this.users, ...userViewedMeData], 'id');
