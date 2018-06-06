@@ -1,5 +1,22 @@
 page-edit-profile {
-  .update-profile-button {
-    margin: 30px 0;
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .list-container {
+    background-color: $section-bg-color;
+    margin-bottom: $section-spacer;
+  }
+
+  ion-list {
+    margin: 0 !important;
   }
 }

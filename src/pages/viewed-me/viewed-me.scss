@@ -1,3 +1,72 @@
 page-viewed-me {
+  .users-container {
+    display: flex;
+    flex-direction: column;
+    background-color: $section-bg-color;
 
+    .user {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 10px 0;
+      border-bottom: $border-style;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+        border-bottom: unset;
+      }
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+
+      .details-container {
+        display: flex;
+        flex-direction: column;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+
+        .name,
+        .last-viewed {
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .name {
+          font-size: 1.75rem;
+          margin-bottom: 4px;
+        }
+      }
+
+      .chevron-container {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 20px;
+      }
+    }
+  }
 }

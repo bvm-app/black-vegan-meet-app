@@ -14,7 +14,7 @@ page-profile {
 
     .image-slider-container {
       height: 250px;
-      background-color: $primary-1;
+      background-color: $section-bg-color;
     }
 
     .user-image {
@@ -34,7 +34,7 @@ page-profile {
       display: flex;
       flex-direction: column;
       width: 100%;
-      background-color: $primary-1;
+      background-color: $section-bg-color;
 
       .user-name-and-age {
         display: flex;
@@ -55,6 +55,7 @@ page-profile {
     align-items: center;
     justify-content: center;
     margin: $section-spacer 0;
+    background: $section-bg-color;
 
     .edit-button {
       text-align: center;

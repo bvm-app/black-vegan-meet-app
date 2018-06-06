@@ -13,139 +13,144 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
   <loading *ngIf="!user"></loading>
 
   <ng-container *ngIf="user">
-    <ion-list>
-      <ion-list-header>THE MATCHMAKING ESSENTIALS</ion-list-header>
-      <ion-item>
-        <ion-label stacked>First Name</ion-label>
-        <ion-input [(ngModel)]="user.firstName" name="firstName" type="text" placeholder="First Name"></ion-input>
-      </ion-item>
+    <div class="list-container" padding>
+      <ion-list>
+        <ion-list-header>The Matchmaking Essentials</ion-list-header>
+        <ion-item>
+          <ion-label stacked>First Name</ion-label>
+          <ion-input [(ngModel)]="user.firstName" name="firstName" type="text" placeholder="First Name"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Last Name</ion-label>
-        <ion-input [(ngModel)]="user.lastName" name="lastName" type="text" placeholder="Last Name"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Last Name</ion-label>
+          <ion-input [(ngModel)]="user.lastName" name="lastName" type="text" placeholder="Last Name"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Height</ion-label>
-        <ion-select [(ngModel)]="user.height" name="height" placeholder="Height">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let height of heightOptions" [value]="height">{{ height }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Height</ion-label>
+          <ion-select [(ngModel)]="user.height" name="height" placeholder="Height">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let height of heightOptions" [value]="height">{{ height }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Relationship Status</ion-label>
-        <ion-select [(ngModel)]="user.relationshipStatus" name="relationshipStatus" placeholder="Relationship Status">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let relationshipStatus of relationshipStatusOptions" [value]="relationshipStatus">{{ relationshipStatus }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Relationship Status</ion-label>
+          <ion-select [(ngModel)]="user.relationshipStatus" name="relationshipStatus" placeholder="Relationship Status">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let relationshipStatus of relationshipStatusOptions" [value]="relationshipStatus">{{ relationshipStatus }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Gender</ion-label>
-        <ion-select [(ngModel)]="user.gender" name="gender" placeholder="Gender">
-          <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Gender</ion-label>
+          <ion-select [(ngModel)]="user.gender" name="gender" placeholder="Gender">
+            <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Birthdate</ion-label>
-        <ion-input [(ngModel)]="user.birthdate" name="birthdate" type="date" placeholder="Birthdate"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Birthdate</ion-label>
+          <ion-input [(ngModel)]="user.birthdate" name="birthdate" type="date" placeholder="Birthdate"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>City</ion-label>
-        <ion-input [(ngModel)]="user.city" name="city" type="text" placeholder="City"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>City</ion-label>
+          <ion-input [(ngModel)]="user.city" name="city" type="text" placeholder="City"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>State</ion-label>
-        <ion-input [(ngModel)]="user.state" name="state" type="text" placeholder="State"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>State</ion-label>
+          <ion-input [(ngModel)]="user.state" name="state" type="text" placeholder="State"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Country</ion-label>
-        <ion-input [(ngModel)]="user.country" name="country" type="text" placeholder="Country"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Country</ion-label>
+          <ion-input [(ngModel)]="user.country" name="country" type="text" placeholder="Country"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Occupation</ion-label>
-        <ion-input [(ngModel)]="user.occupation" name="occupation" type="text" placeholder="Occupation"></ion-input>
-      </ion-item>
-    </ion-list>
+        <ion-item>
+          <ion-label stacked>Occupation</ion-label>
+          <ion-input [(ngModel)]="user.occupation" name="occupation" type="text" placeholder="Occupation"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
 
-    <ion-list>
-      <ion-list-header>YOUR PREFERENCES</ion-list-header>
-      <ion-item>
-        <ion-label stacked>Diet</ion-label>
-        <ion-select [(ngModel)]="user.preferences.diet" name="preferenceDiet" placeholder="Select">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let diet of dietOptions" [value]="diet">{{ diet }}</ion-option>
-        </ion-select>
-      </ion-item>
+    <div class="list-container" padding>
+      <ion-list>
+        <ion-list-header>Your Preferences</ion-list-header>
+        <ion-item>
+          <ion-label stacked>Diet</ion-label>
+          <ion-select [(ngModel)]="user.preferences.diet" name="preferenceDiet" placeholder="Select">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let diet of dietOptions" [value]="diet">{{ diet }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Religion</ion-label>
-        <ion-select [(ngModel)]="user.preferences.religion" name="preferenceReligion" placeholder="Select">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let religion of religionOptions" [value]="religion">{{ religion }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Religion</ion-label>
+          <ion-select [(ngModel)]="user.preferences.religion" name="preferenceReligion" placeholder="Select">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let religion of religionOptions" [value]="religion">{{ religion }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Alcohol</ion-label>
-        <ion-select [(ngModel)]="user.preferences.alcohol" name="preferenceAlcohol" placeholder="Select">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let alcohol of alcoholOptions" [value]="alcohol">{{ alcohol }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Alcohol</ion-label>
+          <ion-select [(ngModel)]="user.preferences.alcohol" name="preferenceAlcohol" placeholder="Select">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let alcohol of alcoholOptions" [value]="alcohol">{{ alcohol }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Cigarettes</ion-label>
-        <ion-select [(ngModel)]="user.preferences.cigarette" name="preferenceCigarette" placeholder="Select">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let cigarette of cigaretteOptions" [value]="cigarette">{{ cigarette }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Cigarettes</ion-label>
+          <ion-select [(ngModel)]="user.preferences.cigarette" name="preferenceCigarette" placeholder="Select">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let cigarette of cigaretteOptions" [value]="cigarette">{{ cigarette }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Drugs</ion-label>
-        <ion-select [(ngModel)]="user.preferences.drug" name="preferenceDrug" placeholder="Select">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let drug of drugOptions" [value]="drug">{{ drug }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Drugs</ion-label>
+          <ion-select [(ngModel)]="user.preferences.drug" name="preferenceDrug" placeholder="Select">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let drug of drugOptions" [value]="drug">{{ drug }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Children</ion-label>
-        <ion-select [(ngModel)]="user.preferences.children" name="preferenceChildren" placeholder="Select">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let children of childrenOptions" [value]="children">{{ children }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Children</ion-label>
+          <ion-select [(ngModel)]="user.preferences.children" name="preferenceChildren" placeholder="Select">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let children of childrenOptions" [value]="children">{{ children }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Education</ion-label>
-        <ion-select [(ngModel)]="user.preferences.education" name="preferenceEducation" placeholder="Select">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let education of educationOptions" [value]="education">{{ education }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>Education</ion-label>
+          <ion-select [(ngModel)]="user.preferences.education" name="preferenceEducation" placeholder="Select">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let education of educationOptions" [value]="education">{{ education }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Physical Activity</ion-label>
-        <ion-select [(ngModel)]="user.preferences.physicalActivity" name="preferencePhysicalActivity" placeholder="Select">
-          <ion-option></ion-option>
-          <ion-option *ngFor="let physicalActivity of physicalActivityOptions" [value]="physicalActivity">{{ physicalActivity }}</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
+        <ion-item>
+          <ion-label stacked>Physical Activity</ion-label>
+          <ion-select [(ngModel)]="user.preferences.physicalActivity" name="preferencePhysicalActivity" placeholder="Select">
+            <ion-option></ion-option>
+            <ion-option *ngFor="let physicalActivity of physicalActivityOptions" [value]="physicalActivity">{{ physicalActivity }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-    <button class="update-profile-button" [disabled]="isUpdating" (click)="submitForm()" ion-button full round>{{ isUpdating ? 'Updating...': 'Update profile' }}</button>
-
+        <div class="button-container" padding>
+          <button [disabled]="isUpdating" (click)="submitForm()" ion-button round>{{ isUpdating ? 'Updating...': 'Update profile' }}</button>
+        </div>
+      </ion-list>
+    </div>
   </ng-container>
 </ion-content>

@@ -12,11 +12,6 @@ $app-direction: ltr;
 
 @import 'ionic.globals';
 
-// App
-// --------------------------------------------------
-$border-style: 1px solid lightgrey;
-$section-spacer: 20px;
-
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -78,6 +73,13 @@ $colors: (
   light: $primary-1,
   dark: $primary-4
 );
+
+// App
+// --------------------------------------------------
+$border-color: #c8c7cc;
+$border-style: 1px solid $border-color;
+$section-spacer: 20px;
+$section-bg-color: #FFF;
 
 // App iOS Variables
 // --------------------------------------------------

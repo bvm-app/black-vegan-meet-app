@@ -13,17 +13,23 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
   <loading *ngIf="isFetching"></loading>
-  <ion-list *ngIf="!isFetching">
-    <ion-item *ngFor="let user of users" (click)="navigateToProfile(user)">
-      <ion-avatar item-start>
+
+  <div class="users-container" *ngIf="!isFetching" padding>
+    <div class="user" *ngFor="let user of users" (click)="navigateToProfile(user)">
+      <div class="image-container">
         <img [src]="user?.profilePictureUrl || defaultUserImage">
-      </ion-avatar>
-      <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
-      <p>{{ fromNow(user?.lastViewed) }}</p>
-    </ion-item>
-  </ion-list>
+      </div>
+      <div class="details-container">
+        <p class="name">{{ user?.firstName }} {{ user?.lastName }}</p>
+        <p class="last-viewed">{{ fromNow(user?.lastViewed) }}</p>
+      </div>
+      <div class="chevron-container">
+        <ion-icon name="ios-arrow-forward"></ion-icon>
+      </div>
+    </div>
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="fetchViewedMeUsers($event, true)">
     <ion-infinite-scroll-content loadingSpinner="circles" loadingText="Fetching more..."></ion-infinite-scroll-content>
