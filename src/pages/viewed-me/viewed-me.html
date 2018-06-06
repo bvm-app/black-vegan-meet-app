@@ -16,7 +16,11 @@
 <ion-content no-padding>
   <loading *ngIf="isFetching"></loading>
 
-  <div class="users-container" *ngIf="!isFetching" padding>
+  <div class="info-container">
+    <p>Seems like no one has viewed you yet.</p>
+  </div>
+
+  <div class="users-container" *ngIf="!isFetching && users.length > 0" padding>
     <div class="user" *ngFor="let user of users" (click)="navigateToProfile(user)">
       <div class="image-container">
         <img [src]="user?.profilePictureUrl || defaultUserImage">
