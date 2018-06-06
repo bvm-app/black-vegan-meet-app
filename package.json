@@ -48,6 +48,7 @@
     "ng-elastic": "^1.0.0-beta.5",
     "ng-lazyload-image": "^4.0.0",
     "ng2-dragula": "^1.5.0",
+    "ng2-swipe-cards": "^1.1.1",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.0",
     "sw-toolbox": "3.6.0",
