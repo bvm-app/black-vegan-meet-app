@@ -9,7 +9,7 @@
   <ion-navbar color="primary">
     <ion-title *ngIf="editModal">Edit Grocery Store</ion-title>
     <ion-title *ngIf="addModal">Add Grocery Store</ion-title>
-    <ion-title *ngIf="displayModal">{{store.Name}}</ion-title>
+    <ion-title *ngIf="displayModal">{{store.nme}}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="closeModal()" icon-start>
         <ion-icon name="arrow-back"></ion-icon>
@@ -25,7 +25,7 @@
   <form [formGroup]="storeForm" (ngSubmit)='addGroceryStore()'>
     <ion-item>
       <ion-label [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Name</ion-label>
-      <ion-input type="text" formControlName="name" [(ngModel)]="store.Name" name="name"></ion-input>
+      <ion-input type="text" formControlName="name" [(ngModel)]="store.name" name="name"></ion-input>
     </ion-item>
 
     <ion-label class='invalid' margin-left *ngIf="!storeForm.controls.name.valid  && (storeForm.controls.name.dirty || submitAttempt)">

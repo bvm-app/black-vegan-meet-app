@@ -11,6 +11,8 @@ import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
  * Ionic pages and navigation.
  */
 
+ declare var google;
+
 @IonicPage()
 @Component({
   selector: 'page-grocery-store-modal',
@@ -48,8 +50,6 @@ export class GroceryStoreModalPage {
   }
 
   addGroceryStore() {
-
-
     this.submitAttempt = true;
 
     if (this.storeForm.valid) {

@@ -11,6 +11,7 @@ import { env } from '../../app/env';
 import { IUser } from '../../models/IUser';
 import { UserProvider } from '../../providers/user/user';
 import { Observable } from 'rxjs/Observable';
+import { GroceryStoresProvider } from '../../providers/grocery-stores/grocery-stores';
 
 /**
  * Generated class for the SettingsPage page.
@@ -35,7 +36,8 @@ export class SettingsPage {
     public navParams: NavParams,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
-    public userProvider: UserProvider
+    public userProvider: UserProvider,
+    public groceryStoreProvider: GroceryStoresProvider
   ) {}
 
   ionViewWillEnter() {
@@ -64,6 +66,7 @@ export class SettingsPage {
 
             // Remove all provider subscriptions
             this.userProvider.unsubscribeSubscriptions();
+            this.groceryStoreProvider.unsubscribeSubscriptions();
 
             firebase.auth().signOut();
           }

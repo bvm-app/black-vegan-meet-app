@@ -51,6 +51,7 @@ export class GeoLocationProvider {
     return d;
   }
 
+
   async nearbyApi(): Promise<any> {
     this.currentPosition = await this.geoLocation.getCurrentPosition();
 
@@ -60,7 +61,7 @@ export class GeoLocationProvider {
   }
 
   getPhoto(photoRef): any {
-    return this.http.get('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
+    return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
      + photoRef + 
      '&key=AIzaSyAnsLLV7D_TSP-UpC7gRayKScoz_YahpkA');
   }

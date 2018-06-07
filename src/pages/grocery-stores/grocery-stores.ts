@@ -31,43 +31,40 @@ export class GroceryStoresPage {
   }
 
   ionViewDidEnter() {
-    this.initStores().then((res) => {
-    });
+    this.initStores();
   }
 
   private async initStores() {
-    this.groceryStoresProvider.getGroceryStores(5).forEach(async store => {
-      store.distance = await this.geoLocationProvider.getDistanceFromCurrentLocation(store.coordinates);
-      this.dbStores.push(store);
+    this.groceryStoresProvider.getGroceryStores();
+
+    this.groceryStoresProvider.groceryStoresSubject.subscribe(data => {
+      this.stores = [];
+      
+      data.forEach(element => {
+        this.stores.push(element);
+      });
+
+      this.stores =  this.stores.sort((l, r): number => {
+        if (l.distance < r.distance) return -1;
+        if (l.distance > r.distance) return 1;
+        return 0
+      });
+      console.log("ELEMENT!!: ", this.stores);
     });
 
-    this.nearbyPlaceApi();
+    // this.groceryStoresProvider.getGroceryStores(5).forEach(async store => {
+    //   store.distance = await this.geoLocationProvider.getDistanceFromCurrentLocation(store.coordinates);
+    //   this.dbStores.push(store);
+
+    //   console.log("DBSTORES RES: ", store);
+      
+    // });
+
+    // this.nearbyPlaceApi();
   }
 
   async nearbyPlaceApi() {
-    this.geoLocationProvider.nearbyApi().then((res) => {
-      res.subscribe(data => {
-        data.results.forEach(async element => {
-
-          console.log("ELEMENT: ", element);
-
-          let distance = await this.geoLocationProvider.getDistanceFromCurrentLocation({
-            latitude: element.geometry.location.lat,
-            longitude: element.geometry.location.lng,
-            latitudeType: 'N',
-            longitudeType: 'E'
-          });
-
-          if (element.photos) {
-            this.geoLocationProvider.getPhoto(element.photos[0].photo_reference).subscribe((data) => {
-              this.pushMapStore(element, null, distance);
-            })
-          } else {
-            this.pushMapStore(element, null, distance);
-          }
-        });
-      });
-    });
+    
   }
 
   private pushMapStore(element, imageUrl, distance) {
@@ -86,11 +83,7 @@ export class GroceryStoresPage {
 
     let allStores = this.mapStores.concat(this.dbStores);
 
-    this.stores = allStores.sort((l, r): number => {
-      if (l.distance < r.distance) return -1;
-      if (l.distance > r.distance) return 1;
-      return 0
-    });
+    
   }
 
   openAddGroceryStoreModal() {
