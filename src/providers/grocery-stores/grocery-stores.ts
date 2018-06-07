@@ -35,7 +35,7 @@ export class GroceryStoresProvider {
   }
 
   getGroceryStores() {
-
+    this.groceryStores = [];
     var storesRef = this.db.list('/groceryStore');
 
     this.getStoresUsingPlacesApi();

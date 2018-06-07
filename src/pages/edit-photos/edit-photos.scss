@@ -1,68 +1,66 @@
 page-edit-photos {
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
 
-    .image-container {
+    margin: 8px;
+    width: 40%;
+
+    border: 4px dashed $primary-0;
+    border-radius: 8px;
+
+    .close-button {
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      position: relative;
+      position: absolute;
+      z-index: 1;
+      top: -2px;
+      left: -2px;
+      padding: 8px;
+      background-color: $primary-0;
+      border-radius: 4px;
+      height: 25px;
+      width: 25px;
 
-      margin: 8px;
-      width: 40%;
+      color: white;
+    }
 
-      border: 4px dashed $primary-0;
-      border-radius: 8px;
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
 
-      .close-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        z-index: 1;
-        top: -2px;
-        left: -2px;
-        padding: 8px;
-        background-color: $primary-0;
-        border-radius: 4px;
-        height: 25px;
-        width: 25px;
+    &:first-child {
+      width: 60%;
+    }
 
-        color: white;
+    .image-container-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: $section-bg-color;
+
+      ion-icon {
+        font-size: 1.7em;
+      }
+      span, label {
+        font-size: 1em;
+        margin-top: 10px;
       }
 
-      &:before {
-        content: '';
-        display: block;
-        padding-top: 100%;
-      }
-
-      &:first-child {
-        width: 60%;
-      }
-
-      .image-container-inner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
+      img {
+        object-fit: cover;
         height: 100%;
         width: 100%;
-        background-color: $section-bg-color;
-
-        ion-icon {
-          font-size: 1.7em;
-        }
-        span, label {
-          font-size: 1em;
-          margin-top: 10px;
-        }
-
-        img {
-          object-fit: cover;
-          height: 100%;
-          width: 100%;
-        }
       }
     }
   }
