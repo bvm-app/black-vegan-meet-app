@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StartPage } from '../pages/start/start';
 
+declare var google;
+
 @Component({
   templateUrl: 'app.html'
 })

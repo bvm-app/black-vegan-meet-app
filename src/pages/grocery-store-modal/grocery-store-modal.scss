@@ -1,0 +1,24 @@
+page-grocery-store-modal {
+    p {
+        font-size: 0.8em;
+        color: #d2d2d2;
+    }
+
+    .swiper-slide {
+        display: block;
+    }
+
+    ion-label, .select-text {
+        margin-left: 10px;
+    }
+
+    .invalid {
+        color:#ea6153 !important;
+    }
+
+    #map {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        height: 200px;
+    }
+}
