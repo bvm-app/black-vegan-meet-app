@@ -13,6 +13,15 @@ page-login {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 100%;
+      width: 100%;
+
+      @media screen and (min-width: '720px') {
+        width: 720px;
+        min-width: 720px;
+        max-width: 720px;
+        margin: auto;
+      }
     }
   }
 
@@ -24,7 +33,7 @@ page-login {
     width: 100%;
 
     img {
-      width: 75%;
+      width: 50%;
     }
   }
 
