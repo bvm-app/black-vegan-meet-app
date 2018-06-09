@@ -26,10 +26,9 @@
       <div class="user-details" padding>
         <div class="user-name-and-age">
           {{ formatNameAndAge() }}
-          <!-- {{ user?.firstName }} {{ user?.lastName }}, {{ calculateAge(user?.birthdate)}} -->
         </div>
         <div class="user-location" *ngIf="formatAddress()">
-          <ion-icon name="md-pin"></ion-icon> <span>{{ formatAddress() }}</span>
+          <ion-icon color="secondary" name="md-pin"></ion-icon> <span>{{ formatAddress() }}</span>
         </div>
       </div>
     </div>
@@ -100,6 +99,13 @@
         Education
         <ion-note item-end>{{ user.preferences.education ? user.preferences.education : 'No answer' }}</ion-note>
       </ion-item>
+
+      <div class="intentions-container" *ngIf="user.preferences?.intentions">
+        <div class="intentions-label">{{ isCurrentLoggedInUser ? 'Your': 'Their' }} intentions</div>
+        <ion-chip color="primary" *ngFor="let intention of user.preferences.intentions">
+          <ion-label>{{ intention }}</ion-label>
+        </ion-chip>
+      </div>
     </ion-list>
   </ng-container>
 </ion-content>

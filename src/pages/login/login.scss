@@ -7,6 +7,7 @@ page-login {
     height: 100vh;
     width: 100vw;
     position: relative;
+    background-color: white;
 
     .inner-container {
       display: flex;
@@ -41,6 +42,14 @@ page-login {
     display: flex;
     flex-direction: column;
     width: 80%;
+
+    ion-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      color: $secondary-0;
+    }
 
     .action-buttons {
       margin-top: 20px;

@@ -117,6 +117,14 @@
       <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.completeProfile"></ion-toggle> -->
     </ion-item>
 
+    <pre>{{ filters.preferenceRelationshipStatus }}</pre>
+    <ion-item no-padding>
+      <ion-label>Their Intentions</ion-label>
+      <ion-select multiple="true" [(ngModel)]="filters.preferenceIntention" name="preferenceIntention" placeholder="No preference">
+        <ion-option *ngFor="let intentionOption of intentionOptions" [value]="intentionOption">{{ intentionOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item no-padding>
       <ion-label>Their Diet</ion-label>
       <ion-select [(ngModel)]="filters.preferenceDiet" name="preferenceDiet" placeholder="Diet">

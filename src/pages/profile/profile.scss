@@ -78,4 +78,18 @@ page-profile {
   ion-note {
     color: #8e9093 !important;
   }
+
+  .intentions-container {
+    background-color: $section-bg-color;
+    padding: 16px;
+
+    .intentions-label {
+      font-size: 1.7rem;
+      margin-bottom: 8px;
+    }
+
+    ion-chip {
+      margin-right: 4px;
+    }
+  }
 }

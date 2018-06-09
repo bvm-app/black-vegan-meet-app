@@ -6,6 +6,7 @@ import { EducationOptions } from "../enums/EducationOptions";
 import { DrugOptions } from "../enums/DrugOptions";
 import { AlcoholOptions } from "../enums/AlcoholOptions";
 import { CigaretteOptions } from "../enums/CigaretteOptions";
+import { RelationshipStatusOptions } from "../enums/RelationshipStatusOptions";
 
 interface ionicRangeSlider {
   lower: number;
@@ -27,6 +28,7 @@ export interface IRefineSearchFilters {
   onlineRecently: boolean;
   moreThanOnePhoto: boolean;
   completeProfile: boolean;
+  preferenceIntention?: RelationshipStatusOptions;
   preferenceDiet?: DietOptions;
   preferenceEducation?: EducationOptions;
   preferenceDrug?: DrugOptions;

@@ -54,6 +54,13 @@
         </ion-item>
 
         <ion-item>
+          <ion-label stacked>What are you looking for?</ion-label>
+          <ion-select multiple="true" [(ngModel)]="user.preferences.intentions" name="preferenceIntention" placeholder="Your intentions">
+            <ion-option *ngFor="let intention of intentionOptions" [value]="intention">{{ intention }}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
           <ion-label stacked>Birthdate</ion-label>
           <ion-input [(ngModel)]="user.birthdate" name="birthdate" type="date" placeholder="Birthdate"></ion-input>
         </ion-item>

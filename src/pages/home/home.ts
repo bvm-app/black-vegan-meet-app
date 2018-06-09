@@ -17,7 +17,7 @@ export class HomePage {
   maximumProspectDatesCount = 25;
 
   prospectDates: IUser[];
-  prospectDatesSubscription: Subscription;
+  prospectDatesSubscription: Subscription = new Subscription();
 
   constructor(
     public navCtrl: NavController,

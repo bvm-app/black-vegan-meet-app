@@ -45,8 +45,16 @@ ion-list {
 
 // All except select options triangle
 *:not(.select-icon-inner) {
-  border-color: $primary-1 !important;
+  border-color: $primary-0 !important;
 }
+
+// Checkbox inside multi-select
+.alert-checkbox-icon {
+  .alert-checkbox-inner {
+    border-color: #FFF !important;
+  }
+}
+
 
 // Dragula
 // ----------------------------------------------

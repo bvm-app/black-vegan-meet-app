@@ -18,7 +18,13 @@ page-refine-search {
     }
 
     .text-input {
-      color: $primary-0;
+      color: $primary-0 !important;
+    }
+  }
+
+  ion-select {
+    .select-placeholder {
+      color: $primary-0 !important;
     }
   }
 
