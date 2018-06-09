@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { LoadingComponent } from './loading/loading';
+import { UserCompactViewComponent } from './user-compact-view/user-compact-view';
+import { CommonModule } from '@angular/common';
 @NgModule({
-	declarations: [LoadingComponent],
-	imports: [],
-	exports: [LoadingComponent]
+  declarations: [
+    LoadingComponent,
+    UserCompactViewComponent,
+  ],
+  imports: [CommonModule],
+  exports: [LoadingComponent, UserCompactViewComponent],
 })
 export class ComponentsModule {}

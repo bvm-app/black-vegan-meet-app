@@ -38,13 +38,16 @@ page-profile {
 
       .user-name-and-age {
         display: flex;
-        font-size: 1.4em;
+        font-size: 1.5em;
         font-weight: bold;
       }
 
       .user-location {
-        padding-top: 10px;
-        font-size: 1.2em;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-top: 20px;
+        font-size: 1.1em;
       }
     }
   }
