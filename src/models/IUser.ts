@@ -27,5 +27,8 @@ export interface IUser {
 
   preferences?: IUserPreferences;
 
+  createdAt?: number;
   lastActive?: number;
+
+  premiumSubscriptionExpiry?: string | Moment;
 }

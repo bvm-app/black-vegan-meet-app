@@ -72,6 +72,23 @@ export class ProfilePage {
     if (this.userSubscription) this.userSubscription.unsubscribe();
   }
 
+  formatNameAndAge() {
+    if (!this.user) return;
+    let temp = [];
+
+    let name = `${this.user.firstName} ${this.user.lastName}`;
+    let age = this.calculateAge(this.user.birthdate.toString());
+
+    if (name.trim().length > 0) {
+      temp.push(name);
+    }
+    if (age > 0) {
+      temp.push(age.toString())
+    }
+
+    return temp.join(', ');
+  }
+
   calculateAge(birthdate: string) {
     if (!birthdate) return '';
     return moment().diff(birthdate, 'years');

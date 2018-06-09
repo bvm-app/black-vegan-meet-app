@@ -79,7 +79,7 @@ export class ViewedMePage {
             if (concat) {
               this.users = _.uniqBy([...this.users, ...userViewedMeData.reverse()], 'id');
             } else {
-              // this.users = userViewedMeData.reverse();
+              this.users = userViewedMeData.reverse();
             }
 
             if (infiniteScroll) infiniteScroll.complete();

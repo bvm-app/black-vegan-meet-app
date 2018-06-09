@@ -6,11 +6,11 @@ import {
   ToastController,
   LoadingController
 } from 'ionic-angular';
-import moment, { Moment } from 'moment';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { UserCredential, Error } from '@firebase/auth-types';
 import { EnumProvider } from '../../providers/enum/enum';
+import firebase from 'firebase';
 
 /**
  * Generated class for the RegisterPage page.
@@ -76,7 +76,8 @@ export class RegisterPage {
             firstName: firstName,
             lastName: lastName,
             email: form.email.trim(),
-            searchName: `${firstName.toLowerCase()} ${lastName.toLowerCase()}`
+            searchName: `${firstName.toLowerCase()} ${lastName.toLowerCase()}`,
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
           })
           .then(() => {
             this.presentToast('You have successfully registered');

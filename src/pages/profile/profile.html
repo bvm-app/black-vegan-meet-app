@@ -25,10 +25,11 @@
 
       <div class="user-details" padding>
         <div class="user-name-and-age">
-          {{ user?.firstName }} {{ user?.lastName }}, {{ calculateAge(user?.birthdate)}}
+          {{ formatNameAndAge() }}
+          <!-- {{ user?.firstName }} {{ user?.lastName }}, {{ calculateAge(user?.birthdate)}} -->
         </div>
         <div class="user-location" *ngIf="formatAddress()">
-          <ion-icon name="md-pin"></ion-icon> {{ formatAddress() }}
+          <ion-icon name="md-pin"></ion-icon> <span>{{ formatAddress() }}</span>
         </div>
       </div>
     </div>

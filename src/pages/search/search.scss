@@ -1,3 +1,16 @@
 page-search {
+  .refine-search-button-container {
+    background-color: $section-bg-color;
+  }
 
+  .users-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: $section-spacer;
+
+    .row-item {
+      width: 100%;
+    }
+  }
 }

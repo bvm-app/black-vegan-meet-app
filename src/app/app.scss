@@ -40,12 +40,17 @@ body {
   }
 }
 
-All except select options triangle
+ion-list {
+  margin: 0 !important;
+}
+
+// All except select options triangle
 *:not(.select-icon-inner) {
   border-color: $primary-1 !important;
 }
 
 // Dragula
+// ----------------------------------------------
 .gu-mirror {
   position: fixed !important;
   margin: 0 !important;
