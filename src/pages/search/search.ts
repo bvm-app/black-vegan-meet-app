@@ -51,11 +51,7 @@ export class SearchPage {
       .getUsers()
       .pipe(take(1))
       .subscribe((users: IUser[]) => {
-        // this.allUsers = [...users];
-
-        for (let item of [...Array(10)].fill(0)) {
-          this.allUsers = [...this.allUsers, ...users];
-        }
+        this.allUsers = [...users];
 
         this.populateUsersList();
 
