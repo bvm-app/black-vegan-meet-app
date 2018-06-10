@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs';
 import { DataSnapshot } from 'angularfire2/database/interfaces';
 import { GeoLocationProvider } from '../geo-location/geo-location';
+import { env } from '../../app/env';
 
 /*
   Generated class for the GroceryStoresProvider provider.
@@ -84,7 +85,7 @@ export class GroceryStoresProvider {
             if (element.photos) {
               imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
                 + element.photos[0].photo_reference +
-                '&key=AIzaSyAnsLLV7D_TSP-UpC7gRayKScoz_YahpkA';
+                '&key=' + env.API_KEYS.GOOGLE_MAPS;
             }
 
             this.addStoreToList({

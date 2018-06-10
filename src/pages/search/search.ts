@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ModalController
+} from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { IUser } from '../../models/IUser';
 import { RefineSearchPage } from '../refine-search/refine-search';
 import { IRefineSearchFilters } from '../../models/IRefineSearchFilters';
 import { UserSearchProvider } from '../../providers/user-search/user-search';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 /**
  * Generated class for the SearchPage page.
@@ -41,7 +47,9 @@ export class SearchPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
 
-    this.usersSubscription = this.userSearchProvider.getUsers()
+    this.usersSubscription = this.userSearchProvider
+      .getUsers()
+      .pipe(take(1))
       .subscribe((users: IUser[]) => {
         // this.allUsers = [...users];
 
@@ -52,13 +60,14 @@ export class SearchPage {
         this.populateUsersList();
 
         this.isLoading = false;
-
-        this.usersSubscription.unsubscribe();
       });
   }
 
   populateUsersList() {
-    this.users = [...this.users, ...this.allUsers.splice(0, this.numberOfUsersToLoad)];
+    this.users = [
+      ...this.users,
+      ...this.allUsers.splice(0, this.numberOfUsersToLoad)
+    ];
     // const listDifference = this.allUsers.length - this.users.length;
     // const numberOfUsersToSlice = (listDifference > this.numberOfUsersToLoad) ? this.numberOfUsersToLoad: listDifference;
 
@@ -86,7 +95,11 @@ export class SearchPage {
 
   filterUsers(filters: IRefineSearchFilters) {
     this.users = [];
-    this.allUsers = this.userSearchProvider.filterUsers(filters);
-    this.populateUsersList();
+    this.isLoading = true;
+    this.userSearchProvider.filterUsers(filters).then(users => {
+      this.allUsers = users;
+      this.populateUsersList();
+      this.isLoading = false;
+    });
   }
 }

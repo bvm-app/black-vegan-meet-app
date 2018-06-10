@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EnumProvider } from '../enum/enum';
 import { IRefineSearchFilters } from '../../models/IRefineSearchFilters';
 import { IUser } from '../../models/IUser';
+import { UserProvider } from '../user/user';
 
 /*
   Generated class for the RefineSearchProvider provider.
@@ -66,11 +67,17 @@ class RefineSearchFilters implements IRefineSearchFilters {
 
 @Injectable()
 export class RefineSearchProvider {
-  constructor(private enumProvider: EnumProvider) {
+  filters: RefineSearchFilters;
+  constructor(
+    private enumProvider: EnumProvider,
+    private userProvider: UserProvider
+  ) {
     console.log('Hello RefineSearchProvider Provider');
+    this.filters = new RefineSearchFilters(this.enumProvider.getHeightOptions());
+    this.filters.location = this.userProvider.formatAddress(this.userProvider.getCurrentUser()) || '';
   }
 
   getFilters() {
-    return new RefineSearchFilters(this.enumProvider.getHeightOptions());
+    return this.filters;
   }
 }

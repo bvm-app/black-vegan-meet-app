@@ -6,6 +6,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { IUser } from '../../models/IUser';
 import { Subscription } from 'rxjs';
 import { UserSearchProvider } from '../../providers/user-search/user-search';
+import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 
 @Component({
   selector: 'page-home',
@@ -23,7 +24,8 @@ export class HomePage {
     public navCtrl: NavController,
     public userProvider: UserProvider, // Trigger constructor of userProvider
     public db: AngularFireDatabase,
-    public userSearchProvider: UserSearchProvider
+    public userSearchProvider: UserSearchProvider,
+    public geolocationProvider: GeoLocationProvider
   ) {
     this.prospectDates = [...Array(this.maximumProspectDatesCount)].fill({
       profilePictureUrl: this.defaultUserImage

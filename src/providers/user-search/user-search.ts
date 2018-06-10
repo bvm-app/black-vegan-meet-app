@@ -7,6 +7,7 @@ import { IRefineSearchFilters } from '../../models/IRefineSearchFilters';
 import firebase from 'firebase';
 import moment from 'moment';
 import { EnumProvider } from '../enum/enum';
+import { GeoLocationProvider } from '../geo-location/geo-location';
 
 /*
   Generated class for the UserSearchProvider provider.
@@ -25,7 +26,8 @@ export class UserSearchProvider {
 
   constructor(
     private db: AngularFireDatabase,
-    public enumProvider: EnumProvider
+    private enumProvider: EnumProvider,
+    private geolocationProvider: GeoLocationProvider
   ) {
     console.log('Hello UserSearchProvider Provider');
     this.users = new ReplaySubject<IUser[]>(1);
@@ -37,29 +39,59 @@ export class UserSearchProvider {
     return this.users;
   }
 
-  filterUsers(filters: IRefineSearchFilters) {
+  async filterUsers(filters: IRefineSearchFilters) {
     console.log('filters:', filters);
     let users = [...this._users];
 
-    // TODO: Geocode location
+    let coordinatesOfLocationInput = null;
+    // Geocode location
+    if (filters.location.trim()) {
+      console.log('getting coordinates');
+      coordinatesOfLocationInput = await this.geolocationProvider
+        .geocodeAddress(filters.location)
+        .catch(err => {
+          console.log(`Error on geocoding ${filters.location}`, err);
+          return null;
+        });
+      console.log('retrieved coordinates:', coordinatesOfLocationInput);
+    }
 
-    // TODO: Browsing distance based on geocoded location
+    // Browsing distance based on geocoded location
+    if (filters.location.trim() && coordinatesOfLocationInput) {
+      const maxDistance = filters.distance;
+
+      users = users.filter(user => {
+        if (!user.geolocation) return false;
+
+        let distanceBetweenCoordinates = this.geolocationProvider.getDistanceBetweenCoordinates(
+          coordinatesOfLocationInput,
+          user.geolocation
+        );
+
+        // Convert to miles
+        distanceBetweenCoordinates = this.geolocationProvider.convertKMtoMile(distanceBetweenCoordinates);
+        return distanceBetweenCoordinates <= maxDistance;
+      });
+    }
+    console.log('[location and distance] users:', users);
 
     // Gender filter
     if (filters.gender) {
       users = users.filter(user => user.gender == filters.gender);
     }
+    console.log('[gender] users:', users);
 
     // Age range filter
     users = users.filter(user => {
       if (!user.birthdate) return false; // No value, skip
 
-      const userAge = moment().diff(user.birthdate, 'years');
+      const userAge = moment().diff(moment(user.birthdate), 'years');
       const condition1 = userAge >= filters.ageRange.lower;
       const condition2 = userAge <= filters.ageRange.upper;
       const isBetweenAgeRange = condition1 && condition2;
       return isBetweenAgeRange;
     });
+    console.log('[age] users:', users);
 
     // Height range filter
     const heightRangeOptions = this.enumProvider.getHeightOptions();
@@ -75,6 +107,7 @@ export class UserSearchProvider {
       const isBetweenHeightRange = condition1 && condition2;
       return isBetweenHeightRange;
     });
+    console.log('[height] users:', users);
 
     // Religion filter
     if (filters.preferenceReligion) {
@@ -82,6 +115,7 @@ export class UserSearchProvider {
         user => user.preferences.religion == filters.preferenceReligion
       );
     }
+    console.log('[religion] users:', users);
 
     // Children filter
     if (filters.preferenceChildren) {
@@ -89,11 +123,13 @@ export class UserSearchProvider {
         user => user.preferences.children == filters.preferenceChildren
       );
     }
+    console.log('[children] users:', users);
 
     // Premium user filter
     if (filters.premiumSubscription) {
       users = users.filter(user => user.premiumSubscriptionExpiry);
     }
+    console.log('[premium] users:', users);
 
     // Online recently filter
     if (filters.onlineRecently) {
@@ -105,6 +141,7 @@ export class UserSearchProvider {
 
       users = users.filter(user => user.lastActive > recentReference);
     }
+    console.log('[online recently] users:', users);
 
     // New users filter
     if (filters.newUsers) {
@@ -116,11 +153,13 @@ export class UserSearchProvider {
 
       users = users.filter(user => user.createdAt > recentReference);
     }
+    console.log('[new] users:', users);
 
     // More than one photo filter
     if (filters.moreThanOnePhoto) {
       users = users.filter(user => user.images.length > 0);
     }
+    console.log('[more than one photo] users:', users);
 
     // Complete profile filter
     if (filters.completeProfile) {
@@ -149,11 +188,14 @@ export class UserSearchProvider {
         if (!user.relationshipStatus) return false;
       });
     }
+    console.log('[complete profile] users:', users);
 
     // Intentions filter
-    if (filters.preferenceIntention) {
+    if (filters.preferenceIntention.length > 0) {
       users = users.filter(user => {
-        if (!user.preferences.intentions) return false;
+        if (user.preferences && !user.preferences.intentions) {
+          return false;
+        }
 
         let hasIntentionPreference = false;
 
@@ -167,6 +209,7 @@ export class UserSearchProvider {
         return hasIntentionPreference;
       });
     }
+    console.log('[intentions] users:', users);
 
     // Diet filter
     if (filters.preferenceDiet) {
@@ -174,6 +217,7 @@ export class UserSearchProvider {
         user => user.preferences.diet == filters.preferenceDiet
       );
     }
+    console.log('[diet] users:', users);
 
     // Education filter
     if (filters.preferenceEducation) {
@@ -181,6 +225,7 @@ export class UserSearchProvider {
         user => user.preferences.education == filters.preferenceEducation
       );
     }
+    console.log('[education] users:', users);
 
     // Drug usage filter
     if (filters.preferenceDrug) {
@@ -188,6 +233,7 @@ export class UserSearchProvider {
         user => user.preferences.drug == filters.preferenceDrug
       );
     }
+    console.log('[drug] users:', users);
 
     // Alcohol usage filter
     if (filters.preferenceAlcohol) {
@@ -195,6 +241,7 @@ export class UserSearchProvider {
         user => user.preferences.alcohol == filters.preferenceAlcohol
       );
     }
+    console.log('[alcohol] users:', users);
 
     // Smoking filter
     if (filters.preferenceCigarette) {
@@ -202,6 +249,7 @@ export class UserSearchProvider {
         user => user.preferences.cigarette == filters.preferenceCigarette
       );
     }
+    console.log('[cigarette] users:', users);
 
     return users;
   }

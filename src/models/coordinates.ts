@@ -1,7 +1,7 @@
 export class Coordinates {
     latitude: number;
-    latitudeType: string;
+    latitudeType?: string;
     longitude: number;
-    longitudeType: string;
+    longitudeType?: string;
     altitude?: number;
 }

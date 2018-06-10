@@ -62,8 +62,6 @@ export class RefineSearchPage {
     this.drugOptions = this.enumProvider.getDrugOptions();
     this.alcoholOptions = this.enumProvider.getAlcoholOptions();
     this.cigaretteOptions = this.enumProvider.getCigaretteOptions();
-
-    this.filters.location = this.userProvider.formatAddress(this.userProvider.getCurrentUser()) || ''
   }
 
   formatAgeRange() {
