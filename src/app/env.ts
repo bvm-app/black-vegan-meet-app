@@ -35,5 +35,8 @@ export const env = {
     projectId: 'bvm-dev-firebase',
     storageBucket: 'bvm-dev-firebase.appspot.com',
     messagingSenderId: '1038454495212'
+  },
+  API_KEYS: {
+    GOOGLE_MAPS: 'AIzaSyAnsLLV7D_TSP-UpC7gRayKScoz_YahpkA'
   }
 };

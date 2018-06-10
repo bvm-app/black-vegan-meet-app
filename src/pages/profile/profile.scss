@@ -38,13 +38,16 @@ page-profile {
 
       .user-name-and-age {
         display: flex;
-        font-size: 1.4em;
+        font-size: 1.5em;
         font-weight: bold;
       }
 
       .user-location {
-        padding-top: 10px;
-        font-size: 1.2em;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-top: 20px;
+        font-size: 1.1em;
       }
     }
   }
@@ -74,5 +77,20 @@ page-profile {
   .occupation,
   ion-note {
     color: #8e9093 !important;
+  }
+
+  .intentions-container {
+    background-color: $section-bg-color;
+    padding: 16px;
+    margin-bottom: $section-spacer;
+
+    .intentions-label {
+      font-size: 1.7rem;
+      margin-bottom: 8px;
+    }
+
+    ion-chip {
+      margin-right: 4px;
+    }
   }
 }

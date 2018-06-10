@@ -16,7 +16,7 @@
 <ion-content no-padding>
   <loading *ngIf="isFetching"></loading>
 
-  <div class="info-container">
+  <div class="info-container" *ngIf="!isFetching && users.length === 0">
     <p>Seems like no one has viewed you yet.</p>
   </div>
 

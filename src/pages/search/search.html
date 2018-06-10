@@ -13,6 +13,22 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
+  <div class="refine-search-button-container" padding>
+    <button [disabled]="isLoading" ion-button round full (click)="openRefineSearchModal()">{{ isLoading ? 'Loading...': 'Refine Search' }}</button>
+  </div>
+
+  <div class="users-container" [virtualScroll]="users">
+    <div class="row-item" *ngIf="!isLoading && users.length === 0">
+      <h3 style="text-align: center; padding: 0 20px;">No users found with matching settings.</h3>
+    </div>
+    <div class="row-item" *virtualItem="let user">
+      <user-compact-view [user]="user"></user-compact-view>
+    </div>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreUsers($event)" *ngIf="!isLoading && allUsers.length > 0">
+    <ion-infinite-scroll-content loadingSpinner="circles" loadingText="Fetching more..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

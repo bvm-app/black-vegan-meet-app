@@ -27,6 +27,10 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { FirebaseStorageProvider } from '../providers/firebase-storage/firebase-storage';
 import { EventProvider } from '../providers/event/event';
 import { EnumProvider } from '../providers/enum/enum';
+import { ViewedMeProvider } from '../providers/viewed-me/viewed-me';
+import { UserSearchProvider } from '../providers/user-search/user-search';
+import { RefineSearchProvider } from '../providers/refine-search/refine-search';
+
 
 // Components
 import { MyApp } from './app.component';
@@ -41,12 +45,11 @@ import { UserProvider } from '../providers/user/user';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { StartPageModule } from '../pages/start/start.module';
 import { GroceryStoreModalPageModule } from '../pages/grocery-store-modal/grocery-store-modal.module';
-import { GroceryStoresPageModule } from '../pages/grocery-stores/grocery-stores.module';
 import { GroceryStoresProvider } from '../providers/grocery-stores/grocery-stores';
 import { GeoLocationProvider } from '../providers/geo-location/geo-location';
-import { HttpClient } from '@angular/common/http';
 
-import { ViewedMeProvider } from '../providers/viewed-me/viewed-me';
+import { RefineSearchPageModule } from '../pages/refine-search/refine-search.module';
+
 @NgModule({
   declarations: [MyApp, HomePage],
   imports: [
@@ -62,7 +65,8 @@ import { ViewedMeProvider } from '../providers/viewed-me/viewed-me';
     LoginPageModule,
     StartPageModule,
     HttpClientModule,
-    GroceryStoreModalPageModule
+    GroceryStoreModalPageModule,
+    RefineSearchPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
@@ -84,6 +88,8 @@ import { ViewedMeProvider } from '../providers/viewed-me/viewed-me';
     Geolocation,
     EnumProvider,
     ViewedMeProvider,
+    UserSearchProvider,
+    RefineSearchProvider,
   ]
 })
 export class AppModule {

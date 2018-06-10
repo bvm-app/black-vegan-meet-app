@@ -5,6 +5,8 @@ import { UserProvider } from '../../providers/user/user';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { IUser } from '../../models/IUser';
 import { Subscription } from 'rxjs';
+import { UserSearchProvider } from '../../providers/user-search/user-search';
+import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 
 @Component({
   selector: 'page-home',
@@ -16,12 +18,14 @@ export class HomePage {
   maximumProspectDatesCount = 25;
 
   prospectDates: IUser[];
-  prospectDatesSubscription: Subscription;
+  prospectDatesSubscription: Subscription = new Subscription();
 
   constructor(
     public navCtrl: NavController,
     public userProvider: UserProvider, // Trigger constructor of userProvider
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    public userSearchProvider: UserSearchProvider,
+    public geolocationProvider: GeoLocationProvider
   ) {
     this.prospectDates = [...Array(this.maximumProspectDatesCount)].fill({
       profilePictureUrl: this.defaultUserImage
@@ -29,15 +33,16 @@ export class HomePage {
   }
 
   ionViewDidLeave() {
-    if (this.prospectDatesSubscription) this.prospectDatesSubscription.unsubscribe();
+    if (this.prospectDatesSubscription)
+      this.prospectDatesSubscription.unsubscribe();
   }
 
   ionViewWillEnter() {
-    this.prospectDatesSubscription = this.db
-      .list('userData', ref => ref.orderByChild('lastActive'))
-      .valueChanges()
+    this.prospectDatesSubscription = this.userSearchProvider
+      .getUsers()
       .subscribe((users: IUser[]) => {
-        this.prospectDates = users;
+        this.prospectDates = [...users.slice(0, this.maximumProspectDatesCount)];
+        this.prospectDatesSubscription.unsubscribe();
       });
   }
 

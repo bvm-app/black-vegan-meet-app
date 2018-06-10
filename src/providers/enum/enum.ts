@@ -9,6 +9,7 @@ import { ChildrenOptions } from '../../enums/ChildrenOptions';
 import { EducationOptions } from '../../enums/EducationOptions';
 import { PhysicalActivityOptions } from '../../enums/PhysicalActivityOptions';
 import { RelationshipStatusOptions } from '../../enums/RelationshipStatusOptions';
+import { IntentionOptions } from '../../enums/IntentionOptions';
 
 /*
   Generated class for the EnumProvider provider.
@@ -95,6 +96,10 @@ export class EnumProvider {
 
   getPhysicalActivityOptions() {
     return this.getValues(PhysicalActivityOptions);
+  }
+
+  getIntentionOptions() {
+    return this.getValues(IntentionOptions);
   }
 
   private getValues(enumInstance: Object) {

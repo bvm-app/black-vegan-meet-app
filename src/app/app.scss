@@ -39,8 +39,52 @@ html, body {
   }
 }
 
-All except select options triangle
-*:not(.select-icon-inner) {
-  border-color: $primary-1 !important;
+ion-list {
+  margin: 0 !important;
 }
 
+// All except select options triangle
+*:not(.select-icon-inner) {
+  border-color: $primary-0 !important;
+}
+
+// Checkbox inside multi-select
+.alert-checkbox-icon {
+  .alert-checkbox-inner {
+    border-color: #FFF !important;
+  }
+}
+
+
+// Dragula
+// ----------------------------------------------
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=80)';
+  filter: alpha(opacity=80);
+
+  // Hide close button in edit photos for removing images
+  .close-button {
+    display: none !important;
+  }
+}
+
+.gu-hide {
+  display: none !important;
+}
+
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=20)';
+  filter: alpha(opacity=20);
+}

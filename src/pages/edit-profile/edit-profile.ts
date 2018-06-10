@@ -7,6 +7,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import firebase from 'firebase';
 import { EnumProvider } from '../../providers/enum/enum';
 import moment from 'moment';
+import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 
 /**
  * Generated class for the EditProfilePage page.
@@ -32,6 +33,7 @@ export class EditProfilePage {
   educationOptions: string[];
   physicalActivityOptions: string[];
   relationshipStatusOptions: string[];
+  intentionOptions: string[];
 
   user: IUser;
   userSubscription: Subscription;
@@ -42,7 +44,8 @@ export class EditProfilePage {
     public navParams: NavParams,
     public db: AngularFireDatabase,
     public enumProvider: EnumProvider,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public geolocationProvider: GeoLocationProvider
   ) {}
 
   ionViewDidLoad() {
@@ -58,6 +61,7 @@ export class EditProfilePage {
     this.childrenOptions = this.enumProvider.getChildrenOptions();
     this.educationOptions = this.enumProvider.getEducationOptions();
     this.physicalActivityOptions = this.enumProvider.getPhysicalActivityOptions();
+    this.intentionOptions = this.enumProvider.getIntentionOptions();
 
     this.userSubscription = this.db
       .object(`userData/${firebase.auth().currentUser.uid}`)
@@ -77,12 +81,17 @@ export class EditProfilePage {
     if (this.userSubscription) this.userSubscription.unsubscribe();
   }
 
-  submitForm() {
+  async submitForm() {
     this.isUpdating = true;
     let form = {...this.user};
     form.birthdate = moment(form.birthdate).toISOString(true);
     form.searchName = `${form.firstName.trim().toLowerCase()} ${form.lastName.trim().toLowerCase()}`
     form.searchAddress = `${form.city.trim().toLowerCase()} ${form.state.trim().toLowerCase()} ${form.country.trim().toLowerCase()}`
+
+    form.geolocation = await this.geolocationProvider.geocodeAddress(form.searchAddress).catch(err => {
+      console.log('Error on retrieving geolocation for provided address:', err);
+      return null;
+    });
 
     this.db.object(`userData/${firebase.auth().currentUser.uid}`).set(form).then(() => {
       this.isUpdating = false;

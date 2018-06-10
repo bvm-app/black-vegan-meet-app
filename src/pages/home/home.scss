@@ -1,4 +1,8 @@
 page-home {
+  .scroll-content {
+    background: $section-bg-color !important;
+  }
+
   .menu-container {
     display: flex;
     flex-direction: column;

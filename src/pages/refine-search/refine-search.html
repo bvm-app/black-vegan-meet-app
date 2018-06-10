@@ -1,0 +1,168 @@
+<!--
+  Generated template for the RefineSearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button (click)="dismissModal()">Close</button>
+    </ion-buttons>
+
+    <ion-title>Matching Settings</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <ion-list padding>
+    <ion-list-header no-padding>Filter Your Matches</ion-list-header>
+
+    <div class="input-item-container">
+      <div class="slider-label">Location</div>
+      <ion-item no-padding>
+        <ion-input [(ngModel)]="filters.location" name="location" type="text" placeholder="Location"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-item-container">
+      <div class="slider-label">
+        <span>Browsing Distance:</span>
+        <span class="slider-label-value">{{ filters.distance }}</span>
+      </div>
+      <ion-item no-padding>
+        <ion-range [(ngModel)]="filters.distance" min="10" max="250" step="5" color="primary"></ion-range>
+      </ion-item>
+    </div>
+
+    <ion-item no-padding>
+      <ion-label>Looking For</ion-label>
+      <ion-select [(ngModel)]="filters.gender" name="gender" placeholder="Gender">
+        <ion-option value="">Both</ion-option>
+        <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <div class="input-item-container">
+      <div class="slider-label">
+        <span>Age Range:</span>
+        <span class="slider-label-value">{{ formatAgeRange() }}</span>
+      </div>
+
+      <ion-item no-padding>
+        <ion-range [(ngModel)]="filters.ageRange" dualKnobs="true" min="18" max="99" color="primary"></ion-range>
+      </ion-item>
+    </div>
+  </ion-list>
+
+  <ion-list padding>
+    <ion-list-header no-padding>Filter Your Matches Further</ion-list-header>
+
+    <div class="input-item-container">
+      <div class="slider-label">
+        <span>Height Range:</span>
+        <span class="slider-label-value">{{ formatHeightRange() }}</span>
+      </div>
+      <ion-item no-padding>
+        <ion-range [(ngModel)]="filters.heightRangeIndex" dualKnobs="true" min="0" max="{{ heightOptions.length-1 }}" color="primary"></ion-range>
+      </ion-item>
+    </div>
+
+    <ion-item no-padding>
+      <ion-label>Their Religion</ion-label>
+      <ion-select [(ngModel)]="filters.preferenceReligion" name="preferenceReligion" placeholder="Religion">
+        <ion-option value="">No preference</ion-option>
+        <ion-option *ngFor="let religionOption of religionOptions" [value]="religionOption">{{ religionOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Their Children</ion-label>
+      <ion-select [(ngModel)]="filters.preferenceChildren" name="preferenceChildren" placeholder="Children">
+        <ion-option value="">No preference</ion-option>
+        <ion-option *ngFor="let childrenOption of childrenOptions" [value]="childrenOption">{{ childrenOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Premium Users</ion-label>
+      <ion-toggle [(ngModel)]="filters.premiumSubscription"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.premiumSubscription"></ion-toggle> -->
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Online Recently</ion-label>
+      <ion-toggle [(ngModel)]="filters.onlineRecently"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.onlineRecently"></ion-toggle> -->
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>New Users</ion-label>
+      <ion-toggle [(ngModel)]="filters.newUsers"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.newUsers"></ion-toggle> -->
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>More Than One Photo</ion-label>
+      <ion-toggle [(ngModel)]="filters.moreThanOnePhoto"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.moreThanOnePhoto"></ion-toggle> -->
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Complete Profile</ion-label>
+      <ion-toggle [(ngModel)]="filters.completeProfile"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.completeProfile"></ion-toggle> -->
+    </ion-item>
+
+    <pre>{{ filters.preferenceRelationshipStatus }}</pre>
+    <ion-item no-padding>
+      <ion-label>Their Intentions</ion-label>
+      <ion-select multiple="true" [(ngModel)]="filters.preferenceIntention" name="preferenceIntention" placeholder="No preference">
+        <ion-option *ngFor="let intentionOption of intentionOptions" [value]="intentionOption">{{ intentionOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Their Diet</ion-label>
+      <ion-select [(ngModel)]="filters.preferenceDiet" name="preferenceDiet" placeholder="Diet">
+        <ion-option value="">No preference</ion-option>
+        <ion-option *ngFor="let dietOption of dietOptions" [value]="dietOption">{{ dietOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Their Education</ion-label>
+      <ion-select [(ngModel)]="filters.preferenceEducation" name="preferenceEducation" placeholder="Education">
+        <ion-option value="">No preference</ion-option>
+        <ion-option *ngFor="let educationOption of educationOptions" [value]="educationOption">{{ educationOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Their Drug Usage</ion-label>
+      <ion-select [(ngModel)]="filters.preferenceDrug" name="preferenceDrug" placeholder="Drug">
+        <ion-option value="">No preference</ion-option>
+        <ion-option *ngFor="let drugOption of drugOptions" [value]="drugOption">{{ drugOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Their Alcohol Usage</ion-label>
+      <ion-select [(ngModel)]="filters.preferenceAlcohol" name="preferenceAlcohol" placeholder="Alcohol">
+        <ion-option value="">No preference</ion-option>
+        <ion-option *ngFor="let alcoholOption of alcoholOptions" [value]="alcoholOption">{{ alcoholOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Their Smoking</ion-label>
+      <ion-select [(ngModel)]="filters.preferenceCigarette" name="preferenceCigarette" placeholder="Smoking">
+        <ion-option value="">No preference</ion-option>
+        <ion-option *ngFor="let cigaretteOption of cigaretteOptions" [value]="cigaretteOption">{{ cigaretteOption }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

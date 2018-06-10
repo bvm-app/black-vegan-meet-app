@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Coordinates } from '../../models/coordinates';
 import { Observable } from '@firebase/util';
+import { env } from '../../app/env';
 
 /*
   Generated class for the GeoLocationProvider provider.
@@ -15,7 +16,7 @@ export class GeoLocationProvider {
 
   currentPosition;
 
-  constructor(public http: HttpClient, private geoLocation: Geolocation) {
+  constructor(private http: HttpClient, private geoLocation: Geolocation) {
     console.log('Hello GeoLocationProvider Provider');
   }
 
@@ -37,7 +38,7 @@ export class GeoLocationProvider {
     let lat1 = this.currentPosition.coords.latitude;
     let lon1 = this.currentPosition.coords.longitude;
 
-    let R = 6371; // km 
+    let R = 6371; // km
     let x1 = lat2 - lat1;
     let dLat = this.toRad(x1);
     let x2 = lon2 - lon1;
@@ -51,18 +52,55 @@ export class GeoLocationProvider {
     return d;
   }
 
+  getDistanceBetweenCoordinates(from: Coordinates, to: Coordinates) {
+    let lat2 = to.latitude;
+    let lon2 = to.longitude;
+    let lat1 = from.latitude;
+    let lon1 = from.longitude;
+
+    let R = 6371; // km
+    let x1 = lat2 - lat1;
+    let dLat = this.toRad(x1);
+    let x2 = lon2 - lon1;
+    let dLon = this.toRad(x2);
+    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.toRad(lat1)) * Math.cos(this.toRad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let d = R * c;
+
+    return d;
+  }
+
+  convertKMtoMile(kilometers: number) {
+    return kilometers / 1.60934;
+  }
 
   async nearbyApi(): Promise<any> {
     this.currentPosition = await this.geoLocation.getCurrentPosition();
 
     return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
       + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
-      '&radius=5000&type=store&keyword=vegan&key=AIzaSyAnsLLV7D_TSP-UpC7gRayKScoz_YahpkA');
+      '&radius=5000&type=store&keyword=vegan&key=' + env.API_KEYS.GOOGLE_MAPS);
   }
 
   getPhoto(photoRef): any {
     return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
-     + photoRef + 
-     '&key=AIzaSyAnsLLV7D_TSP-UpC7gRayKScoz_YahpkA');
+     + photoRef +
+     '&key=' + env.API_KEYS.GOOGLE_MAPS);
+  }
+
+  geocodeAddress(location: string) {
+    return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${encodeURIComponent(location.trim())}&key=${env.API_KEYS.GOOGLE_MAPS}`).toPromise().then((data: any) => {
+      if (data.status === 'OK' && data.results.length > 0) {
+        const coordinates: Coordinates = {
+          latitude: data.results[0].geometry.location.lat,
+          longitude: data.results[0].geometry.location.lng
+        };
+        return coordinates;
+      } else {
+        return null;
+      }
+    });
   }
 }
