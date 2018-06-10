@@ -64,10 +64,6 @@ export class SearchPage {
       ...this.users,
       ...this.allUsers.splice(0, this.numberOfUsersToLoad)
     ];
-    // const listDifference = this.allUsers.length - this.users.length;
-    // const numberOfUsersToSlice = (listDifference > this.numberOfUsersToLoad) ? this.numberOfUsersToLoad: listDifference;
-
-    // this.users = [...this.users, ...this.allUsers.slice(this.users.length, this.users.length + numberOfUsersToSlice)];
   }
 
   loadMoreUsers(infiniteScroll) {
