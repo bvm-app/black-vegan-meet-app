@@ -35,11 +35,22 @@ page-home {
     }
   }
 
-  .prospect-dates-header {
+  .prospect-dates-header, .no-address-info-container {
     border-top: $border-style;
     font-size: 1.1em;
     padding: 8px 16px;
     background-color: $section-bg-color;
+  }
+
+  .no-address-info-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    > span {
+      text-align: center;
+      margin: 10px 0;
+    }
   }
 
   .prospect-dates-container {
@@ -53,6 +64,12 @@ page-home {
 
     display: flex;
     flex-wrap: nowrap;
+
+    .no-prospect-dates-info-container {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
 
     .prospect-dates {
       display: flex;

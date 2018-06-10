@@ -8,6 +8,8 @@ import firebase from 'firebase';
 import moment from 'moment';
 import { EnumProvider } from '../enum/enum';
 import { GeoLocationProvider } from '../geo-location/geo-location';
+import { Coordinates } from '../../models/coordinates';
+import { take, filter } from 'rxjs/operators';
 
 /*
   Generated class for the UserSearchProvider provider.
@@ -252,6 +254,26 @@ export class UserSearchProvider {
     console.log('[cigarette] users:', users);
 
     return users;
+  }
+
+  filterUsersByDistanceFromCoordinates(coordinates: Coordinates, maxDistance: number = 100) {
+    return this.users.pipe(take(1)).toPromise().then(users => {
+      let filteredUsers = [...users];
+      filteredUsers = users.filter(user => {
+      if (!user.geolocation) return false;
+
+      let distanceBetweenCoordinates = this.geolocationProvider.getDistanceBetweenCoordinates(
+        coordinates,
+        user.geolocation
+      );
+
+      // Convert to miles
+      distanceBetweenCoordinates = this.geolocationProvider.convertKMtoMile(distanceBetweenCoordinates);
+        return distanceBetweenCoordinates <= maxDistance;
+      });
+
+      return filteredUsers;
+    });
   }
 
   private initUsers() {

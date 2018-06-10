@@ -77,15 +77,26 @@
     </div>
   </div>
 
-  <div class="prospect-dates-header">
-    Prospect Dates
+  <div *ngIf="!user?.geolocation && !isLoading" class="no-address-info-container">
+    <span>Add an address to your profile to see prospect dates!</span>
+    <button (click)="navigateTo('EditProfilePage')" ion-button round full>Edit Profile</button>
   </div>
 
-  <div class="prospect-dates-container">
-    <div class="prospect-dates">
-      <div *ngFor="let prospectDate of prospectDates" (click)="navigateToProfile(prospectDate)" class="image-container col-4">
-        <img class="image" [src]="prospectDate?.profilePictureUrl || defaultUserImage">
+  <ng-container *ngIf="user?.geolocation && !isLoading">
+    <div class="prospect-dates-header">
+      Prospect Dates
+    </div>
+
+    <div class="prospect-dates-container">
+      <div class="prospect-dates" *ngIf="prospectDates.length > 0">
+        <div *ngFor="let prospectDate of prospectDates" (click)="navigateToProfile(prospectDate)" class="image-container col-4">
+          <img class="image" [src]="prospectDate?.profilePictureUrl || defaultUserImage">
+        </div>
+      </div>
+
+      <div *ngIf="prospectDates.length === 0" class="no-prospect-dates-info-container">
+        <span padding>Seems like there are no BVM users within 100 miles from you.</span>
       </div>
     </div>
-  </div>
+  </ng-container>
 </ion-content>

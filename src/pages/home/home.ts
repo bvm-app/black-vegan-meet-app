@@ -7,6 +7,8 @@ import { IUser } from '../../models/IUser';
 import { Subscription } from 'rxjs';
 import { UserSearchProvider } from '../../providers/user-search/user-search';
 import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
+import firebase from 'firebase';
+import { take } from 'rxjs/internal/operators/take';
 
 @Component({
   selector: 'page-home',
@@ -17,8 +19,11 @@ export class HomePage {
   icons = env.DEFAULT.icons;
   maximumProspectDatesCount = 25;
 
-  prospectDates: IUser[];
-  prospectDatesSubscription: Subscription = new Subscription();
+  user: IUser;
+  isLoading: boolean = true;
+
+  prospectDates: IUser[] = [];
+  currentLoggedInUserSubscription: Subscription = new Subscription();
 
   constructor(
     public navCtrl: NavController,
@@ -26,23 +31,28 @@ export class HomePage {
     public db: AngularFireDatabase,
     public userSearchProvider: UserSearchProvider,
     public geolocationProvider: GeoLocationProvider
-  ) {
-    this.prospectDates = [...Array(this.maximumProspectDatesCount)].fill({
-      profilePictureUrl: this.defaultUserImage
-    });
-  }
+  ) {}
 
   ionViewDidLeave() {
-    if (this.prospectDatesSubscription)
-      this.prospectDatesSubscription.unsubscribe();
+    if (this.currentLoggedInUserSubscription)
+      this.currentLoggedInUserSubscription.unsubscribe();
   }
 
   ionViewWillEnter() {
-    this.prospectDatesSubscription = this.userSearchProvider
-      .getUsers()
-      .subscribe((users: IUser[]) => {
-        this.prospectDates = [...users.slice(0, this.maximumProspectDatesCount)];
-        this.prospectDatesSubscription.unsubscribe();
+    this.currentLoggedInUserSubscription = this.db
+      .object(`userData/${firebase.auth().currentUser.uid}`)
+      .valueChanges()
+      .pipe(take(1))
+      .subscribe((user: IUser) => {
+        this.user = user;
+        this.isLoading = false;
+        if (user.geolocation) {
+          this.userSearchProvider
+            .filterUsersByDistanceFromCoordinates(user.geolocation)
+            .then(users => {
+              this.prospectDates = users;
+            });
+        }
       });
   }
 
