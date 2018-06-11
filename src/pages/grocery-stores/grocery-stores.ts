@@ -21,8 +21,6 @@ import { MapSearchParameters } from '../../models/map-search-parameters';
 export class GroceryStoresPage {
 
   stores: GroceryStore[] = [];
-  dbStores: GroceryStore[] = [];
-  mapStores: GroceryStore[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private groceryStoresProvider: GroceryStoresProvider,
@@ -51,45 +49,6 @@ export class GroceryStoresPage {
       });
       console.log("ELEMENT!!: ", this.stores);
     });
-
-    // this.groceryStoresProvider.getGroceryStores(5).forEach(async store => {
-    //   store.distance = await this.geoLocationProvider.getDistanceFromCurrentLocation(store.coordinates);
-    //   this.dbStores.push(store);
-
-    //   console.log("DBSTORES RES: ", store);
-      
-    // });
-
-    // this.nearbyPlaceApi();
-  }
-
-  async nearbyPlaceApi() {
-    
-  }
-
-  private pushMapStore(element, imageUrl, distance) {
-    this.mapStores.push({
-      id: element.id,
-      name: element.name,
-      coordinates: {
-        latitude: element.geometry.location.lat,
-        longitude: element.geometry.location.lng,
-        latitudeType: 'N',
-        longitudeType: 'E'
-      },
-      image_url: imageUrl,
-      distance: distance,
-    });
-
-    let allStores = this.mapStores.concat(this.dbStores);
-
-    
-  }
-
-  openAddGroceryStoreModal() {
-    var data = { 'GroceryStore': new GroceryStore(), 'Type': 'Add' };
-    var modalPage = this.modalCtrl.create(GroceryStoreModalPage, data);
-    modalPage.present();
   }
 
   doInfinite(infiniteScroll) {

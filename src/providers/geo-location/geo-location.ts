@@ -4,6 +4,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Coordinates } from '../../models/coordinates';
 import { Observable } from '@firebase/util';
 import { env } from '../../app/env';
+import { MapSearchParameters } from '../../models/map-search-parameters';
 
 /*
   Generated class for the GeoLocationProvider provider.
@@ -76,12 +77,12 @@ export class GeoLocationProvider {
     return kilometers / 1.60934;
   }
 
-  async nearbyApi(): Promise<any> {
+  async nearbyApi(searchParams: MapSearchParameters): Promise<any> {
     this.currentPosition = await this.geoLocation.getCurrentPosition();
 
     return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
       + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
-      '&radius=5000&type=store&keyword=vegan&key=' + env.API_KEYS.GOOGLE_MAPS);
+      '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + env.API_KEYS.GOOGLE_MAPS);
   }
 
   getPhoto(photoRef): any {

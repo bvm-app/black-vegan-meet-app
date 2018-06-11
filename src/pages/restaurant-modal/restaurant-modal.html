@@ -1,0 +1,87 @@
+<!--
+  Generated template for the RestaurantModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title *ngIf="editModal">Edit Restaurant</ion-title>
+    <ion-title *ngIf="addModal">Add Restaurant</ion-title>
+    <ion-title *ngIf="displayModal">{{restaurant.name}}</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="closeModal()" icon-start>
+        <ion-icon name="arrow-back"></ion-icon>
+        <label>Close</label>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="restaurantForm" (ngSubmit)='addRestaurant()'>
+    <ion-item>
+      <ion-label [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Name</ion-label>
+      <ion-input type="text" formControlName="name" [(ngModel)]="restaurant.name" name="name"></ion-input>
+    </ion-item>
+
+    <ion-label class='invalid' margin-left *ngIf="!restaurantForm.controls.name.valid  && (restaurantForm.controls.name.dirty || submitAttempt)">
+      Please enter a valid name.
+    </ion-label>
+
+    <ion-item>
+      <ion-label [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Description</ion-label>
+      <ion-textarea [(ngModel)]="restaurant.description" formControlName="description" name="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item class='invalid' *ngIf="!restaurantForm.controls.description.valid  && (restaurantForm.controls.description.dirty || submitAttempt)">
+      Please enter a valid description.
+    </ion-item>
+
+    <ion-item>
+      <ion-label [class.invalid]="!restaurantForm.controls.latitude.valid && (restaurantForm.controls.latitude.dirty || submitAttempt)">Latitude</ion-label>
+      <ion-input [(ngModel)]="restaurant.coordinates.latitude" formControlName="latitude" name="latitude"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label [class.invalid]="!restaurantForm.controls.longitude.valid && (restaurantForm.controls.longitude.dirty || submitAttempt)">longitude</ion-label>
+      <ion-input [(ngModel)]="restaurant.coordinates.longitude" formControlName="longitude" name="longitude"></ion-input>
+    </ion-item>
+
+    <ion-buttons margin-left>
+      <button ion-button type="button" block (click)="addMarker()">Select location</button>
+    </ion-buttons>
+
+    <div margin-left #map id="map"></div>
+
+    <ion-item class='invalid' *ngIf="((!restaurantForm.controls.latitude.valid  && restaurantForm.controls.latitude.dirty) || (!restaurantForm.controls.longitude.valid  && restaurantForm.controls.longitude.dirty) || submitAttempt)">
+      Please enter valid coordinates.
+    </ion-item>
+
+    <div margin-left class="container" [dragula]='"first-bag"' [dragulaModel]="restaurantImages">
+      <div class="image-container" *ngFor="let restaurantImage of restaurantImages;let idx = index" id="{{ restaurantImage }}">
+        <div class="close-button" (click)="removeImage(restaurantImage)">
+          <ion-icon name="md-close"></ion-icon>
+        </div>
+        <div class="image-container-inner">
+          <img [src]="restaurantImage" alt="User Image {{ idx }}">
+        </div>
+      </div>
+
+      <div class="image-container" *ngIf="restaurantImages.length < 5">
+        <div class="image-container-inner" (click)="addPhoto()">
+          <ion-icon name="md-camera"></ion-icon>
+          <input type="file" id="fileElem" accept="image/*" style="display:none" (change)="uploadImageFromWeb($event.target.files)">
+          <span>Add Photo</span>
+        </div>
+      </div>
+    </div>
+
+    <ion-buttons margin-left>
+      <button ion-button type="submit" block>Add Restaurant</button>
+    </ion-buttons>
+  </form>
+</ion-content>

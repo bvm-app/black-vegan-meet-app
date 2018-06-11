@@ -1,3 +1,18 @@
 page-restaurants {
+    .item {
+        -webkit-box-shadow: 2px 2px 5px 0px rgba(158,158,158,1);
+        -moz-box-shadow: 2px 2px 5px 0px rgba(158,158,158,1);
+        box-shadow: 2px 2px 5px 0px rgba(158,158,158,1);
+        border: 1px solid #cecece;
+        border-radius: 2px;
+        margin-bottom: 10px;
+    }
 
+    .item > .item-inner {
+        border-bottom: 0px !important;
+    }
+
+    ion-thumbnail img {
+        object-fit: cover;
+    }
 }
