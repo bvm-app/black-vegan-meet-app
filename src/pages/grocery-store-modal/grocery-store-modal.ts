@@ -51,6 +51,7 @@ export class GroceryStoreModalPage {
     private db: AngularFireDatabase, private dbStorage: FirebaseStorageProvider,
     private userProvider: UserProvider) {
 
+
     this.storeForm = formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       description: ['', Validators.compose([Validators.pattern('[a-zA-Z., ]*'), Validators.required])],
@@ -286,6 +287,8 @@ export class GroceryStoreModalPage {
     console.log(this.navParams.get('GroceryStore'));
     console.log(this.navParams.get('Type'));
     let type = this.navParams.get('Type');
+
+    console.log("TYPE: ", type);
 
     this.addModal = (type === 'Add');
     this.displayModal = (type === 'Display');
