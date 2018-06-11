@@ -16,9 +16,9 @@
 <ion-content padding #chatContainer>
   <div class="chat-container">
     <div class="bubble-chat"
-      [class.first]="message.user.id !== messages[idx-1]?.user?.id"
+      [class.first]="message?.user?.id !== messages[idx-1]?.user?.id"
       [ngClass]="message?.isSender ? 'you': 'other'" *ngFor="let message of messages;let idx = index">
-      <div class="user-image" *ngIf="(!message.isSender) && (message.user.id != messages[idx - 1]?.user.id)">
+      <div class="user-image" *ngIf="(!message?.isSender) && (message?.user?.id != messages[idx - 1]?.user?.id)">
         <img [src]="message.user?.profilePictureUrl || defaultUserImage">
       </div>
       <div class="image" *ngIf="message.file">

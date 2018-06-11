@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { IUser } from '../../models/IUser';
 import { UserProvider } from '../../providers/user/user';
 import { ConversationProvider } from '../../providers/conversation/conversation';
@@ -42,8 +42,7 @@ export class ConversationPage {
     public navParams: NavParams,
     public userProvider: UserProvider,
     public conversationProvider: ConversationProvider,
-    public dbStorage: FirebaseStorageProvider,
-    public toastCtrl: ToastController
+    public dbStorage: FirebaseStorageProvider
   ) {}
 
   ionViewDidLoad() {
@@ -146,12 +145,6 @@ export class ConversationPage {
     );
   }
 
-  presentToast(message: string = '') {
-    this.toastCtrl.create({
-      duration: 2000,
-      message: message
-    }).present();
-  }
 
   uploadImageFromCamera() {
     this.dbStorage
@@ -160,8 +153,7 @@ export class ConversationPage {
         this.sendMessage('', imageData.downloadUrl);
       })
       .catch((err: Error) => {
-        this.presentToast('Oops! Something went wrong.');
-        console.log('File upload error:', err.message);
+        console.log('File upload error:', err);
       });
   }
 
@@ -172,8 +164,7 @@ export class ConversationPage {
         this.sendMessage('', imageData.downloadUrl);
       })
       .catch((err: Error) => {
-        this.presentToast('Oops! Something went wrong.');
-        console.log('File upload error:', err.message);
+        console.log('File upload error:', err);
       });
   }
 
@@ -190,8 +181,7 @@ export class ConversationPage {
           this.sendMessage('', imageData.downloadUrl);
         })
         .catch((err: Error) => {
-          this.presentToast('Oops! Something went wrong.');
-          console.log('File upload error:', err.message);
+          console.log('File upload error:', err);
         });
     }
   }

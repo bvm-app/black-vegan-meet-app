@@ -124,6 +124,13 @@ export class FirebaseStorageProvider {
 
   private onError = error => {
     console.log('error', error);
+    this.toastCtrl
+      .create({
+        message: error.message,
+        duration: 3000,
+        position: 'bottom'
+      })
+      .present();
     return error;
   };
 }
