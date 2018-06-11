@@ -42,7 +42,6 @@ export class SettingsPage {
   ionViewWillEnter() {
     console.log('ionViewWillEnter SettingsPage');
     this.userProvider.getCurrentUser().subscribe(user => {
-      console.log('user:', user);
       this.user = user;
     });
     this.isAdmin = this.userProvider.getAdminStatus();

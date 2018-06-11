@@ -71,9 +71,6 @@ export class EditPhotosPage {
   }
 
   removeImage(toBeRemovedImage) {
-    console.log('removing image');
-    console.log('index:', toBeRemovedImage);
-
     let alert = this.alertCtrl.create({
       title: 'Remove image',
       message: 'Are you sure you want to remove this image?',
@@ -139,11 +136,7 @@ export class EditPhotosPage {
       this.dbStorage
         .uploadImageFromWeb(file[0])
         .then(imageData => {
-          console.log('imageData:', imageData);
-
           this.userImages.push(imageData.downloadUrl);
-
-          console.log('userImages:', this.userImages);
         })
         .catch((err: Error) => {
           console.log('File upload error:', err.message);
