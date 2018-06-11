@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { IUser } from '../../models/IUser';
 import moment from 'moment';
-
+import firebase from 'firebase';
 import 'rxjs/Rx';
 import {
   StackConfig,
@@ -17,7 +17,9 @@ import {
   SwingCardComponent
 } from 'angular2-swing';
 import { SwipeProvider } from '../../providers/swipe/swipe';
-
+import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
+import { UserSearchProvider } from '../../providers/user-search/user-search';
+import { take } from 'rxjs/operators';
 /**
  * Generated class for the SwipeToLikePage page.
  *
@@ -37,20 +39,23 @@ export class SwipeToLikePage {
 
   defaultUserImage = env.DEFAULT.userImagePlaceholder;
 
-  potentialMatches: any = [];
+  potentialMatches: IUser[];
   usersSubscription: Subscription;
 
   stackConfig: StackConfig;
   recentCard: string = '';
   backgroundColor: string = '';
 
+  currentPosition: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private db: AngularFireDatabase,
     private toastCtrl: ToastController,
-    private swipeProvider: SwipeProvider
+    private swipeProvider: SwipeProvider,
+    private geolocationProvider: GeoLocationProvider,
+    private userSearchProvider: UserSearchProvider
   ) {
     this.stackConfig = {
       throwOutConfidence: (offsetX, offsetY, element) => {
@@ -66,8 +71,7 @@ export class SwipeToLikePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SwipeToLikePage');
-
+    // console.log('ionViewDidLoad SwipeToLikePage');
     this.generatePotentialMatches();
   }
 
@@ -90,19 +94,20 @@ export class SwipeToLikePage {
     element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
   }
 
-  voteUp(like: boolean, potentialMatch:IUser) {
+  voteUp(liked: boolean, potentialMatch: IUser) {
     this.backgroundColor = '';
 
     let removedCard = this.potentialMatches.pop();
-    // this.addNewCards(1);
-    if (like) {
+
+    if (liked) {
       this.recentCard = 'You liked ' + removedCard.firstName;
     } else {
       this.recentCard = 'You disliked ' + removedCard.firstName;
     }
 
+    this.updatePotentialMatches(this.allPotentialMatches.indexOf(removedCard));
     this.presentToast(this.recentCard);
-    this.swipeProvider.updateUserSwipeData(potentialMatch.id, like);
+    this.swipeProvider.updateUserSwipeData(potentialMatch.id, liked);
   }
 
   presentToast(message) {
@@ -113,7 +118,7 @@ export class SwipeToLikePage {
     });
 
     toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
+      // console.log('Dismissed toast');
     });
 
     toast.present();
@@ -130,11 +135,43 @@ export class SwipeToLikePage {
     return hex;
   }
 
+  private allPotentialMatches: IUser[];
   generatePotentialMatches() {
-    this.usersSubscription = this.db.list(`/userData`).valueChanges().subscribe((users: IUser[]) => {
-      this.potentialMatches = users;
-    });
+    this.geolocationProvider.getCurrentPosition().then((res) => {
+      this.userSearchProvider.sortByDistanceFromCoordinates(res.coords).then(users => {
+        users = [...users];
 
+        this.db.object(`userSwipeData/${firebase.auth().currentUser.uid}`).valueChanges().pipe(take(1)).subscribe(userSwipeData => {
+          if (userSwipeData) {
+            let usersAlreadyMatched: string[] = [];
+
+            if (userSwipeData.hasOwnProperty('likedUsers')) {
+              Object.keys(userSwipeData['likedUsers']).forEach(x => usersAlreadyMatched.push(x));
+            }
+
+            if (userSwipeData.hasOwnProperty('dislikedUsers')) {
+              Object.keys(userSwipeData['dislikedUsers']).forEach(x => usersAlreadyMatched.push(x));
+            }
+
+            usersAlreadyMatched.forEach(id => {
+              let userToRemove = users.find(x => x.id == id);
+
+              if (userToRemove) {
+                users.splice(users.indexOf(userToRemove), 1);
+              }
+            });
+          }
+
+          this.allPotentialMatches = users;
+          this.updatePotentialMatches(this.allPotentialMatches.length);
+        })
+      });
+    });
+  }
+
+  updatePotentialMatches(endIndex: number) {
+    let startIndex = endIndex == 1 ? 0 : endIndex - 2;
+    this.potentialMatches = this.allPotentialMatches.slice(startIndex, endIndex);
   }
 
   navigateToProfile(user: IUser) {
