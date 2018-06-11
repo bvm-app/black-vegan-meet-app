@@ -22,6 +22,7 @@ import {
 } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ElasticModule } from 'ng-elastic';
 
 // Services/Providers
 import { FirebaseStorageProvider } from '../providers/firebase-storage/firebase-storage';
@@ -56,6 +57,7 @@ import { ConversationProvider } from '../providers/conversation/conversation';
   imports: [
     BrowserModule,
     ComponentsModule,
+    ElasticModule,
     LazyLoadImageModule,
     IonicModule.forRoot(MyApp),
     LoginPageModule,

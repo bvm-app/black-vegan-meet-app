@@ -13,6 +13,16 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
+  <loading *ngIf="isFetching"></loading>
 
+  <div class="info-container" *ngIf="!isFetching && conversationList.length === 0">
+    <h3 style="text-align: center; padding: 0 20px;">Your conversation list is empty!</h3>
+  </div>
+
+  <div class="conversation-list" *ngIf="!isFetching && conversationList.length > 0">
+    <div [class.unread]="conversationItem.unread" class="conversation-item" *ngFor="let conversationItem of conversationList">
+      <conversation-list-item [conversationDetails]="conversationItem"></conversation-list-item>
+    </div>
+  </div>
 </ion-content>
