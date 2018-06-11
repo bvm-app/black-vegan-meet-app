@@ -14,9 +14,10 @@
 
 
 <ion-content padding>
-  <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">
-    <div #mycards1 swing-card *ngFor="let pontentialMatch of potentialMatches" class="card-container">
-      <div class="card" (click)="navigateToProfile(pontentialMatch)">
+  <div id="card-stack">
+    <div swing-stack #myswing1 [stackConfig]="stackConfig" *ngFor="let pontentialMatch of potentialMatches" (throwoutleft)="voteUp(false, pontentialMatch)"
+      (throwoutright)="voteUp(true, pontentialMatch)" class="card-container">
+      <div #mycards1 swing-card class="card" (click)="navigateToProfile(pontentialMatch)">
         <div class="overlay" [ngStyle]="{'background-color': backgroundColor}"></div>
         <img class="image" [src]="pontentialMatch?.profilePictureUrl || defaultUserImage">
         <div class="user-details">

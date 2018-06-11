@@ -14,7 +14,9 @@ import {
   ThrowEvent,
   DragEvent,
   SwingStackComponent,
-  SwingCardComponent} from 'angular2-swing';
+  SwingCardComponent
+} from 'angular2-swing';
+import { SwipeProvider } from '../../providers/swipe/swipe';
 
 /**
  * Generated class for the SwipeToLikePage page.
@@ -35,11 +37,9 @@ export class SwipeToLikePage {
 
   defaultUserImage = env.DEFAULT.userImagePlaceholder;
 
-  users: IUser[];
   potentialMatches: any = [];
   usersSubscription: Subscription;
 
-  cards: Array<any>;
   stackConfig: StackConfig;
   recentCard: string = '';
   backgroundColor: string = '';
@@ -49,11 +49,12 @@ export class SwipeToLikePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private db: AngularFireDatabase,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private swipeProvider: SwipeProvider
   ) {
     this.stackConfig = {
       throwOutConfidence: (offsetX, offsetY, element) => {
-        return Math.min(Math.abs(offsetX) / (element.offsetWidth/2), 1);
+        return Math.min(Math.abs(offsetX) / (element.offsetWidth / 2), 1);
       },
       transform: (element, x, y, r) => {
         this.onItemMove(element, x, y, r);
@@ -77,9 +78,9 @@ export class SwipeToLikePage {
   onItemMove(element, x, y, r) {
     var color = '';
     var abs = Math.abs(x);
-    let min = Math.trunc(Math.min(16*16 - abs, 16*16));
+    let min = Math.trunc(Math.min(16 * 16 - abs, 16 * 16));
     let hexCode = this.decimalToHex(min, 2);
-    
+
     if (x < 0) {
       color = '#FF' + hexCode + hexCode;
     } else {
@@ -89,10 +90,10 @@ export class SwipeToLikePage {
     element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
   }
 
-  voteUp(like: boolean) {
+  voteUp(like: boolean, potentialMatch:IUser) {
     this.backgroundColor = '';
-    
-    let removedCard = this.potentialMatches.shift();
+
+    let removedCard = this.potentialMatches.pop();
     // this.addNewCards(1);
     if (like) {
       this.recentCard = 'You liked ' + removedCard.firstName;
@@ -101,15 +102,16 @@ export class SwipeToLikePage {
     }
 
     this.presentToast(this.recentCard);
+    this.swipeProvider.updateUserSwipeData(potentialMatch.id, like);
   }
 
-  presentToast(message){
+  presentToast(message) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 1500,
       position: 'bottom'
     });
-  
+
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');
     });
@@ -120,20 +122,19 @@ export class SwipeToLikePage {
   decimalToHex(d, padding) {
     var hex = Number(d).toString(16);
     padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
-    
+
     while (hex.length < padding) {
       hex = "0" + hex;
     }
-    
+
     return hex;
   }
 
   generatePotentialMatches() {
     this.usersSubscription = this.db.list(`/userData`).valueChanges().subscribe((users: IUser[]) => {
-      //TODO change implementation typecast users
-      this.users = users;
-      this.potentialMatches = this.users;
+      this.potentialMatches = users;
     });
+
   }
 
   navigateToProfile(user: IUser) {
