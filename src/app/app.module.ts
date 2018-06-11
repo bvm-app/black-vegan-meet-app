@@ -50,6 +50,8 @@ import { GroceryStoresProvider } from '../providers/grocery-stores/grocery-store
 import { GeoLocationProvider } from '../providers/geo-location/geo-location';
 
 import { RefineSearchPageModule } from '../pages/refine-search/refine-search.module';
+import { RestaurantsProvider } from '../providers/restaurants/restaurants';
+import { RestaurantModalPageModule } from '../pages/restaurant-modal/restaurant-modal.module';
 import { SwipeProvider } from '../providers/swipe/swipe';
 import { ConversationProvider } from '../providers/conversation/conversation';
 
@@ -70,7 +72,8 @@ import { ConversationProvider } from '../providers/conversation/conversation';
     StartPageModule,
     HttpClientModule,
     GroceryStoreModalPageModule,
-    RefineSearchPageModule
+    RefineSearchPageModule,
+    RestaurantModalPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
@@ -94,6 +97,7 @@ import { ConversationProvider } from '../providers/conversation/conversation';
     ViewedMeProvider,
     UserSearchProvider,
     RefineSearchProvider,
+    RestaurantsProvider,
     SwipeProvider,
     ConversationProvider,
   ]

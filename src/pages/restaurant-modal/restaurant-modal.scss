@@ -1,0 +1,100 @@
+page-restaurant-modal {
+    p {
+        font-size: 0.8em;
+        color: #d2d2d2;
+    }
+
+    .swiper-slide {
+        display: block;
+    }
+
+    ion-label, .select-text {
+        margin-left: 10px;
+    }
+
+    .invalid {
+        color:#ea6153 !important;
+    }
+
+    #map {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        height: 200px;
+    }
+
+
+    /* Images css */
+    .container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    
+        .image-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          position: relative;
+    
+          margin: 8px;
+          width: 100%;
+    
+          border: 4px dashed $primary-0;
+          border-radius: 8px;
+    
+          .close-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            z-index: 1;
+            top: -2px;
+            left: -2px;
+            padding: 8px;
+            background-color: $primary-0;
+            border-radius: 4px;
+            height: 25px;
+            width: 25px;
+    
+            color: white;
+          }
+    
+          &:before {
+            content: '';
+            display: block;
+            padding-top: 100%;
+          }
+    
+          &:first-child {
+            width: 100%;
+          }
+    
+          .image-container-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: $section-bg-color;
+    
+            ion-icon {
+              font-size: 1.7em;
+            }
+            span, label {
+              font-size: 1em;
+              margin-top: 10px;
+            }
+    
+            img {
+              object-fit: cover;
+              height: 100%;
+              width: 100%;
+            }
+          }
+        }
+    }
+}

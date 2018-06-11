@@ -1,6 +1,6 @@
 export class MapSearchParameters {
-    types: string[];
+    type: string;
     radius: number;
-    keywords: string[];
+    keyword: string;
 
 }

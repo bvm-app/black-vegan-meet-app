@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { GroceryStoreModalPage } from '../grocery-store-modal/grocery-store-modal';
+import { RestaurantModalPage } from '../restaurant-modal/restaurant-modal';
 
 /**
  * Generated class for the AdminPage page.
@@ -20,8 +21,12 @@ export class AdminPage {
   }
 
   openGroceryStoreModal() {
-    console.log("OPEN GROCERY STORE");
     let modal = this.modalCtrl.create(GroceryStoreModalPage);
+    modal.present();
+  }
+
+  openRestaurantModal() {
+    let modal = this.modalCtrl.create(RestaurantModalPage);
     modal.present();
   }
 
