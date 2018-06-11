@@ -5,10 +5,18 @@ user-compact-view {
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    padding: 10px 0;
-    border-bottom: $border-style;
     background-color: white;
-    padding: 10px;
+    padding: 0 16px;
+
+    .user-inner-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      padding: 10px 0;
+      // border-bottom: $border-style;
+    }
 
     .image-container {
       display: flex;

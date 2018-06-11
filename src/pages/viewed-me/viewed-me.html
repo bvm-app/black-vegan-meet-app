@@ -17,7 +17,7 @@
   <loading *ngIf="isFetching"></loading>
 
   <div class="info-container" *ngIf="!isFetching && users.length === 0">
-    <p>Seems like no one has viewed you yet.</p>
+      <h3 style="text-align: center; padding: 0 20px;">Seems like no one has viewed you yet.</h3>
   </div>
 
   <div class="users-container" *ngIf="!isFetching && users.length > 0" padding>

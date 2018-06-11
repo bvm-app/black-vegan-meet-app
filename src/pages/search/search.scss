@@ -1,9 +1,12 @@
 page-search {
+
   .refine-search-button-container {
     background-color: $section-bg-color;
+    padding: 16px;
   }
 
   .users-container {
+    padding: 16px;
     display: flex;
     flex-direction: column;
     width: 100%;

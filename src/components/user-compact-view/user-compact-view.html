@@ -1,9 +1,11 @@
 <div class="user" (click)="navigateToProfile()">
-  <div class="image-container">
-    <img [src]="user?.profilePictureUrl || defaultUserImage">
-  </div>
-  <div class="details-container">
-    <p class="name">{{ user?.firstName }} {{ user?.lastName }}</p>
-    <p class="details">{{ details }}</p>
+  <div class="user-inner-container">
+    <div class="image-container">
+      <img [src]="user?.profilePictureUrl || defaultUserImage">
+    </div>
+    <div class="details-container">
+      <p class="name">{{ user?.firstName }} {{ user?.lastName }}</p>
+      <p class="details">{{ details }}</p>
+    </div>
   </div>
 </div>
