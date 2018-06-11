@@ -28,8 +28,11 @@
             , {{ calculateAge(pontentialMatch?.birthdate)}}
           </span>
         </div>
-
       </div>
+    </div>
+
+    <div class="empty" *ngIf="potentialMatches && potentialMatches.length <= 0">
+      Sorry! That's all of your potential matches. Come back later to see if there are more.
     </div>
   </div>
 </ion-content>

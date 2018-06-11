@@ -26,10 +26,10 @@ export class SwipeProvider {
 
   updateUserSwipeData(userId: string, liked: boolean) {
     if (liked) {
-      this.swipeRef = this.db.object(`${this.dbPath}/${userId}/usersWhoLiked/${this.currentLoggedInUserId}`).set(true);
+      this.swipeRef = this.db.object(`${this.dbPath}/${this.currentLoggedInUserId}/likedUsers/${userId}`).set(true);
 
     } else {
-      this.swipeRef = this.db.object(`${this.dbPath}/${userId}/usersWhoDisliked/${this.currentLoggedInUserId}`).set(true);
+      this.swipeRef = this.db.object(`${this.dbPath}/${this.currentLoggedInUserId}/dislikedUsers/${userId}`).set(true);
     }
 
     return this.swipeRef;
