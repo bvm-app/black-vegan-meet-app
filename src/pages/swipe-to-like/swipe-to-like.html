@@ -14,5 +14,25 @@
 
 
 <ion-content padding>
+  <div id="card-stack">
+    <div swing-stack #myswing1 [stackConfig]="stackConfig" *ngFor="let pontentialMatch of potentialMatches" (throwoutleft)="voteUp(false, pontentialMatch)"
+      (throwoutright)="voteUp(true, pontentialMatch)" class="card-container">
+      <div #mycards1 swing-card class="card" (click)="navigateToProfile(pontentialMatch)">
+        <div class="overlay" [ngStyle]="{'background-color': backgroundColor}"></div>
+        <img class="image" [src]="pontentialMatch?.profilePictureUrl || defaultUserImage">
+        <div class="user-details">
+          <span class="name">
+            {{ pontentialMatch?.firstName }} {{ pontentialMatch?.lastName }}
+          </span>
+          <span class="age" *ngIf="pontentialMatch.birthdate">
+            , {{ calculateAge(pontentialMatch?.birthdate)}}
+          </span>
+        </div>
+      </div>
+    </div>
 
+    <div class="empty" *ngIf="potentialMatches && potentialMatches.length <= 0">
+      Sorry! That's all of your potential matches. Come back later to see if there are more.
+    </div>
+  </div>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { env } from '../../app/env';
 import { UserProvider } from '../../providers/user/user';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -30,8 +30,9 @@ export class HomePage {
     public userProvider: UserProvider,
     public db: AngularFireDatabase,
     public userSearchProvider: UserSearchProvider,
-    public geolocationProvider: GeoLocationProvider
-  ) {}
+    public geolocationProvider: GeoLocationProvider,
+    private alertCtrl: AlertController
+  ) { }
 
   ionViewDidLeave() {
     if (this.currentLoggedInUserSubscription)
@@ -54,6 +55,8 @@ export class HomePage {
             });
         }
       });
+
+    this.checkSwipeData();
   }
 
   ionViewDidLoad() {
@@ -71,5 +74,33 @@ export class HomePage {
   navigateToProfile(user: IUser) {
     if (!user) return;
     this.navCtrl.push('ProfilePage', { userId: user.id });
+  }
+
+  checkSwipeData() {
+    let subscription = this.db.object(`userSwipeData`).valueChanges().subscribe(users => {
+      let userId = firebase.auth().currentUser.uid;
+
+      if (users.hasOwnProperty(userId) && users[userId].hasOwnProperty('likedUsers')) {
+        let likedIds: string[] = Object.keys(users[userId].likedUsers);
+        let mutualLikeIds: string[] = [];
+
+        likedIds.forEach(id => {
+          if (users.hasOwnProperty(id) && users[id].hasOwnProperty('likedUsers')) {
+            let hasAlsoLikedMe = Object.keys(users[id].likedUsers).find(x => x == userId) != undefined;
+
+            if (hasAlsoLikedMe) {
+              mutualLikeIds.push(id);
+            }
+          }
+        });
+
+        if (mutualLikeIds.length > 0) {
+          // IF SOMEONE LIKED BACK
+          console.log('someone has liked you back');
+
+        }
+      }
+      subscription.unsubscribe();
+    });
   }
 }
