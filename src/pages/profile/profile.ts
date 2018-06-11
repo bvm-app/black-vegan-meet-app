@@ -24,7 +24,7 @@ import { ViewedMeProvider } from '../../providers/viewed-me/viewed-me';
 export class ProfilePage {
   defaultUserImagePlaceholder = env.DEFAULT.icons.Logo;
   centeredSlides = true;
-  currentLoggedInUserId = firebase.auth().currentUser.uid;
+  currentLoggedInUserId: string;
 
   isCurrentLoggedInUser: boolean = true;
   user: IUser;
@@ -40,6 +40,7 @@ export class ProfilePage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter ProfilePage');
+    this.currentLoggedInUserId = firebase.auth().currentUser.uid;
 
     let userId = firebase.auth().currentUser.uid;
     if (this.navParams.data.userId) {
@@ -77,13 +78,15 @@ export class ProfilePage {
     let temp = [];
 
     let name = `${this.user.firstName} ${this.user.lastName}`;
-    let age = this.calculateAge(this.user.birthdate.toString());
-
     if (name.trim().length > 0) {
       temp.push(name);
     }
-    if (age > 0) {
-      temp.push(age.toString())
+
+    if (this.user.birthdate) {
+      let age = this.calculateAge(this.user.birthdate.toString());
+      if (age > 0) {
+        temp.push(age.toString())
+      }
     }
 
     return temp.join(', ');

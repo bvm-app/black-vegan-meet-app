@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IUser } from '../../models/IUser';
 import firebase from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Subscription } from 'rxjs';
+import { Subscription, ReplaySubject } from 'rxjs';
 
 /*
   Generated class for the UserProvider provider.
@@ -12,9 +12,10 @@ import { Subscription } from 'rxjs';
 */
 @Injectable()
 export class UserProvider {
-  private currentLoggedInUserId: string = firebase.auth().currentUser.uid;
+  private currentLoggedInUserId: string;
   private isAdmin: boolean = false;
-  private user: IUser;
+  private _user: IUser;
+  private user: ReplaySubject<IUser>;
   private userSubscription: Subscription;
   private adminSubscription: Subscription;
 
@@ -22,20 +23,25 @@ export class UserProvider {
   constructor(public db: AngularFireDatabase) {
     console.log('Hello UserProvider Provider');
 
-    this.initCurrentUser();
-    this.initAdminStatus();
+    this.user = new ReplaySubject<IUser>(1);
   }
 
-  private initCurrentUser() {
+  private notifyObservers() {
+    this.user.next(this._user);
+  }
+
+  initCurrentUser() {
+    this.currentLoggedInUserId = firebase.auth().currentUser.uid;
     this.userSubscription = this.db
       .object(`userData/${this.currentLoggedInUserId}`)
       .valueChanges()
       .subscribe((user: IUser) => {
-        this.user = user;
+        this._user = user;
+        this.notifyObservers();
       });
   }
 
-  private initAdminStatus() {
+  initAdminStatus() {
     this.adminSubscription = this.db
       .object(`appAdmins/${this.currentLoggedInUserId}`)
       .valueChanges()

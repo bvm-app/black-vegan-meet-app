@@ -74,7 +74,9 @@ export class RefineSearchProvider {
   ) {
     console.log('Hello RefineSearchProvider Provider');
     this.filters = new RefineSearchFilters(this.enumProvider.getHeightOptions());
-    this.filters.location = this.userProvider.formatAddress(this.userProvider.getCurrentUser()) || '';
+    this.userProvider.getCurrentUser().subscribe(user => {
+      this.filters.location = this.userProvider.formatAddress(user) || '';
+    });
   }
 
   getFilters() {

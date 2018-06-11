@@ -25,7 +25,7 @@ import _ from 'lodash';
 })
 export class ViewedMePage {
   defaultUserImage = env.DEFAULT.userImagePlaceholder;
-  currentLoggedInUserId = firebase.auth().currentUser.uid;
+  currentLoggedInUserId: string;
 
   users: any[] = [];
   usersSubscription: Subscription;
@@ -41,6 +41,7 @@ export class ViewedMePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewedMePage');
+    this.currentLoggedInUserId = firebase.auth().currentUser.uid;
     this.fetchViewedMeUsers(null);
   }
 

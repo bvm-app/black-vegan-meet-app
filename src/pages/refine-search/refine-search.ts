@@ -50,7 +50,7 @@ export class RefineSearchPage {
   }
 
   initVariables() {
-    this.user = this.userProvider.getCurrentUser();
+    this.userProvider.getCurrentUser().subscribe(user => this.user = user);
 
     this.heightOptions = this.enumProvider.getHeightOptions();
     this.genderOptions = this.enumProvider.getGenderOptions();

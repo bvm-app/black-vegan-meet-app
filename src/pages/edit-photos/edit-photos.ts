@@ -28,7 +28,7 @@ import { FirebaseStorageProvider } from '../../providers/firebase-storage/fireba
 })
 export class EditPhotosPage {
   cordova = window['cordova'];
-  currentLoggedInUserId = firebase.auth().currentUser.uid;
+  currentLoggedInUserId: string;
   defaultImagePlaceholder = env.DEFAULT.icons.Logo;
 
   userImages: any[] = [];
@@ -55,6 +55,7 @@ export class EditPhotosPage {
   }
 
   ionViewWillEnter() {
+    this.currentLoggedInUserId = firebase.auth().currentUser.uid;
     console.log('ionViewWillEnter EditPhotosPage');
 
     this.userImagesSubscription = this.db

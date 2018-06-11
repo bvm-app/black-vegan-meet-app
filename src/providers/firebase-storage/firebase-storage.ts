@@ -18,12 +18,10 @@ interface FirebaseFileUpload {
 */
 @Injectable()
 export class FirebaseStorageProvider {
-  private currentLoggedInUserId;
   private loader;
 
   constructor(private camera: Camera, private toastCtrl: ToastController) {
     console.log('Hello FirebaseStorageProvider Provider');
-    this.currentLoggedInUserId = firebase.auth().currentUser.uid;
   }
 
   uploadImageFromWeb(image) {
@@ -81,7 +79,7 @@ export class FirebaseStorageProvider {
   private uploadImage(image): Promise<FirebaseFileUpload> {
     if (image) {
       let fileName = `images/${new Date().getTime()}-${
-        this.currentLoggedInUserId
+        firebase.auth().currentUser.uid
       }.jpeg`;
       let uploadTask = firebase
         .storage()
@@ -89,7 +87,7 @@ export class FirebaseStorageProvider {
         .child(fileName)
         .put(image, {
           customMetadata: {
-            uploadedBy: this.currentLoggedInUserId,
+            uploadedBy: firebase.auth().currentUser.uid,
             fileName: fileName,
             blobType: 'image/jpeg'
           }

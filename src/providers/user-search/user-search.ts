@@ -19,7 +19,6 @@ import { take, filter } from 'rxjs/operators';
 */
 @Injectable()
 export class UserSearchProvider {
-  currentLoggedInUserId = firebase.auth().currentUser.uid;
   dbPath: string = 'userData';
 
   private _users: IUser[] = [];
@@ -283,7 +282,7 @@ export class UserSearchProvider {
       .subscribe((users: IUser[]) => {
         let temp = _.filter(
           users,
-          user => user.id !== this.currentLoggedInUserId
+          user => user.id !== firebase.auth().currentUser.uid
         );
         temp = _.orderBy(temp, ['lastActive'], ['desc']);
         this._users = temp;

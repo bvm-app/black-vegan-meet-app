@@ -10,7 +10,6 @@ import * as firebase from 'firebase';
 import { env } from '../../app/env';
 import { IUser } from '../../models/IUser';
 import { UserProvider } from '../../providers/user/user';
-import { Observable } from 'rxjs/Observable';
 import { UserSearchProvider } from '../../providers/user-search/user-search';
 
 /**
@@ -42,7 +41,10 @@ export class SettingsPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter SettingsPage');
-    this.user = this.userProvider.getCurrentUser();
+    this.userProvider.getCurrentUser().subscribe(user => {
+      console.log('user:', user);
+      this.user = user;
+    });
     this.isAdmin = this.userProvider.getAdminStatus();
   }
 

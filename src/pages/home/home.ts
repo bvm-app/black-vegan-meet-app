@@ -27,7 +27,7 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public userProvider: UserProvider, // Trigger constructor of userProvider
+    public userProvider: UserProvider,
     public db: AngularFireDatabase,
     public userSearchProvider: UserSearchProvider,
     public geolocationProvider: GeoLocationProvider
@@ -60,6 +60,8 @@ export class HomePage {
     console.log('ionViewDidLoad HomePage');
 
     this.userProvider.initOnlinePresence();
+    this.userProvider.initCurrentUser();
+    this.userProvider.initAdminStatus();
   }
 
   navigateTo(page) {
