@@ -61,6 +61,25 @@
       Please enter a valid coordinates.
     </ion-item>
 
+    <div margin-left class="container" [dragula]='"first-bag"' [dragulaModel]="storeImages">
+      <div class="image-container" *ngFor="let storeImage of storeImages;let idx = index" id="{{ storeImage }}">
+        <div class="close-button" (click)="removeImage(storeImage)">
+          <ion-icon name="md-close"></ion-icon>
+        </div>
+        <div class="image-container-inner">
+          <img [src]="storeImage" alt="User Image {{ idx }}">
+        </div>
+      </div>
+  
+      <div class="image-container" *ngIf="storeImages.length < 5">
+        <div class="image-container-inner" (click)="addPhoto()">
+          <ion-icon name="md-camera"></ion-icon>
+          <input type="file" id="fileElem" accept="image/*" style="display:none" (change)="uploadImageFromWeb($event.target.files)">
+          <span>Add Photo</span>
+        </div>
+      </div>
+    </div>
+
     <ion-buttons margin-left>
       <button ion-button type="submit" block>Add Store</button>
     </ion-buttons>

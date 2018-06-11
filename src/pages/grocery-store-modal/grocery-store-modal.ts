@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams, ViewController, ToastController, L
 import { GroceryStore } from '../../models/grocery-store';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { GroceryStoresProvider } from '../../providers/grocery-stores/grocery-stores';
+import { DragulaService } from 'ng2-dragula';
 import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
+import { Subscription } from 'rxjs';
 /**
  * Generated class for the GroceryStoreModalPage page.
  *
@@ -31,12 +33,14 @@ export class GroceryStoreModalPage {
   storeForm: FormGroup;
   submitAttempt: boolean = false;
 
+  storeImages: any[] = [];
+  storeImagesSubscription: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController, private formBuilder: FormBuilder,
     private groceryStoresProvider: GroceryStoresProvider,
     private geoLocationProvider: GeoLocationProvider, private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController, private dragulaService: DragulaService) {
     this.storeForm = formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       description: ['', Validators.compose([Validators.pattern('[a-zA-Z., ]*'), Validators.required])],
