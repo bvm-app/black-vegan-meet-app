@@ -1,36 +1,35 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import firebase from 'firebase';
-import { GroceryStore } from '../../models/grocery-store';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs';
-import { DataSnapshot } from 'angularfire2/database/interfaces';
+import { Restaurant } from '../../models/restaurant';
+import { Subscription, Subject } from 'rxjs';
 import { GeoLocationProvider } from '../geo-location/geo-location';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { DataSnapshot } from 'angularfire2/database/interfaces';
 import { env } from '../../app/env';
 import { MapSearchParameters } from '../../models/map-search-parameters';
 
 /*
-  Generated class for the GroceryStoresProvider provider.
+  Generated class for the RestaurantsProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class GroceryStoresProvider {
-  groceryStores: GroceryStore[] = [];
+export class RestaurantsProvider {
 
-  groceryStoresSubscription: Subscription;
+  restaurants: Restaurant[] = [];
+  restaurantsSubscription: Subscription;
+  restaurantsSubject: Subject<Restaurant[]> = new Subject();
 
-  groceryStoresSubject: Subject<GroceryStore[]> = new Subject();
-
-  constructor(private db: AngularFireDatabase, private geoLocationProvider: GeoLocationProvider) {
+  constructor(public http: HttpClient, private db: AngularFireDatabase, 
+    private geoLocationProvider: GeoLocationProvider) {
   }
 
-  add(groceryStore: GroceryStore) {
+  add(restaurant: Restaurant) {
     return new Promise(resolve => {
-      let id = this.db.list('/groceryStore').push(groceryStore).key;
-      this.db.object(`/groceryStore/${id}`).update({
+      let id = this.db.list('/restaurant').push(restaurant).key;
+      this.db.object(`/restaurant/${id}`).update({
         id: id
       });
   
@@ -38,49 +37,49 @@ export class GroceryStoresProvider {
     });
   }
 
-  getGroceryStores() {
-    this.groceryStores = [];
-    var storesRef = this.db.list('/groceryStore');
+  getRestaurants() {
+    this.restaurants = [];
+    var storesRef = this.db.list('/restaurant');
 
-    this.getStoresUsingPlacesApi();
+    this.getRestaurantsUsingPlacesApi();
 
-    return firebase.database().ref('/groceryStore').once('value').then((res: DataSnapshot) => {
+    return firebase.database().ref('/restaurant').once('value').then((res: DataSnapshot) => {
       res.forEach(item => {
-        let store: GroceryStore = item.val();
+        let restaurant: Restaurant = item.val();
 
-        console.log("STORE: ", store.images);
-        store.image_url = (store.images != undefined && store.images.length > 0) ? store.images[0] : undefined;
+        console.log("restaurant: ", restaurant.images);
+        restaurant.image_url = (restaurant.images != undefined && restaurant.images.length > 0) ? restaurant.images[0] : undefined;
 
         this.geoLocationProvider.getDistanceFromCurrentLocation({
-          latitude: store.coordinates.latitude,
-          longitude: store.coordinates.longitude,
+          latitude: restaurant.coordinates.latitude,
+          longitude: restaurant.coordinates.longitude,
           latitudeType: 'N',
           longitudeType: 'E'
         }).then((distance) => {
-          store.distance = distance;
-          this.addStoreToList(store);
+          restaurant.distance = distance;
+          this.addRestaurantToList(restaurant);
         });
       });
     });
   }
 
-  private addStoreToList(store: GroceryStore) {
-    this.groceryStores.push(store);
+  private addRestaurantToList(restaurant: Restaurant) {
+    this.restaurants.push(restaurant);
 
-    this.groceryStores = this.groceryStores.sort((l, r): number => {
+    this.restaurants = this.restaurants.sort((l, r): number => {
       if (l.distance < r.distance) return -1;
       if (l.distance > r.distance) return 1;
       return 0
     });
 
-    this.groceryStoresSubject.next(this.groceryStores);
+    this.restaurantsSubject.next(this.restaurants);
   }
 
-  getStoresUsingPlacesApi() {
+  getRestaurantsUsingPlacesApi() {
     let searchParmas = new MapSearchParameters();
     searchParmas.radius = 5000;
     searchParmas.keyword = "vegan";
-    searchParmas.type = "store";
+    searchParmas.type = "restaurant";
 
     this.geoLocationProvider.nearbyApi(searchParmas).then((res) => {
       res.subscribe(data => {
@@ -99,7 +98,7 @@ export class GroceryStoresProvider {
                 '&key=' + env.API_KEYS.GOOGLE_MAPS;
             }
 
-            this.addStoreToList({
+            this.addRestaurantToList({
               id: element.id,
               name: element.name,
               coordinates: {
@@ -121,7 +120,7 @@ export class GroceryStoresProvider {
 
 
   unsubscribeSubscriptions() {
-    if (this.groceryStoresSubscription) this.groceryStoresSubscription.unsubscribe();
+    if (this.restaurantsSubscription) this.restaurantsSubscription.unsubscribe();
   }
 
 }
