@@ -12,7 +12,6 @@ import { Subscription, ReplaySubject } from 'rxjs';
 */
 @Injectable()
 export class UserProvider {
-  private currentLoggedInUserId: string;
   private isAdmin: boolean = false;
   private _user: IUser;
   private user: ReplaySubject<IUser>;
@@ -31,9 +30,8 @@ export class UserProvider {
   }
 
   initCurrentUser() {
-    this.currentLoggedInUserId = firebase.auth().currentUser.uid;
     this.userSubscription = this.db
-      .object(`userData/${this.currentLoggedInUserId}`)
+      .object(`userData/${firebase.auth().currentUser.uid}`)
       .valueChanges()
       .subscribe((user: IUser) => {
         this._user = user;
@@ -43,7 +41,7 @@ export class UserProvider {
 
   initAdminStatus() {
     this.adminSubscription = this.db
-      .object(`appAdmins/${this.currentLoggedInUserId}`)
+      .object(`appAdmins/${firebase.auth().currentUser.uid}`)
       .valueChanges()
       .subscribe(value => {
         this.isAdmin = !!value;
@@ -54,11 +52,11 @@ export class UserProvider {
     var amOnline = firebase.database().ref('/.info/connected');
     var userRef = firebase
       .database()
-      .ref('/presence/' + this.currentLoggedInUserId);
+      .ref('/presence/' + firebase.auth().currentUser.uid);
 
     amOnline.on('value', snapshot => {
       if (snapshot.val()) {
-        this.db.object(`userData/${this.currentLoggedInUserId}`).update({
+        this.db.object(`userData/${firebase.auth().currentUser.uid}`).update({
           lastActive: firebase.database.ServerValue.TIMESTAMP
         });
         userRef.onDisconnect().remove();
