@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { GroceryStoreModalPage } from '../grocery-store-modal/grocery-store-modal';
 
 /**
  * Generated class for the AdminPage page.
@@ -15,7 +16,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController) {
+  }
+
+  openGroceryStoreModal() {
+    console.log("OPEN GROCERY STORE");
+    let modal = this.modalCtrl.create(GroceryStoreModalPage);
+    modal.present();
   }
 
   ionViewDidLoad() {
