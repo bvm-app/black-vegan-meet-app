@@ -14,13 +14,21 @@
 
 
 <ion-content padding>
-  <div class="card-container">
-    <sc-card padding *ngFor="let user of potentialMatches" [orientation]="cardDirection" [tinder-card]="cardOverlay" [callDestroy]="user.destroyEvent"
-      [callLike]="user.likeEvent" (onLike)="onCardInteract($event, user)">
-      <img class="image" [src]="prospectDate?.profilePictureUrl || defaultUserImage">
-    </sc-card>
+  <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">
+    <div #mycards1 swing-card *ngFor="let pontentialMatch of potentialMatches" class="card-container">
+      <div class="card" (click)="navigateToProfile(pontentialMatch)">
+        <div class="overlay" [ngStyle]="{'background-color': backgroundColor}"></div>
+        <img class="image" [src]="pontentialMatch?.profilePictureUrl || defaultUserImage">
+        <div class="user-details">
+          <span class="name">
+            {{ pontentialMatch?.firstName }} {{ pontentialMatch?.lastName }}
+          </span>
+          <span class="age" *ngIf="pontentialMatch.birthdate">
+            , {{ calculateAge(pontentialMatch?.birthdate)}}
+          </span>
+        </div>
+
+      </div>
+    </div>
   </div>
-  <!-- <pre>
-    {{ potentialMatches | json }}
-  </pre> -->
 </ion-content>
