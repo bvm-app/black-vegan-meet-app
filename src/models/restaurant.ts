@@ -1,6 +1,6 @@
 import { Coordinates } from "./coordinates";
 
-export class GroceryStore {
+export class Restaurant {
     id: string;
     name: string;
     image_url?: string;

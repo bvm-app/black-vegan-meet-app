@@ -14,5 +14,16 @@
 
 
 <ion-content padding>
-
+  <ion-item *ngFor="let restaurant of restaurants">
+    <ion-thumbnail item-start>
+      <img *ngIf="restaurant.image_url != null" src="{{restaurant.image_url}}">
+      <img *ngIf="restaurant.image_url == null" src="assets/imgs/image_placeholder.png">
+    </ion-thumbnail>
+    <h2>{{restaurant.name}}</h2>
+    <p>{{restaurant.description}}</p>
+    
+    <div item-end>
+      <p>{{restaurant.distance | number:'1.2-2'}} km</p>
+    </div>
+  </ion-item>
 </ion-content>

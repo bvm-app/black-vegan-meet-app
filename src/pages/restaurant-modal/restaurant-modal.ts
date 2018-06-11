@@ -1,29 +1,29 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController, LoadingController, AlertController, ActionSheetController } from 'ionic-angular';
-import { GroceryStore } from '../../models/grocery-store';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { GroceryStoresProvider } from '../../providers/grocery-stores/grocery-stores';
-import { DragulaService } from 'ng2-dragula';
-import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController, ToastController, ActionSheetController, LoadingController, AlertController } from 'ionic-angular';
+import { Restaurant } from '../../models/restaurant';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { RestaurantsProvider } from '../../providers/restaurants/restaurants';
+import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
+import { DragulaService } from 'ng2-dragula';
 import { FirebaseStorageProvider } from '../../providers/firebase-storage/firebase-storage';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 /**
- * Generated class for the GroceryStoreModalPage page.
+ * Generated class for the RestaurantModalPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
- declare var google;
+declare var google;
 
 @IonicPage()
 @Component({
-  selector: 'page-grocery-store-modal',
-  templateUrl: 'grocery-store-modal.html',
+  selector: 'page-restaurant-modal',
+  templateUrl: 'restaurant-modal.html',
 })
-export class GroceryStoreModalPage {
-
+export class RestaurantModalPage {
   @ViewChild('map') mapElement: ElementRef;
   cordova = window['cordova'];
   map: any;
@@ -32,22 +32,22 @@ export class GroceryStoreModalPage {
   addModal: boolean = false;
   editModal: boolean = false;
   displayModal: boolean = true;
-  store: GroceryStore = new GroceryStore();
-  storeForm: FormGroup;
+  restaurant: Restaurant = new Restaurant();
+  restaurantForm: FormGroup;
   submitAttempt: boolean = false;
 
-  storeImages: any[] = [];
-  storeImagesSubscription: Subscription;
+  restaurantImages: any[] = [];
+  restaurantImagesSubscription: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController, private formBuilder: FormBuilder,
-    private groceryStoresProvider: GroceryStoresProvider,
+    private restaurantsProvider: RestaurantsProvider,
     private geoLocationProvider: GeoLocationProvider, private toastCtrl: ToastController,
     private loadingCtrl: LoadingController, private dragulaService: DragulaService,
     private alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
     private db: AngularFireDatabase, private dbStorage: FirebaseStorageProvider) {
 
-    this.storeForm = formBuilder.group({
+    this.restaurantForm = formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       description: ['', Validators.compose([Validators.pattern('[a-zA-Z., ]*'), Validators.required])],
       longitude: ['', Validators.compose([Validators.pattern('[0-9-.]*'), Validators.required])],
@@ -62,29 +62,30 @@ export class GroceryStoreModalPage {
       console.log('Is dropped:', val);
       this.onDrop(val[2]);
     });
+
   }
 
   closeModal() {
     this.viewCtrl.dismiss();
   }
 
-  addGroceryStore() {
+  addRestaurant() {
     this.submitAttempt = true;
 
-    if (this.storeForm.valid) {
-      let name = this.store.name;
+    if (this.restaurantForm.valid) {
+      let name = this.restaurant.name;
       let loading = this.loadingCtrl.create({
-        content: 'Adding grocery store...'
+        content: 'Adding restaurant...'
       });
       loading.present();
-    
-      this.groceryStoresProvider.add(this.store).then((res) => {
+
+      this.restaurantsProvider.add(this.restaurant).then((res) => {
 
         this.updateStorePhotos(res);
-        
+
 
         let toast = this.toastCtrl.create({
-          message: 'A new grocery store was successfully added.',
+          message: 'A new restaurant was successfully added.',
           duration: 3000,
           position: 'top'
         });
@@ -125,11 +126,11 @@ export class GroceryStoreModalPage {
 
     console.log("POSITION: ", position);
 
-    this.store.coordinates.latitude = position.lat();
-    this.store.coordinates.longitude = position.lng();
+    this.restaurant.coordinates.latitude = position.lat();
+    this.restaurant.coordinates.longitude = position.lng();
 
 
-    let content = "<h4>" + this.store.name + "</h4>";
+    let content = "<h4>" + this.restaurant.name + "</h4>";
   }
 
   removeImage(toBeRemovedImage) {
@@ -149,7 +150,7 @@ export class GroceryStoreModalPage {
         {
           text: 'Confirm',
           handler: () => {
-            this.storeImages = this.storeImages.filter(image => image !== toBeRemovedImage);
+            this.restaurantImages = this.restaurantImages.filter(image => image !== toBeRemovedImage);
           }
         }
       ]
@@ -165,7 +166,7 @@ export class GroceryStoreModalPage {
           text: 'Take photo',
           handler: () => {
             this.dbStorage.uploadImageFromCamera().then(imageData => {
-              this.storeImages.push(imageData.downloadUrl);
+              this.restaurantImages.push(imageData.downloadUrl);
             });
           }
         },
@@ -173,14 +174,14 @@ export class GroceryStoreModalPage {
           text: 'Upload from photo library',
           handler: () => {
             this.dbStorage.uploadImageFromGallery().then(imageData => {
-              this.storeImages.push(imageData.downloadUrl);
+              this.restaurantImages.push(imageData.downloadUrl);
             });
           }
         },
         {
           text: 'Cancel',
           role: 'cancel',
-          handler: () => {}
+          handler: () => { }
         }
       ]
     });
@@ -203,9 +204,9 @@ export class GroceryStoreModalPage {
         .then(imageData => {
           console.log('imageData:', imageData);
 
-          this.storeImages.push(imageData.downloadUrl);
+          this.restaurantImages.push(imageData.downloadUrl);
 
-          console.log('storeImages:', this.storeImages);
+          console.log('restaurantImages:', this.restaurantImages);
         })
         .catch((err: Error) => {
           console.log('File upload error:', err.message);
@@ -213,10 +214,10 @@ export class GroceryStoreModalPage {
     }
   }
 
-  updateStorePhotos(storeId) {
+  updateStorePhotos(restaurantId) {
     this.db
-      .object(`groceryStore/${storeId}/images`)
-      .set(this.storeImages)
+      .object(`restaurant/${restaurantId}/images`)
+      .set(this.restaurantImages)
       .then(() => {
         this.presentToast('Successfully updated images');
       })
@@ -240,17 +241,10 @@ export class GroceryStoreModalPage {
     console.log(this.navParams.get('Type'));
     let type = this.navParams.get('Type');
 
-    console.log("TYPE: ", type);
-
     this.addModal = (type === 'Add');
     this.displayModal = (type === 'Display');
     this.editModal = (type === 'Edit');
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GroceryStoreModalPage');
-  }
-
 
   // Taken from:
   // http://masteringionic.com/blog/2017-12-15-creating-a-sortable-list-with-ionic-and-dragula/
@@ -266,7 +260,7 @@ export class GroceryStoreModalPage {
   onDrop(val: any): void {
     console.log('val on drop:', val.childNodes);
     // Reset the items array
-    this.storeImages = [];
+    this.restaurantImages = [];
 
     // Iterate through the retrieved list data
     val.childNodes.forEach(item => {
@@ -274,7 +268,7 @@ export class GroceryStoreModalPage {
       // Do we have data?
       if (item.id) {
         // Re-populate the items array with new list order
-        this.storeImages.push(item.id);
+        this.restaurantImages.push(item.id);
       }
     });
 
@@ -282,7 +276,7 @@ export class GroceryStoreModalPage {
     // but we could add functionality to save the re-populated
     // array items (and new list order) to a database for 'session'
     //persistence
-    console.dir(this.storeImages);
+    console.dir(this.restaurantImages);
   }
 
 }

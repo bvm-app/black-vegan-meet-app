@@ -9,7 +9,7 @@
   <ion-navbar color="primary">
     <ion-title *ngIf="editModal">Edit Grocery Store</ion-title>
     <ion-title *ngIf="addModal">Add Grocery Store</ion-title>
-    <ion-title *ngIf="displayModal">{{store.nme}}</ion-title>
+    <ion-title *ngIf="displayModal">{{store.name}}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="closeModal()" icon-start>
         <ion-icon name="arrow-back"></ion-icon>
@@ -21,48 +21,69 @@
 </ion-header>
 
 
-<ion-content padding>
-  <form [formGroup]="storeForm" (ngSubmit)='addGroceryStore()'>
-    <ion-item>
-      <ion-label [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Name</ion-label>
-      <ion-input type="text" formControlName="name" [(ngModel)]="store.name" name="name"></ion-input>
-    </ion-item>
+<ion-content>
+  <div class="content-grocery-store-modal">
+    <form [formGroup]="storeForm" (ngSubmit)='addGroceryStore()'>
+      <ion-item>
+        <ion-label [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Name</ion-label>
+        <ion-input type="text" formControlName="name" [(ngModel)]="store.name" name="name"></ion-input>
+      </ion-item>
 
-    <ion-label class='invalid' margin-left *ngIf="!storeForm.controls.name.valid  && (storeForm.controls.name.dirty || submitAttempt)">
-      Please enter a valid name.
-    </ion-label>
+      <ion-label class='invalid' margin-left *ngIf="!storeForm.controls.name.valid  && (storeForm.controls.name.dirty || submitAttempt)">
+        Please enter a valid name.
+      </ion-label>
 
-    <ion-item>
-      <ion-label [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Description</ion-label>
-      <ion-textarea [(ngModel)]="store.description" formControlName="description" name="description"></ion-textarea>
-    </ion-item>
+      <ion-item>
+        <ion-label [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Description</ion-label>
+        <ion-textarea [(ngModel)]="store.description" formControlName="description" name="description"></ion-textarea>
+      </ion-item>
 
-    <ion-item class='invalid' *ngIf="!storeForm.controls.description.valid  && (storeForm.controls.description.dirty || submitAttempt)">
-      Please enter a valid description.
-    </ion-item>
+      <ion-item class='invalid' *ngIf="!storeForm.controls.description.valid  && (storeForm.controls.description.dirty || submitAttempt)">
+        Please enter a valid description.
+      </ion-item>
 
-    <ion-item>
-      <ion-label [class.invalid]="!storeForm.controls.latitude.valid && (storeForm.controls.latitude.dirty || submitAttempt)">Latitude</ion-label>
-      <ion-input [(ngModel)]="store.coordinates.latitude" formControlName="latitude" name="latitude"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label [class.invalid]="!storeForm.controls.latitude.valid && (storeForm.controls.latitude.dirty || submitAttempt)">Latitude</ion-label>
+        <ion-input [(ngModel)]="store.coordinates.latitude" formControlName="latitude" name="latitude"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label [class.invalid]="!storeForm.controls.longitude.valid && (storeForm.controls.longitude.dirty || submitAttempt)">longitude</ion-label>
-      <ion-input [(ngModel)]="store.coordinates.longitude" formControlName="longitude" name="longitude"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label [class.invalid]="!storeForm.controls.longitude.valid && (storeForm.controls.longitude.dirty || submitAttempt)">longitude</ion-label>
+        <ion-input [(ngModel)]="store.coordinates.longitude" formControlName="longitude" name="longitude"></ion-input>
+      </ion-item>
 
-    <ion-buttons margin-left>
-      <button ion-button type="button" block (click)="addMarker()">Select location</button>
-    </ion-buttons>
+      <ion-buttons margin-left>
+        <button ion-button type="button" block (click)="addMarker()">Select location</button>
+      </ion-buttons>
 
-    <div margin-left #map id="map"></div>
+      <div margin-left #map id="map"></div>
 
-    <ion-item class='invalid' *ngIf="((!storeForm.controls.latitude.valid  && storeForm.controls.latitude.dirty) || (!storeForm.controls.longitude.valid  && storeForm.controls.longitude.dirty) || submitAttempt)">
-      Please enter a valid coordinates.
-    </ion-item>
+      <ion-item class='invalid' *ngIf="((!storeForm.controls.latitude.valid  && storeForm.controls.latitude.dirty) || (!storeForm.controls.longitude.valid  && storeForm.controls.longitude.dirty) || submitAttempt)">
+        Please enter valid coordinates.
+      </ion-item>
 
-    <ion-buttons margin-left>
-      <button ion-button type="submit" block>Add Store</button>
-    </ion-buttons>
-  </form>
+      <div margin-left class="container" [dragula]='"first-bag"' [dragulaModel]="storeImages">
+        <div class="image-container" *ngFor="let storeImage of storeImages;let idx = index" id="{{ storeImage }}">
+          <div class="close-button" (click)="removeImage(storeImage)">
+            <ion-icon name="md-close"></ion-icon>
+          </div>
+          <div class="image-container-inner">
+            <img [src]="storeImage" alt="User Image {{ idx }}">
+          </div>
+        </div>
+
+        <div class="image-container" *ngIf="storeImages.length < 5">
+          <div class="image-container-inner" (click)="addPhoto()">
+            <ion-icon name="md-camera"></ion-icon>
+            <input type="file" id="fileElem" accept="image/*" style="display:none" (change)="uploadImageFromWeb($event.target.files)">
+            <span>Add Photo</span>
+          </div>
+        </div>
+      </div>
+
+      <ion-buttons margin-left>
+        <button ion-button type="submit" block>Add Store</button>
+      </ion-buttons>
+    </form>
+  </div>
 </ion-content>

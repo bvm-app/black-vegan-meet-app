@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
+import { Restaurant } from '../../models/restaurant';
+import { RestaurantsProvider } from '../../providers/restaurants/restaurants';
 
 /**
  * Generated class for the RestaurantsPage page.
@@ -15,11 +18,34 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RestaurantsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  restaurants: Restaurant[] = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private geoLocationProvider: GeoLocationProvider, private modalCtrl: ModalController,
+    private restaurantsProvider: RestaurantsProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RestaurantsPage');
+    this.initRestaurants();
+  }
+
+  private async initRestaurants() {
+    this.restaurantsProvider.getRestaurants();
+
+    this.restaurantsProvider.restaurantsSubject.subscribe(data => {
+      this.restaurants = [];
+      
+      data.forEach(element => {
+        this.restaurants.push(element);
+      });
+
+      this.restaurants =  this.restaurants.sort((l, r): number => {
+        if (l.distance < r.distance) return -1;
+        if (l.distance > r.distance) return 1;
+        return 0
+      });
+      console.log("ELEMENT!!: ", this.restaurants);
+    });
   }
 
 }
