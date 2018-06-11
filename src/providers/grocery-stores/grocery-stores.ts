@@ -29,9 +29,14 @@ export class GroceryStoresProvider {
   add(groceryStore: GroceryStore) {
     // return this.db.list('/groceryStore').push(groceryStore);
 
-    let id = this.db.list('/groceryStore').push(groceryStore).key;
-    return this.db.object(`/groceryStore/${id}`).update({
-      id: id
+
+    return new Promise(resolve => {
+      let id = this.db.list('/groceryStore').push(groceryStore).key;
+      this.db.object(`/groceryStore/${id}`).update({
+        id: id
+      });
+  
+      resolve(id);
     });
   }
 
@@ -44,6 +49,9 @@ export class GroceryStoresProvider {
     return firebase.database().ref('/groceryStore').once('value').then((res: DataSnapshot) => {
       res.forEach(item => {
         let store: GroceryStore = item.val();
+
+        console.log("STORE: ", store.images);
+        store.image_url = (store.images != undefined && store.images.length > 0) ? store.images[0] : undefined;
 
         this.geoLocationProvider.getDistanceFromCurrentLocation({
           latitude: store.coordinates.latitude,
