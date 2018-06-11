@@ -21,12 +21,12 @@ export class AdminPage {
   }
 
   openGroceryStoreModal() {
-    let modal = this.modalCtrl.create(GroceryStoreModalPage);
+    let modal = this.modalCtrl.create(GroceryStoreModalPage, { Type: 'Add' });
     modal.present();
   }
 
   openRestaurantModal() {
-    let modal = this.modalCtrl.create(RestaurantModalPage);
+    let modal = this.modalCtrl.create(RestaurantModalPage, { Type: 'Add' });
     modal.present();
   }
 
