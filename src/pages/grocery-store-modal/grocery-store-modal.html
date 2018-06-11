@@ -9,7 +9,7 @@
   <ion-navbar color="primary">
     <ion-title *ngIf="editModal">Edit Grocery Store</ion-title>
     <ion-title *ngIf="addModal">Add Grocery Store</ion-title>
-    <ion-title *ngIf="displayModal">{{store.nme}}</ion-title>
+    <ion-title *ngIf="displayModal">{{store.name}}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="closeModal()" icon-start>
         <ion-icon name="arrow-back"></ion-icon>
@@ -58,7 +58,7 @@
     <div margin-left #map id="map"></div>
 
     <ion-item class='invalid' *ngIf="((!storeForm.controls.latitude.valid  && storeForm.controls.latitude.dirty) || (!storeForm.controls.longitude.valid  && storeForm.controls.longitude.dirty) || submitAttempt)">
-      Please enter a valid coordinates.
+      Please enter valid coordinates.
     </ion-item>
 
     <div margin-left class="container" [dragula]='"first-bag"' [dragulaModel]="storeImages">
