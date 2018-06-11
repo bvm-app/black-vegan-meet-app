@@ -49,6 +49,7 @@ import { GroceryStoresProvider } from '../providers/grocery-stores/grocery-store
 import { GeoLocationProvider } from '../providers/geo-location/geo-location';
 
 import { RefineSearchPageModule } from '../pages/refine-search/refine-search.module';
+import { ConversationProvider } from '../providers/conversation/conversation';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -90,6 +91,7 @@ import { RefineSearchPageModule } from '../pages/refine-search/refine-search.mod
     ViewedMeProvider,
     UserSearchProvider,
     RefineSearchProvider,
+    ConversationProvider,
   ]
 })
 export class AppModule {
