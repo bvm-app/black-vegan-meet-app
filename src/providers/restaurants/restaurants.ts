@@ -22,7 +22,7 @@ export class RestaurantsProvider {
   restaurantsSubscription: Subscription;
   restaurantsSubject: Subject<Restaurant[]> = new Subject();
 
-  constructor(public http: HttpClient, private db: AngularFireDatabase, 
+  constructor(public http: HttpClient, private db: AngularFireDatabase,
     private geoLocationProvider: GeoLocationProvider) {
   }
 
@@ -32,10 +32,24 @@ export class RestaurantsProvider {
       this.db.object(`/restaurant/${id}`).update({
         id: id
       });
-  
+
       resolve(id);
     });
   }
+
+  update(restaurant: Restaurant) {
+    console.log("UPDATED STORE: ", restaurant);
+    return new Promise(resolve => {
+      resolve(this.db.object(`/restaurant/${restaurant.id}`).update(restaurant));
+    });
+  }
+
+  delete(restaurant: Restaurant) {
+    return new Promise(resolve => {
+      resolve(this.db.object(`/restaurant/${restaurant.id}`).remove());
+    });
+  }
+
 
   getRestaurants() {
     this.restaurants = [];
@@ -49,7 +63,7 @@ export class RestaurantsProvider {
 
         console.log("restaurant: ", restaurant.images);
         restaurant.image_url = (restaurant.images != undefined && restaurant.images.length > 0) ? restaurant.images[0] : undefined;
-
+        restaurant.isAppRestaurant = true;
         this.geoLocationProvider.getDistanceFromCurrentLocation({
           latitude: restaurant.coordinates.latitude,
           longitude: restaurant.coordinates.longitude,
@@ -108,7 +122,9 @@ export class RestaurantsProvider {
                 longitudeType: 'E'
               },
               image_url: imageUrl,
+              images: [imageUrl],
               distance: distance,
+              isAppRestaurant: false
             });
           }).catch(() => {
             // this.navCtrl.pop();

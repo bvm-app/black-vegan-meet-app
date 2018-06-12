@@ -8,6 +8,7 @@ import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import { DragulaService } from 'ng2-dragula';
 import { FirebaseStorageProvider } from '../../providers/firebase-storage/firebase-storage';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { UserProvider } from '../../providers/user/user';
 
 /**
  * Generated class for the RestaurantModalPage page.
@@ -36,6 +37,8 @@ export class RestaurantModalPage {
   restaurantForm: FormGroup;
   submitAttempt: boolean = false;
 
+  isAdmin: boolean = false;
+
   restaurantImages: any[] = [];
   restaurantImagesSubscription: Subscription;
 
@@ -45,7 +48,8 @@ export class RestaurantModalPage {
     private geoLocationProvider: GeoLocationProvider, private toastCtrl: ToastController,
     private loadingCtrl: LoadingController, private dragulaService: DragulaService,
     private alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
-    private db: AngularFireDatabase, private dbStorage: FirebaseStorageProvider) {
+    private db: AngularFireDatabase, private dbStorage: FirebaseStorageProvider,
+    private userProvider: UserProvider) {
 
     this.restaurantForm = formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
@@ -79,27 +83,44 @@ export class RestaurantModalPage {
       });
       loading.present();
 
-      this.restaurantsProvider.add(this.restaurant).then((res) => {
+      if (this.addModal) {
+        this.restaurantsProvider.add(this.restaurant).then((res) => {
 
-        this.updateStorePhotos(res);
+          this.updateStorePhotos(res);
 
 
-        let toast = this.toastCtrl.create({
-          message: 'A new restaurant was successfully added.',
-          duration: 3000,
-          position: 'top'
+          let toast = this.toastCtrl.create({
+            message: 'A new restaurant was successfully added.',
+            duration: 3000,
+            position: 'top'
+          });
+
+          toast.present();
+          loading.dismiss();
+          this.navCtrl.pop();
         });
+      } else if (this.editModal) {
+        this.restaurantsProvider.update(this.restaurant).then((res) => {
+          let toast = this.toastCtrl.create({
+            message: 'The restaurant was successfully updated.',
+            duration: 3000,
+            position: 'top'
+          });
 
-        toast.present();
-        loading.dismiss();
-        this.navCtrl.pop();
-      });
+          toast.present();
+          loading.dismiss();
+          this.navCtrl.pop();
+        });
+      }
     }
   }
 
   loadMap() {
     this.geoLocationProvider.getCurrentPosition().then((res) => {
       let latLng = new google.maps.LatLng(res.coords.latitude, res.coords.longitude);
+      if (this.displayModal || this.editModal) {
+        latLng = new google.maps.LatLng(this.restaurant.coordinates.latitude, this.restaurant.coordinates.longitude);
+      }
 
       let mapOptions = {
         center: latLng,
@@ -108,7 +129,37 @@ export class RestaurantModalPage {
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+      if (this.displayModal || this.editModal) this.addMarker();
     });
+  }
+
+  delete() {
+    let alert = this.alertCtrl.create({
+      title: 'Remove store',
+      message: 'Are you sure you want to remove this restaurant?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.restaurantsProvider.delete(this.restaurant).then(res => {
+              this.navCtrl.popToRoot();
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  openEditPage() {
+    this.navCtrl.push(RestaurantModalPage, { Restaurant: this.restaurant, Type: 'Edit' });
   }
 
   addMarker() {
@@ -236,14 +287,21 @@ export class RestaurantModalPage {
   }
 
   ionViewWillEnter() {
-    this.loadMap();
-    console.log(this.navParams.get('GroceryStore'));
-    console.log(this.navParams.get('Type'));
+    this.restaurantImages = [];
+    this.isAdmin = this.userProvider.getAdminStatus();
     let type = this.navParams.get('Type');
 
     this.addModal = (type === 'Add');
     this.displayModal = (type === 'Display');
     this.editModal = (type === 'Edit');
+
+    if (this.displayModal || this.editModal) this.restaurant = this.navParams.get('Restaurant');
+
+    if (this.editModal) {
+      this.restaurantImages = this.restaurant.images;
+    }
+
+    this.loadMap();
   }
 
   // Taken from:

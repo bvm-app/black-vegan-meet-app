@@ -5,6 +5,7 @@ import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import { GroceryStore } from '../../models/grocery-store';
 import { GroceryStoreModalPage } from '../grocery-store-modal/grocery-store-modal';
 import { MapSearchParameters } from '../../models/map-search-parameters';
+import { MethodCall } from '@angular/compiler';
 
 /**
  * Generated class for the GroceryStoresPage page.
@@ -30,6 +31,10 @@ export class GroceryStoresPage {
 
   ionViewDidEnter() {
     this.initStores();
+  }
+
+  openStore(store: GroceryStore) {
+    this.navCtrl.push(GroceryStoreModalPage, {Store: store, Type: 'Display'});
   }
 
   private async initStores() {

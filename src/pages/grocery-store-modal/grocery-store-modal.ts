@@ -8,6 +8,7 @@ import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { FirebaseStorageProvider } from '../../providers/firebase-storage/firebase-storage';
+import { UserProvider } from '../../providers/user/user';
 /**
  * Generated class for the GroceryStoreModalPage page.
  *
@@ -15,7 +16,7 @@ import { FirebaseStorageProvider } from '../../providers/firebase-storage/fireba
  * Ionic pages and navigation.
  */
 
- declare var google;
+declare var google;
 
 @IonicPage()
 @Component({
@@ -36,6 +37,8 @@ export class GroceryStoreModalPage {
   storeForm: FormGroup;
   submitAttempt: boolean = false;
 
+  isAdmin: boolean = false;
+
   storeImages: any[] = [];
   storeImagesSubscription: Subscription;
 
@@ -45,7 +48,8 @@ export class GroceryStoreModalPage {
     private geoLocationProvider: GeoLocationProvider, private toastCtrl: ToastController,
     private loadingCtrl: LoadingController, private dragulaService: DragulaService,
     private alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
-    private db: AngularFireDatabase, private dbStorage: FirebaseStorageProvider) {
+    private db: AngularFireDatabase, private dbStorage: FirebaseStorageProvider,
+    private userProvider: UserProvider) {
 
     this.storeForm = formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
@@ -77,28 +81,43 @@ export class GroceryStoreModalPage {
         content: 'Adding grocery store...'
       });
       loading.present();
-    
-      this.groceryStoresProvider.add(this.store).then((res) => {
 
-        this.updateStorePhotos(res);
-        
+      if (this.addModal) {
+        this.groceryStoresProvider.add(this.store).then((res) => {
+          this.updateStorePhotos(res);
 
-        let toast = this.toastCtrl.create({
-          message: 'A new grocery store was successfully added.',
-          duration: 3000,
-          position: 'top'
+          let toast = this.toastCtrl.create({
+            message: 'A new grocery store was successfully added.',
+            duration: 3000,
+            position: 'top'
+          });
+
+          toast.present();
+          loading.dismiss();
+          this.navCtrl.pop();
         });
+      } else if (this.editModal) {
+        this.groceryStoresProvider.update(this.store).then((res) => {
+          let toast = this.toastCtrl.create({
+            message: 'The grocery store was successfully updated.',
+            duration: 3000,
+            position: 'top'
+          });
 
-        toast.present();
-        loading.dismiss();
-        this.navCtrl.pop();
-      });
+          toast.present();
+          loading.dismiss();
+          this.navCtrl.pop();
+        });
+      }
     }
   }
 
   loadMap() {
     this.geoLocationProvider.getCurrentPosition().then((res) => {
       let latLng = new google.maps.LatLng(res.coords.latitude, res.coords.longitude);
+      if (this.displayModal || this.editModal) {
+        latLng = new google.maps.LatLng(this.store.coordinates.latitude, this.store.coordinates.longitude);
+      }
 
       let mapOptions = {
         center: latLng,
@@ -107,7 +126,33 @@ export class GroceryStoreModalPage {
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+      if (this.displayModal || this.editModal) this.addMarker();
     });
+  }
+
+  delete() {
+    let alert = this.alertCtrl.create({
+      title: 'Remove store',
+      message: 'Are you sure you want to remove this store?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.groceryStoresProvider.delete(this.store).then(res => {
+              this.navCtrl.popToRoot();
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   addMarker() {
@@ -180,7 +225,7 @@ export class GroceryStoreModalPage {
         {
           text: 'Cancel',
           role: 'cancel',
-          handler: () => {}
+          handler: () => { }
         }
       ]
     });
@@ -235,16 +280,28 @@ export class GroceryStoreModalPage {
   }
 
   ionViewWillEnter() {
-    this.loadMap();
+    this.storeImages = [];
+    this.isAdmin = this.userProvider.getAdminStatus();
+
     console.log(this.navParams.get('GroceryStore'));
     console.log(this.navParams.get('Type'));
     let type = this.navParams.get('Type');
 
-    console.log("TYPE: ", type);
-
     this.addModal = (type === 'Add');
     this.displayModal = (type === 'Display');
     this.editModal = (type === 'Edit');
+
+    if (this.displayModal || this.editModal) this.store = this.navParams.get('Store');
+
+    if (this.editModal) {
+      this.storeImages = this.store.images;
+    }
+
+    this.loadMap();
+  }
+
+  openEditPage() {
+    this.navCtrl.push(GroceryStoreModalPage, { Store: this.store, Type: 'Edit' });
   }
 
   ionViewDidLoad() {

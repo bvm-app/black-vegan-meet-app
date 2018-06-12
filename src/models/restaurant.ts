@@ -7,4 +7,6 @@ export class Restaurant {
     coordinates: Coordinates = new Coordinates();
     images?: any[];
     distance?: number;
+    description?: string;
+    isAppRestaurant: boolean;
 }
