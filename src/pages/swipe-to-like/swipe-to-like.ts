@@ -147,6 +147,11 @@ export class SwipeToLikePage {
     this.geolocationProvider.getCurrentPosition().then((res) => {
       this.userSearchProvider.sortByDistanceFromCoordinates(res.coords).then(users => {
         users = [...users];
+        let currentUser = users.find(x => x.id == firebase.auth().currentUser.uid);
+        
+        if (currentUser) {
+          users.splice(users.indexOf(currentUser), 1);
+        }
 
         this.db.object(`userSwipeData/${firebase.auth().currentUser.uid}`).valueChanges().pipe(take(1)).subscribe(userSwipeData => {
           if (userSwipeData) {
@@ -167,7 +172,6 @@ export class SwipeToLikePage {
                 users.splice(users.indexOf(userToRemove), 1);
               }
             });
-
           }
 
 
@@ -192,7 +196,7 @@ export class SwipeToLikePage {
     this.potentialMatches = this.allPotentialMatches.slice(startIndex, endIndex);
 
     setTimeout(() => {
-      this.potentialMatches.forEach(x=>{
+      this.potentialMatches.forEach(x => {
         this.changeImage(0, x.id, x.images.length);
       });
     }, 0);
