@@ -21,13 +21,11 @@ export class AdminPage {
   }
 
   openGroceryStoreModal() {
-    let modal = this.modalCtrl.create(GroceryStoreModalPage, { Type: 'Add' });
-    modal.present();
+    this.navCtrl.push(GroceryStoreModalPage, { Type: 'Add' });
   }
 
   openRestaurantModal() {
-    let modal = this.modalCtrl.create(RestaurantModalPage, { Type: 'Add' });
-    modal.present();
+    this.navCtrl.push(RestaurantModalPage, { Type: 'Add' });
   }
 
   ionViewDidLoad() {

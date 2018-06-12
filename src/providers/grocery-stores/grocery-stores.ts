@@ -33,8 +33,21 @@ export class GroceryStoresProvider {
       this.db.object(`/groceryStore/${id}`).update({
         id: id
       });
-  
+
       resolve(id);
+    });
+  }
+
+  update(groceryStore: GroceryStore) {
+    console.log("UPDATED STORE: ", groceryStore);
+    return new Promise(resolve => {
+      resolve(this.db.object(`/groceryStore/${groceryStore.id}`).update(groceryStore));
+    });
+  }
+
+  delete(groceryStore: GroceryStore) {
+    return new Promise(resolve => {
+      resolve(this.db.object(`/groceryStore/${groceryStore.id}`).remove());
     });
   }
 
@@ -50,6 +63,7 @@ export class GroceryStoresProvider {
 
         console.log("STORE: ", store.images);
         store.image_url = (store.images != undefined && store.images.length > 0) ? store.images[0] : undefined;
+        store.isAppStore = true;
 
         this.geoLocationProvider.getDistanceFromCurrentLocation({
           latitude: store.coordinates.latitude,
@@ -109,7 +123,9 @@ export class GroceryStoresProvider {
                 longitudeType: 'E'
               },
               image_url: imageUrl,
+              images: [imageUrl],
               distance: distance,
+              isAppStore: false
             });
           }).catch(() => {
             // this.navCtrl.pop();

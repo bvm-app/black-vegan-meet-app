@@ -7,4 +7,6 @@ export class GroceryStore {
     coordinates: Coordinates = new Coordinates();
     images?: any[];
     distance?: number;
+    description?: string;
+    isAppStore: boolean;
 }

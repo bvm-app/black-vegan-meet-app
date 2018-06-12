@@ -10,12 +10,10 @@
     <ion-title *ngIf="editModal">Edit Restaurant</ion-title>
     <ion-title *ngIf="addModal">Add Restaurant</ion-title>
     <ion-title *ngIf="displayModal">{{restaurant.name}}</ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="closeModal()" icon-start>
-        <ion-icon name="arrow-back"></ion-icon>
-        <label>Close</label>
-      </button>
-    </ion-buttons>
+    <ion-buttons  *ngIf="isAdmin && restaurant.isAppRestaurant" end>
+        <button ion-button (click)='openEditPage()' *ngIf='displayModal'>Edit</button>
+        <button ion-button (click)='delete()' *ngIf='editModal'>Delete</button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -23,7 +21,7 @@
 
 <ion-content>
   <div class="content-restaurant-modal">
-    <form [formGroup]="restaurantForm" (ngSubmit)='addRestaurant()'>
+    <form [formGroup]="restaurantForm" (ngSubmit)='addRestaurant()' *ngIf="addModal || editModal">
       <ion-item>
         <ion-label [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Name</ion-label>
         <ion-input type="text" formControlName="name" [(ngModel)]="restaurant.name" name="name"></ion-input>
@@ -56,7 +54,10 @@
         <button ion-button type="button" block (click)="addMarker()">Select location</button>
       </ion-buttons>
 
-      <div margin-left #map id="map"></div>
+      <div id="wrap1">
+        <div #map id="map"></div>
+        <div id="cross"></div>
+      </div>
 
       <ion-item class='invalid' *ngIf="((!restaurantForm.controls.latitude.valid  && restaurantForm.controls.latitude.dirty) || (!restaurantForm.controls.longitude.valid  && restaurantForm.controls.longitude.dirty) || submitAttempt)">
         Please enter valid coordinates.
@@ -72,7 +73,7 @@
           </div>
         </div>
 
-        <div class="image-container" *ngIf="restaurantImages.length < 5">
+        <div class="image-container" *ngIf="!restaurantImages || restaurantImages.length < 5">
           <div class="image-container-inner" (click)="addPhoto()">
             <ion-icon name="md-camera"></ion-icon>
             <input type="file" id="fileElem" accept="image/*" style="display:none" (change)="uploadImageFromWeb($event.target.files)">
@@ -82,8 +83,26 @@
       </div>
 
       <ion-buttons margin-left>
-        <button ion-button type="submit" block>Add Restaurant</button>
+          <button ion-button type="submit" *ngIf="addModal" block>Add Restaurant</button>
+          <button ion-button type="submit" *ngIf="editModal" block>Update Restaurant</button>
       </ion-buttons>
     </form>
+  </div>
+
+  <div id="details" *ngIf="displayModal">
+    <div class="images-container">
+      <ion-slides [centeredSlides]="centeredSlides" class="image-slider-container" pager>
+        <ion-slide *ngFor="let image of restaurant.images">
+          <img [src]="image || defaultUserImagePlaceholder">
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div class="details-container">
+      <ion-label>{{restaurant.name}}</ion-label>
+      <p>{{restaurant.description}}</p>
+      <div #map id="map"></div>
+    </div>
+
   </div>
 </ion-content>
