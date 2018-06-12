@@ -288,8 +288,6 @@ export class GroceryStoreModalPage {
     console.log(this.navParams.get('Type'));
     let type = this.navParams.get('Type');
 
-    console.log("TYPE: ", type);
-
     this.addModal = (type === 'Add');
     this.displayModal = (type === 'Display');
     this.editModal = (type === 'Edit');
