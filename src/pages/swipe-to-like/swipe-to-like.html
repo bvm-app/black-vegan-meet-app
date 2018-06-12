@@ -34,5 +34,17 @@
     <div class="empty" *ngIf="potentialMatches && potentialMatches.length <= 0">
       Sorry! That's all of your potential matches. Come back later to see if there are more.
     </div>
+
+  </div>
+  <div class="action-buttons" *ngIf="potentialMatches && potentialMatches.length > 0">
+    <ion-fab>
+      <button ion-fab color="primary" (click)="voteUp(false, potentialMatches[potentialMatches.length - 1])"><ion-icon name="close"></ion-icon></button>
+    </ion-fab>
+    <ion-fab>
+      <button ion-fab color="primary" (click)="navigateToProfile(potentialMatches[potentialMatches.length - 1])"><ion-icon name="contact"></ion-icon></button>
+    </ion-fab>
+    <ion-fab>
+      <button ion-fab color="primary" (click)="voteUp(true, potentialMatches[potentialMatches.length - 1])"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab>
   </div>
 </ion-content>

@@ -1,5 +1,9 @@
 page-swipe-to-like {
 
+  #card-stack{
+    height:300px;
+  }
+
   .card-container{
     position: relative;
     .card{
@@ -35,6 +39,31 @@ page-swipe-to-like {
       height: 300px;
       position: absolute;
       opacity:0.3;
+    }
+
+
+  }
+
+  .action-buttons{
+    display:flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-around;
+    padding: 15px;
+    ion-fab{
+      position: relative;
+
+      ion-icon[name='checkmark']:before{
+        font-size:65px;
+        color:#7bff7b
+      }
+      ion-icon[name='close']:before{
+        font-size:65px;
+        color: #ff7b7b;
+      }
+      ion-icon[name='contact']:before{
+        font-size:35px;
+      }
     }
   }
 
