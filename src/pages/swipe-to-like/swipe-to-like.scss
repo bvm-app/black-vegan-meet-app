@@ -4,33 +4,76 @@ page-swipe-to-like {
     height:300px;
   }
 
+  @media(min-width: 1260px){
+    .card-container{
+      .card{
+        width: 300px;
+      }
+    }
+  }
+
+  .slider-buttons{
+    display:flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    justify-content: center;
+    
+    ion-fab{
+      position:relative;
+
+      button.fab{
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+
   .card-container{
     position: relative;
     .card{
       border-radius: 5px;
       position: absolute;
-
+      display: block;
+      top: 0; 
+      left: 0; 
+      bottom: 0; 
+      right: 0;
+      margin: auto;
 
       .user-details{
-        position:absolute;
-        bottom: 3em;
+        // position:absolute;
+        // bottom: 3em;
+        position: relative;
+        top: 18em;
+
         .name, .age{
           position: relative;
           color: white;
-          font-size: 24px;
+          font-size: 17px;
           font-weight: 700;
           padding: 10px 0 10px 10px;
         }
         .age{
           padding-left:0;
         }
+        .address{
+          display: block;
+          padding: 5px 0 10px 10px;
+          color: white;
+        }
       }
     }
 
-    img{
+    img, ion-slides{
       height:300px;
       max-height:300px;
       min-height:300px;
+      object-fit:cover;
     }
 
     .overlay{
@@ -39,6 +82,7 @@ page-swipe-to-like {
       height: 300px;
       position: absolute;
       opacity:0.3;
+      // z-index:99;
     }
 
 

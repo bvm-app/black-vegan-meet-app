@@ -14,19 +14,31 @@
 
 
 <ion-content padding>
+  <loading *ngIf="isFetching"></loading>
   <div id="card-stack">
-    <div swing-stack #myswing1 [stackConfig]="stackConfig" *ngFor="let pontentialMatch of potentialMatches" (throwoutleft)="voteUp(false, pontentialMatch)"
-      (throwoutright)="voteUp(true, pontentialMatch)" class="card-container">
-      <div #mycards1 swing-card class="card" (click)="navigateToProfile(pontentialMatch)">
+    <div swing-stack #myswing1 [stackConfig]="stackConfig" *ngFor="let potentialMatch of potentialMatches" (throwoutleft)="voteUp(false, potentialMatch)"
+      (throwoutright)="voteUp(true, potentialMatch)" class="card-container">
+      <div class="slider-buttons">
+        <ion-fab *ngFor="let image of potentialMatch.images; let i = index">
+          <button ion-fab mini (click)="changeImage(i, potentialMatch.id, potentialMatch.images.length)"></button>
+        </ion-fab>
+      </div>
+      <div #mycards1 swing-card class="card">
         <div class="overlay" [ngStyle]="{'background-color': backgroundColor}"></div>
-        <img class="image" [src]="pontentialMatch?.profilePictureUrl || defaultUserImage">
+        <img *ngFor="let image of potentialMatch.images; let i = index" [id]="createId(i, potentialMatch.id)" class="image" [src]="image"
+          style="position: absolute; opacity: 0;">
+        <!-- <img class="image" [src]="imageToDisplay || potentialMatch?.profilePictureUrl || defaultUserImagePlaceholder"> -->
         <div class="user-details">
           <span class="name">
-            {{ pontentialMatch?.firstName }} {{ pontentialMatch?.lastName }}
+            {{ potentialMatch?.firstName }} {{ potentialMatch?.lastName }}
           </span>
-          <span class="age" *ngIf="pontentialMatch.birthdate">
-            , {{ calculateAge(pontentialMatch?.birthdate)}}
+          <span class="age" *ngIf="potentialMatch.birthdate">
+            , {{ calculateAge(potentialMatch?.birthdate)}}
           </span>
+          <span class="address" *ngIf="formatAddress(potentialMatch)">
+            {{ formatAddress(potentialMatch) }}
+          </span>
+
         </div>
       </div>
     </div>
@@ -38,13 +50,19 @@
   </div>
   <div class="action-buttons" *ngIf="potentialMatches && potentialMatches.length > 0">
     <ion-fab>
-      <button ion-fab color="primary" (click)="voteUp(false, potentialMatches[potentialMatches.length - 1])"><ion-icon name="close"></ion-icon></button>
+      <button ion-fab color="primary" (click)="voteUp(false, potentialMatches[potentialMatches.length - 1])">
+        <ion-icon name="close"></ion-icon>
+      </button>
     </ion-fab>
     <ion-fab>
-      <button ion-fab color="primary" (click)="navigateToProfile(potentialMatches[potentialMatches.length - 1])"><ion-icon name="contact"></ion-icon></button>
+      <button ion-fab color="primary" (click)="navigateToProfile(potentialMatches[potentialMatches.length - 1])">
+        <ion-icon name="contact"></ion-icon>
+      </button>
     </ion-fab>
     <ion-fab>
-      <button ion-fab color="primary" (click)="voteUp(true, potentialMatches[potentialMatches.length - 1])"><ion-icon name="checkmark"></ion-icon></button>
+      <button ion-fab color="primary" (click)="voteUp(true, potentialMatches[potentialMatches.length - 1])">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
     </ion-fab>
   </div>
 </ion-content>

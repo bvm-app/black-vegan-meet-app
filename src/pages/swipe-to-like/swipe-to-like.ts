@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Slides } from 'ionic-angular';
 import { env } from '../../app/env';
 import { Subscription } from 'rxjs/Subscription';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -20,6 +20,7 @@ import { SwipeProvider } from '../../providers/swipe/swipe';
 import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import { UserSearchProvider } from '../../providers/user-search/user-search';
 import { take } from 'rxjs/operators';
+import { UserProvider } from '../../providers/user/user';
 /**
  * Generated class for the SwipeToLikePage page.
  *
@@ -33,11 +34,11 @@ import { take } from 'rxjs/operators';
   templateUrl: 'swipe-to-like.html',
 })
 export class SwipeToLikePage {
-
+  @ViewChild(Slides) slides: Slides;
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
-  defaultUserImage = env.DEFAULT.userImagePlaceholder;
+  defaultUserImagePlaceholder = env.DEFAULT.userImagePlaceholder;
 
   potentialMatches: IUser[];
   usersSubscription: Subscription;
@@ -47,6 +48,7 @@ export class SwipeToLikePage {
   backgroundColor: string = '';
 
   currentPosition: any;
+  isFetching = true;
 
   constructor(
     public navCtrl: NavController,
@@ -55,7 +57,8 @@ export class SwipeToLikePage {
     private toastCtrl: ToastController,
     private swipeProvider: SwipeProvider,
     private geolocationProvider: GeoLocationProvider,
-    private userSearchProvider: UserSearchProvider
+    private userSearchProvider: UserSearchProvider,
+    private userProvider: UserProvider
   ) {
     this.stackConfig = {
       throwOutConfidence: (offsetX, offsetY, element) => {
@@ -68,11 +71,13 @@ export class SwipeToLikePage {
         return 1200;
       }
     };
+
   }
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad SwipeToLikePage');
     this.generatePotentialMatches();
+
   }
 
   ionViewDidLeave() {
@@ -92,6 +97,8 @@ export class SwipeToLikePage {
     }
     this.backgroundColor = color;
     element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
+
+
   }
 
   voteUp(liked: boolean, potentialMatch: IUser) {
@@ -160,10 +167,21 @@ export class SwipeToLikePage {
                 users.splice(users.indexOf(userToRemove), 1);
               }
             });
+
           }
+
+
+          users.forEach(x => {
+            if (!x.images) {
+              x.images = [this.defaultUserImagePlaceholder];
+            }
+          });
 
           this.allPotentialMatches = users;
           this.updatePotentialMatches(this.allPotentialMatches.length);
+          this.isFetching = false;
+
+
         })
       });
     });
@@ -172,6 +190,12 @@ export class SwipeToLikePage {
   updatePotentialMatches(endIndex: number) {
     let startIndex = endIndex == 1 ? 0 : endIndex - 2;
     this.potentialMatches = this.allPotentialMatches.slice(startIndex, endIndex);
+
+    setTimeout(() => {
+      this.potentialMatches.forEach(x=>{
+        this.changeImage(0, x.id, x.images.length);
+      });
+    }, 0);
   }
 
   navigateToProfile(user: IUser) {
@@ -184,4 +208,21 @@ export class SwipeToLikePage {
     return moment().diff(birthdate, 'years');
   }
 
+  formatAddress(user: IUser) {
+    return this.userProvider.formatAddress(user);
+  }
+
+  changeImage(index: number, id: string, length: number) {
+    for (let i = 0; i < length; i++) {
+      let image = document.getElementById(`image${id}-${i}`) as HTMLImageElement;
+      image.style.opacity = '0';
+    }
+
+    let image = document.getElementById(`image${id}-${index}`) as HTMLImageElement;
+    image.style.opacity = '1';
+  }
+
+  createId(index: number, id: string) {
+    return `image${id}-${index}`;
+  }
 }
