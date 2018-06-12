@@ -23,7 +23,7 @@
   <div class="content-grocery-store-modal">
     <form [formGroup]="storeForm" (ngSubmit)='addGroceryStore()' *ngIf="addModal || editModal">
       <ion-item>
-        <ion-label [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Name</ion-label>
+        <ion-label stacked [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Name</ion-label>
         <ion-input type="text" formControlName="name" [(ngModel)]="store.name" name="name"></ion-input>
       </ion-item>
 
@@ -32,7 +32,7 @@
       </ion-label>
 
       <ion-item>
-        <ion-label [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Description</ion-label>
+        <ion-label stacked [class.invalid]="!storeForm.controls.name.valid && (storeForm.controls.name.dirty || submitAttempt)">Description</ion-label>
         <ion-textarea [(ngModel)]="store.description" formControlName="description" name="description"></ion-textarea>
       </ion-item>
 
@@ -41,12 +41,12 @@
       </ion-item>
 
       <ion-item>
-        <ion-label [class.invalid]="!storeForm.controls.latitude.valid && (storeForm.controls.latitude.dirty || submitAttempt)">Latitude</ion-label>
+        <ion-label stacked [class.invalid]="!storeForm.controls.latitude.valid && (storeForm.controls.latitude.dirty || submitAttempt)">Latitude</ion-label>
         <ion-input [(ngModel)]="store.coordinates.latitude" formControlName="latitude" name="latitude"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label [class.invalid]="!storeForm.controls.longitude.valid && (storeForm.controls.longitude.dirty || submitAttempt)">longitude</ion-label>
+        <ion-label stacked [class.invalid]="!storeForm.controls.longitude.valid && (storeForm.controls.longitude.dirty || submitAttempt)">longitude</ion-label>
         <ion-input [(ngModel)]="store.coordinates.longitude" formControlName="longitude" name="longitude"></ion-input>
       </ion-item>
 
@@ -83,8 +83,8 @@
       </div>
 
       <ion-buttons margin-left>
-        <button ion-button type="submit" *ngIf="addModal" block>Add Store</button>
-        <button ion-button type="submit" *ngIf="editModal" block>Update Store</button>
+        <button ion-button  color="secondary" type="submit" *ngIf="addModal" block>Add Store</button>
+        <button ion-button  color="secondary" type="submit" *ngIf="editModal" block>Update Store</button>
       </ion-buttons>
     </form>
   </div>

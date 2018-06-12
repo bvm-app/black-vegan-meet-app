@@ -50,7 +50,6 @@ export class RestaurantsPage {
         if (l.distance > r.distance) return 1;
         return 0
       });
-      console.log("ELEMENT!!: ", this.restaurants);
     });
   }
 
