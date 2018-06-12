@@ -23,7 +23,7 @@
   <div class="content-restaurant-modal">
     <form [formGroup]="restaurantForm" (ngSubmit)='addRestaurant()' *ngIf="addModal || editModal">
       <ion-item>
-        <ion-label [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Name</ion-label>
+        <ion-label stacked [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Name</ion-label>
         <ion-input type="text" formControlName="name" [(ngModel)]="restaurant.name" name="name"></ion-input>
       </ion-item>
 
@@ -32,7 +32,7 @@
       </ion-label>
 
       <ion-item>
-        <ion-label [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Description</ion-label>
+        <ion-label stacked [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Description</ion-label>
         <ion-textarea [(ngModel)]="restaurant.description" formControlName="description" name="description"></ion-textarea>
       </ion-item>
 
@@ -41,12 +41,12 @@
       </ion-item>
 
       <ion-item>
-        <ion-label [class.invalid]="!restaurantForm.controls.latitude.valid && (restaurantForm.controls.latitude.dirty || submitAttempt)">Latitude</ion-label>
+        <ion-label stacked [class.invalid]="!restaurantForm.controls.latitude.valid && (restaurantForm.controls.latitude.dirty || submitAttempt)">Latitude</ion-label>
         <ion-input [(ngModel)]="restaurant.coordinates.latitude" formControlName="latitude" name="latitude"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label [class.invalid]="!restaurantForm.controls.longitude.valid && (restaurantForm.controls.longitude.dirty || submitAttempt)">longitude</ion-label>
+        <ion-label stacked [class.invalid]="!restaurantForm.controls.longitude.valid && (restaurantForm.controls.longitude.dirty || submitAttempt)">longitude</ion-label>
         <ion-input [(ngModel)]="restaurant.coordinates.longitude" formControlName="longitude" name="longitude"></ion-input>
       </ion-item>
 
@@ -83,8 +83,8 @@
       </div>
 
       <ion-buttons margin-left>
-          <button ion-button type="submit" *ngIf="addModal" block>Add Restaurant</button>
-          <button ion-button type="submit" *ngIf="editModal" block>Update Restaurant</button>
+          <button ion-button color="secondary" type="submit" *ngIf="addModal" block>Add Restaurant</button>
+          <button ion-button color="secondary" type="submit" *ngIf="editModal" block>Update Restaurant</button>
       </ion-buttons>
     </form>
   </div>
