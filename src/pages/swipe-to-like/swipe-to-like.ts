@@ -113,7 +113,7 @@ export class SwipeToLikePage {
     }
 
     this.updatePotentialMatches(this.allPotentialMatches.indexOf(removedCard));
-    this.presentToast(this.recentCard);
+    // this.presentToast(this.recentCard);
     this.swipeProvider.updateUserSwipeData(potentialMatch.id, liked);
   }
 
