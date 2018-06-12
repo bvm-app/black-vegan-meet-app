@@ -52,7 +52,7 @@ page-profile {
     }
   }
 
-  .edit-actions-container {
+  .actions-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -60,7 +60,7 @@ page-profile {
     margin: $section-spacer 0;
     background: $section-bg-color;
 
-    .edit-button {
+    .action-button {
       text-align: center;
       color: black;
 

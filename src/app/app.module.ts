@@ -22,6 +22,7 @@ import {
 } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ElasticModule } from 'ng-elastic';
 
 // Services/Providers
 import { FirebaseStorageProvider } from '../providers/firebase-storage/firebase-storage';
@@ -49,12 +50,14 @@ import { GroceryStoresProvider } from '../providers/grocery-stores/grocery-store
 import { GeoLocationProvider } from '../providers/geo-location/geo-location';
 
 import { RefineSearchPageModule } from '../pages/refine-search/refine-search.module';
+import { ConversationProvider } from '../providers/conversation/conversation';
 
 @NgModule({
   declarations: [MyApp, HomePage],
   imports: [
     BrowserModule,
     ComponentsModule,
+    ElasticModule,
     LazyLoadImageModule,
     IonicModule.forRoot(MyApp),
     LoginPageModule,
@@ -90,6 +93,7 @@ import { RefineSearchPageModule } from '../pages/refine-search/refine-search.mod
     ViewedMeProvider,
     UserSearchProvider,
     RefineSearchProvider,
+    ConversationProvider,
   ]
 })
 export class AppModule {

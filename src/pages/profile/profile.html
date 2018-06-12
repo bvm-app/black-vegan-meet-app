@@ -33,14 +33,21 @@
       </div>
     </div>
 
-    <div class="edit-actions-container" *ngIf="isCurrentLoggedInUser" padding>
-      <button (click)="navigateTo('EditPhotosPage')" class="edit-button" ion-button outline>
+    <div class="actions-container" *ngIf="isCurrentLoggedInUser" padding>
+      <button (click)="navigateTo('EditPhotosPage')" class="action-button" ion-button outline>
         <ion-icon item-start name="md-camera"></ion-icon>
         Edit Photos
       </button>
-      <button (click)="navigateTo('EditProfilePage')" class="edit-button" ion-button outline>
+      <button (click)="navigateTo('EditProfilePage')" class="action-button" ion-button outline>
         <ion-icon item-start name="md-create"></ion-icon>
         Edit Profile
+      </button>
+    </div>
+
+    <div class="actions-container" *ngIf="!isCurrentLoggedInUser" padding>
+      <button (click)="goToConversationPage()" class="action-button" ion-button outline>
+        <ion-icon item-start name="md-text"></ion-icon>
+        Send a message to {{ user?.firstName }}
       </button>
     </div>
 

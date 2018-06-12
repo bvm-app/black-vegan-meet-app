@@ -30,11 +30,13 @@ export class FirebaseStorageProvider {
 
   uploadImageFromGallery() {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 75,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      targetHeight: 900,
+      targetWidth: 1600
     };
 
     return this.camera.getPicture(options).then(imageData => {
@@ -49,11 +51,13 @@ export class FirebaseStorageProvider {
 
   uploadImageFromCamera() {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 75,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      targetHeight: 900,
+      targetWidth: 1600
     };
 
     return this.camera.getPicture(options).then(imageData => {
@@ -120,6 +124,13 @@ export class FirebaseStorageProvider {
 
   private onError = error => {
     console.log('error', error);
+    this.toastCtrl
+      .create({
+        message: error.message,
+        duration: 3000,
+        position: 'bottom'
+      })
+      .present();
     return error;
   };
 }

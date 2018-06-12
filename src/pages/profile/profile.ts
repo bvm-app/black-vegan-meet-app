@@ -104,4 +104,8 @@ export class ProfilePage {
   navigateTo(page) {
     this.navCtrl.push(page);
   }
+
+  goToConversationPage() {
+    this.navCtrl.push('ConversationPage', { recipient: this.user })
+  }
 }
