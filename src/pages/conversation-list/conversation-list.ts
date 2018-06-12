@@ -31,8 +31,8 @@ export class ConversationListPage {
     public db: AngularFireDatabase
   ) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConversationListPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ConversationListPage');
 
     this.loadUserConversations();
   }

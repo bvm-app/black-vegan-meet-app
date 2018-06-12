@@ -150,7 +150,8 @@ export class ConversationPage {
     this.dbStorage
       .uploadImageFromCamera()
       .then(imageData => {
-        this.sendMessage('', imageData.downloadUrl);
+        console.log('received imageData:', imageData);
+        this.sendMessage('Uploaded an image', imageData.downloadUrl);
       })
       .catch((err: Error) => {
         console.log('File upload error:', err);
@@ -161,7 +162,8 @@ export class ConversationPage {
     this.dbStorage
       .uploadImageFromGallery()
       .then(imageData => {
-        this.sendMessage('', imageData.downloadUrl);
+        console.log('received imageData:', imageData);
+        this.sendMessage('Uploaded an image', imageData.downloadUrl);
       })
       .catch((err: Error) => {
         console.log('File upload error:', err);
@@ -178,7 +180,8 @@ export class ConversationPage {
       this.dbStorage
         .uploadImageFromWeb(file[0])
         .then(imageData => {
-          this.sendMessage('', imageData.downloadUrl);
+          console.log('received imageData:', imageData);
+          this.sendMessage('Uploaded an image', imageData.downloadUrl);
         })
         .catch((err: Error) => {
           console.log('File upload error:', err);

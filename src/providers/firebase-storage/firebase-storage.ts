@@ -114,11 +114,13 @@ export class FirebaseStorageProvider {
   private onSuccess = snapshot => {
     console.log('snapshot:', snapshot);
     return snapshot.ref.getDownloadURL().then(downloadURL => {
-      return {
+      const imageData: FirebaseFileUpload = {
         downloadUrl: downloadURL,
         contentType: snapshot.metadata.contentType,
         fileName: snapshot.metadata.name
       };
+      console.log('imageData:', imageData);
+      return imageData;
     });
   };
 
