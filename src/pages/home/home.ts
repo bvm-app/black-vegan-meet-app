@@ -80,7 +80,7 @@ export class HomePage {
     let subscription = this.db.object(`userSwipeData`).valueChanges().subscribe(users => {
       let userId = firebase.auth().currentUser.uid;
 
-      if (users.hasOwnProperty(userId) && users[userId].hasOwnProperty('likedUsers')) {
+      if (users && users.hasOwnProperty(userId) && users[userId] && users[userId].hasOwnProperty('likedUsers')) {
         let likedIds: string[] = Object.keys(users[userId].likedUsers);
         let mutualLikeIds: string[] = [];
 
