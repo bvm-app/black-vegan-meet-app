@@ -17,7 +17,7 @@
   <loading *ngIf="isFetching"></loading>
   <div id="card-stack">
     <div swing-stack #myswing1 [stackConfig]="stackConfig" *ngFor="let potentialMatch of potentialMatches; let index=index" (throwoutleft)="voteUp(false, potentialMatch)"
-      (throwoutright)="voteUp(true, potentialMatch)" class="card-container" [ngStyle]="{'z-index': index==0 ? '-1' : '1'}">
+      (throwoutright)="voteUp(true, potentialMatch)" class="card-container" [ngStyle]="{'z-index': index==0 && potentialMatches.length > 1 ? '-1' : '1'}">
       <div #mycards1 swing-card class="card">
         <div class="overlay" [ngStyle]="{'background-color': backgroundColor}"></div>
         <div class="slider-buttons">
