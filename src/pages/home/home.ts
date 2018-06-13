@@ -9,6 +9,7 @@ import { UserSearchProvider } from '../../providers/user-search/user-search';
 import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import firebase from 'firebase';
 import { take } from 'rxjs/internal/operators/take';
+import { ConversationProvider } from '../../providers/conversation/conversation';
 
 @Component({
   selector: 'page-home',
@@ -31,7 +32,8 @@ export class HomePage {
     public db: AngularFireDatabase,
     public userSearchProvider: UserSearchProvider,
     public geolocationProvider: GeoLocationProvider,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private conversationProvider: ConversationProvider
   ) { }
 
   ionViewDidLeave() {
@@ -56,11 +58,11 @@ export class HomePage {
         }
       });
 
-    this.checkSwipeData();
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+    this.checkSwipeData();
 
     this.userProvider.initOnlinePresence();
     this.userProvider.initCurrentUser();
@@ -96,11 +98,38 @@ export class HomePage {
 
         if (mutualLikeIds.length > 0) {
           // IF SOMEONE LIKED BACK
-          console.log('someone has liked you back');
+          mutualLikeIds.forEach(id => {
+            this.db.object(`userData/${id}`).valueChanges().subscribe((user: IUser) => {
+              this.presentConfirm(user);
+            });
+          });
 
         }
       }
       subscription.unsubscribe();
     });
+  }
+
+  presentConfirm(user: IUser) {
+    let alert = this.alertCtrl.create({
+      title: 'Match Found!',
+      message: `${user.firstName} has liked you back. Would you like to message ${user.firstName} now?`,
+      buttons: [
+        {
+          text: 'Later',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.conversationProvider.goToConversation(user);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
