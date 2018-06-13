@@ -1,4 +1,9 @@
 page-swipe-to-like {
+  ion-content {
+    .scroll-content {
+      background-color: $section-bg-color !important;
+    }
+  }
 
   .info-container {
     width: 100%;
@@ -33,7 +38,7 @@ page-swipe-to-like {
     right: 0;
     margin: auto;
     justify-content: center;
-    
+
     ion-fab{
       position:relative;
 
@@ -51,9 +56,9 @@ page-swipe-to-like {
       border-radius: 5px;
       position: absolute;
       display: block;
-      top: 0; 
-      left: 0; 
-      bottom: 0; 
+      top: 0;
+      left: 0;
+      bottom: 0;
       right: 0;
       margin: auto;
 
