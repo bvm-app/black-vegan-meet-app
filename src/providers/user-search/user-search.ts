@@ -259,19 +259,46 @@ export class UserSearchProvider {
     return this.users.pipe(take(1)).toPromise().then(users => {
       let filteredUsers = [...users];
       filteredUsers = users.filter(user => {
-      if (!user.geolocation) return false;
+        if (!user.geolocation) return false;
 
-      let distanceBetweenCoordinates = this.geolocationProvider.getDistanceBetweenCoordinates(
-        coordinates,
-        user.geolocation
-      );
+        let distanceBetweenCoordinates = this.geolocationProvider.getDistanceBetweenCoordinates(
+          coordinates,
+          user.geolocation
+        );
 
-      // Convert to miles
-      distanceBetweenCoordinates = this.geolocationProvider.convertKMtoMile(distanceBetweenCoordinates);
+        // Convert to miles
+        distanceBetweenCoordinates = this.geolocationProvider.convertKMtoMile(distanceBetweenCoordinates);
         return distanceBetweenCoordinates <= maxDistance;
       });
 
       return filteredUsers;
+    });
+  }
+
+  sortByDistanceFromCoordinates(coordinates: Coordinates) {
+    return this.users.pipe(take(1)).toPromise().then(users => {
+      let sortedUsers = [...users];
+      sortedUsers = users.sort((previous, current) => {
+        if (!previous.geolocation) return -1;
+        if (!current.geolocation) return 1;
+
+        let prevDistanceBetweenCoordinates = this.geolocationProvider.getDistanceBetweenCoordinates(
+          coordinates,
+          previous.geolocation
+        );
+
+        let currentDistanceBetweenCoordinates = this.geolocationProvider.getDistanceBetweenCoordinates(
+          coordinates,
+          current.geolocation
+        );
+
+        return prevDistanceBetweenCoordinates < currentDistanceBetweenCoordinates ? -1 : 1;
+        // // Convert to miles
+        // distanceBetweenCoordinates = this.geolocationProvider.convertKMtoMile(distanceBetweenCoordinates);
+        // return distanceBetweenCoordinates <= maxDistance;
+      });
+
+      return sortedUsers;
     });
   }
 

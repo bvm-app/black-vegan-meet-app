@@ -50,6 +50,7 @@ import { GroceryStoresProvider } from '../providers/grocery-stores/grocery-store
 import { GeoLocationProvider } from '../providers/geo-location/geo-location';
 
 import { RefineSearchPageModule } from '../pages/refine-search/refine-search.module';
+import { SwipeProvider } from '../providers/swipe/swipe';
 import { ConversationProvider } from '../providers/conversation/conversation';
 
 @NgModule({
@@ -93,6 +94,7 @@ import { ConversationProvider } from '../providers/conversation/conversation';
     ViewedMeProvider,
     UserSearchProvider,
     RefineSearchProvider,
+    SwipeProvider,
     ConversationProvider,
   ]
 })

@@ -1,7 +1,9 @@
 export const env = {
   DEFAULT: {
     userImagePlaceholder: 'assets/imgs/user_placeholder.png',
-    eventImagePlaceholder: 'assetse/img/event_placeholder.png',
+    eventImagePlaceholder: 'assets/imgs/event_placeholder.png',
+    likeImage: 'assets/imgs/like.png',
+    nopeImage: 'assets/imgs/nope.png',
     imagePlaceholder: 'assets/logo.png',
 
     icons: {
