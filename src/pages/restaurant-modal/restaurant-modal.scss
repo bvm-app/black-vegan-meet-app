@@ -30,9 +30,9 @@ page-restaurant-modal {
   }
 
   .details-container {
-    margin-left: 30px;
-    margin-right: 30px;
-    
+    padding-top: 15px;
+    margin-top: 25px;
+
     ion-label {
       font-size: 20px;
       font-weight: bold;
@@ -71,13 +71,18 @@ page-restaurant-modal {
   }
 
   #wrap1 {
-    margin-left: 15px;
+    ion-label {
+      font-size: 20px;
+      font-weight: bold;
+      color: #686868;
+    }
+
+    padding-top: 15px;
     position: relative;
   }
 
   #map {
       margin-bottom: 10px;
-      margin-top: 10px;
       height: 200px;
   }
 
