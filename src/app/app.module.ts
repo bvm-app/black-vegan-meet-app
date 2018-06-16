@@ -52,6 +52,7 @@ import { GeoLocationProvider } from '../providers/geo-location/geo-location';
 import { RefineSearchPageModule } from '../pages/refine-search/refine-search.module';
 import { SwipeProvider } from '../providers/swipe/swipe';
 import { ConversationProvider } from '../providers/conversation/conversation';
+import { NotificationProvider } from '../providers/notification/notification';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -96,6 +97,7 @@ import { ConversationProvider } from '../providers/conversation/conversation';
     RefineSearchProvider,
     SwipeProvider,
     ConversationProvider,
+    NotificationProvider,
   ]
 })
 export class AppModule {

@@ -20,6 +20,7 @@
       [ngClass]="message?.isSender ? 'you': 'other'" *ngFor="let message of messages;let idx = index">
       <div class="user-image" *ngIf="(!message?.isSender) && (message?.user?.id != messages[idx - 1]?.user?.id)">
         <img [src]="message.user?.profilePictureUrl || defaultUserImage">
+        <div *ngIf="isRecipientOnline" class="online-status"></div>
       </div>
       <div class="image" *ngIf="message.file">
         <img [src]="message.file">

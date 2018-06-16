@@ -13,6 +13,19 @@ conversation-list-item {
       justify-content: center;
       flex-shrink: 0;
       margin-right: 12px;
+      position: relative;
+
+      .online-status {
+        background-color: #42b72a;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        border: 2px solid white !important;
+
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
 
       img {
         object-fit: cover;

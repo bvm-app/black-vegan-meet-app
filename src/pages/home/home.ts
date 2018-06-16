@@ -10,6 +10,8 @@ import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import firebase from 'firebase';
 import { take } from 'rxjs/internal/operators/take';
 import { ConversationProvider } from '../../providers/conversation/conversation';
+import { NotificationProvider } from '../../providers/notification/notification';
+import { INotifications } from '../../models/INotifications';
 
 @Component({
   selector: 'page-home',
@@ -25,6 +27,7 @@ export class HomePage {
 
   prospectDates: IUser[] = [];
   currentLoggedInUserSubscription: Subscription = new Subscription();
+  notifications: INotifications = {};
 
   constructor(
     public navCtrl: NavController,
@@ -33,7 +36,8 @@ export class HomePage {
     public userSearchProvider: UserSearchProvider,
     public geolocationProvider: GeoLocationProvider,
     private alertCtrl: AlertController,
-    private conversationProvider: ConversationProvider
+    private conversationProvider: ConversationProvider,
+    private notificationProvider: NotificationProvider
   ) { }
 
   ionViewDidLeave() {
@@ -58,7 +62,14 @@ export class HomePage {
         }
       });
 
+    this.notificationProvider.getNotifications().subscribe(notifications => {
+      if (notifications && notifications.messages) {
+        notifications.messages = Object.keys(notifications.messages);
+      }
+      console.log('new notifications:', notifications);
 
+      this.notifications = notifications || {};
+    });
   }
 
   ionViewDidLoad() {

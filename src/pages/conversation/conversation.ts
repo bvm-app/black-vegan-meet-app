@@ -9,6 +9,8 @@ import firebase from 'firebase';
 import moment from 'moment';
 import { env } from '../../app/env';
 import { FirebaseStorageProvider } from '../../providers/firebase-storage/firebase-storage';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { NotificationProvider } from '../../providers/notification/notification';
 
 /**
  * Generated class for the ConversationPage page.
@@ -33,6 +35,8 @@ export class ConversationPage {
   message: string = '';
   messages: IConversationMessage[] = [];
   conversationId: string;
+  isRecipientOnline: boolean;
+  isRecipientOnlineSubscription: Subscription;
 
   senderSubscription: Subscription;
   conversationSubscription: Subscription;
@@ -42,7 +46,9 @@ export class ConversationPage {
     public navParams: NavParams,
     public userProvider: UserProvider,
     public conversationProvider: ConversationProvider,
-    public dbStorage: FirebaseStorageProvider
+    public dbStorage: FirebaseStorageProvider,
+    public db: AngularFireDatabase,
+    public notificationProvider: NotificationProvider
   ) {}
 
   ionViewDidLoad() {
@@ -51,13 +57,22 @@ export class ConversationPage {
     this.initUsers();
     this.loadConversation();
     this.conversationProvider.clearUnread(this.sender.id, this.conversationId);
+    this.isRecipientOnlineSubscription = this.db.object(`presence/${this.recipient.id}`).valueChanges().subscribe((isOnline: any) => {
+      this.isRecipientOnline = !!isOnline;
+    });
+    this.notificationProvider.removeMessageNotificationToUser(this.recipient.id);
   }
 
   ionViewDidLeave() {
     this.conversationProvider.clearUnread(this.sender.id, this.conversationId);
+    if (this.isRecipientOnline) {
+      this.notificationProvider.removeMessageNotificationToUser(this.recipient.id);
+    }
+
     if (this.senderSubscription) this.senderSubscription.unsubscribe();
     if (this.conversationSubscription)
       this.conversationSubscription.unsubscribe();
+    if (this.isRecipientOnlineSubscription) this.isRecipientOnlineSubscription.unsubscribe();
   }
 
   initUsers() {
@@ -125,6 +140,8 @@ export class ConversationPage {
     };
 
     this.conversationProvider.sendMessage(this.conversationId, payload);
+
+    this.notificationProvider.addMessageNotificationToUser(this.recipient.id);
 
     // Update your list
     this.conversationProvider.updateUserConversationListDetails(

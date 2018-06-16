@@ -2,6 +2,7 @@
 <div class="conversation-detail" (click)="goToConversation()">
   <div class="user-image">
     <img [src]="user?.profilePictureUrl || defaultUserImage">
+    <div *ngIf="isUserOnline" class="online-status"></div>
   </div>
   <div class="details">
     <div class="name">{{ user?.firstName }} {{ user?.lastName }}</div>

@@ -99,6 +99,18 @@ page-conversation {
       left: -55px;
       top: 0;
 
+      .online-status {
+        background-color: #42b72a;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        border: 2px solid white !important;
+
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
       img {
         border-radius: 50%;
         object-fit: cover;

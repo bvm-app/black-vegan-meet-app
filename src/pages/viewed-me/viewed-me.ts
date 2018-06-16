@@ -10,6 +10,7 @@ import { UserProvider } from '../../providers/user/user';
 import { map } from 'rxjs/operators/map';
 import moment from 'moment';
 import _ from 'lodash';
+import { NotificationProvider } from '../../providers/notification/notification';
 
 /**
  * Generated class for the ViewedMePage page.
@@ -36,13 +37,15 @@ export class ViewedMePage {
     public navParams: NavParams,
     public db: AngularFireDatabase,
     public viewedMeProvider: ViewedMeProvider,
-    public userProvider: UserProvider
+    public userProvider: UserProvider,
+    public notificationProvider: NotificationProvider
   ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewedMePage');
     this.currentLoggedInUserId = firebase.auth().currentUser.uid;
     this.fetchViewedMeUsers(null);
+    this.notificationProvider.clearCurrentUserViewedMeNotification();
   }
 
   ionViewDidLeave() {
