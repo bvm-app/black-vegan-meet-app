@@ -33,7 +33,7 @@ page-grocery-store-modal {
   .details-container {
     padding-top: 15px;
     margin-top: 25px;
-    
+
     ion-label {
       font-size: 20px;
       font-weight: bold;
@@ -72,13 +72,6 @@ page-grocery-store-modal {
   }
 
   #wrap1 {
-    ion-label {
-      font-size: 20px;
-      font-weight: bold;
-      color: #686868;
-    }
-
-    
     padding-top: 15px;
     position: relative;
   }
@@ -95,7 +88,7 @@ page-grocery-store-modal {
     background:url(http://maps.gstatic.com/mapfiles/markers2/marker.png) no-repeat;
     /*center the marker*/
     top:50%;left:50%;
-  
+
     z-index:1;
     /*fix offset when needed*/
     margin-left:-10px;
@@ -103,7 +96,7 @@ page-grocery-store-modal {
     /*size of the image*/
     height:34px;
     width:20px;
-  
+
     cursor:pointer;
   }
 
