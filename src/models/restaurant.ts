@@ -1,6 +1,6 @@
 import { Coordinates } from "./coordinates";
 
-export class GroceryStore {
+export class Restaurant {
     id: string;
     name: string;
     image_url?: string;
@@ -8,5 +8,5 @@ export class GroceryStore {
     images?: any[];
     distance?: number;
     description?: string;
-    isAppStore: boolean;
+    isAppRestaurant: boolean;
 }

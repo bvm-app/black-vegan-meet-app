@@ -1,10 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { GroceryStoresProvider } from '../../providers/grocery-stores/grocery-stores';
-import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import { GroceryStore } from '../../models/grocery-store';
 import { GroceryStoreModalPage } from '../grocery-store-modal/grocery-store-modal';
-import { MapSearchParameters } from '../../models/map-search-parameters';
 
 /**
  * Generated class for the GroceryStoresPage page.
@@ -21,75 +19,47 @@ import { MapSearchParameters } from '../../models/map-search-parameters';
 export class GroceryStoresPage {
 
   stores: GroceryStore[] = [];
-  dbStores: GroceryStore[] = [];
-  mapStores: GroceryStore[] = [];
+  isFetching: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private groceryStoresProvider: GroceryStoresProvider,
-    private geoLocationProvider: GeoLocationProvider,
-    private modalCtrl: ModalController) {
+    private loadingCtrl: LoadingController) {
   }
 
   ionViewDidEnter() {
-    this.initStores();
+    this.getGroceryStores();
   }
 
-  private async initStores() {
-    this.groceryStoresProvider.getGroceryStores();
+  openStore(store: GroceryStore) {
+    this.navCtrl.push(GroceryStoreModalPage, { Store: store, Type: 'Display' });
+  }
 
-    this.groceryStoresProvider.groceryStoresSubject.subscribe(data => {
-      this.stores = [];
-      
-      data.forEach(element => {
-        this.stores.push(element);
+  getGroceryStores() {
+    this.isFetching = true;
+
+    this.groceryStoresProvider.getGroceryStores().then(res => {
+
+      this.groceryStoresProvider.groceryStoresSubject.subscribe(data => {
+        this.stores = [];
+
+        data.forEach(element => {
+          this.stores.push(element);
+        });
+
+        this.stores = this.stores.sort((l, r): number => {
+          if (l.distance < r.distance) return -1;
+          if (l.distance > r.distance) return 1;
+          return 0
+        });
+
+        this.isFetching = false;
+
       });
 
-      this.stores =  this.stores.sort((l, r): number => {
-        if (l.distance < r.distance) return -1;
-        if (l.distance > r.distance) return 1;
-        return 0
-      });
-      console.log("ELEMENT!!: ", this.stores);
+      return new Promise(resolve => {
+        resolve({ Result: true });
+      })
     });
-
-    // this.groceryStoresProvider.getGroceryStores(5).forEach(async store => {
-    //   store.distance = await this.geoLocationProvider.getDistanceFromCurrentLocation(store.coordinates);
-    //   this.dbStores.push(store);
-
-    //   console.log("DBSTORES RES: ", store);
-      
-    // });
-
-    // this.nearbyPlaceApi();
-  }
-
-  async nearbyPlaceApi() {
-    
-  }
-
-  private pushMapStore(element, imageUrl, distance) {
-    this.mapStores.push({
-      id: element.id,
-      name: element.name,
-      coordinates: {
-        latitude: element.geometry.location.lat,
-        longitude: element.geometry.location.lng,
-        latitudeType: 'N',
-        longitudeType: 'E'
-      },
-      image_url: imageUrl,
-      distance: distance,
-    });
-
-    let allStores = this.mapStores.concat(this.dbStores);
-
-    
-  }
-
-  openAddGroceryStoreModal() {
-    var data = { 'GroceryStore': new GroceryStore(), 'Type': 'Add' };
-    var modalPage = this.modalCtrl.create(GroceryStoreModalPage, data);
-    modalPage.present();
   }
 
   doInfinite(infiniteScroll) {

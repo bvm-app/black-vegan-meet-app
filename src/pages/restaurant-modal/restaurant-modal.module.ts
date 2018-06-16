@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { DragulaModule } from 'ng2-dragula';
-import { GroceryStoreModalPage } from './grocery-store-modal';
+import { RestaurantModalPage } from './restaurant-modal';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
-    GroceryStoreModalPage,
+    RestaurantModalPage,
   ],
   imports: [
     LazyLoadImageModule,
     DragulaModule,
-    IonicPageModule.forChild(GroceryStoreModalPage),
+    IonicPageModule.forChild(RestaurantModalPage),
   ],
 })
-export class GroceryStoreModalPageModule {}
+export class RestaurantModalPageModule {}
