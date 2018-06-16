@@ -14,6 +14,8 @@
 
 
 <ion-content padding>
+  <loading *ngIf="isFetching"></loading>
+
   <ion-item *ngFor="let restaurant of restaurants" (click)='openRestaurant(restaurant)'>
     <ion-thumbnail item-start>
       <img *ngIf="restaurant.image_url != null" src="{{restaurant.image_url}}">
@@ -21,7 +23,7 @@
     </ion-thumbnail>
     <h2>{{restaurant.name}}</h2>
     <p>{{restaurant.description}}</p>
-    
+
     <div item-end>
       <p>{{restaurant.distance | number:'1.2-2'}} km</p>
     </div>

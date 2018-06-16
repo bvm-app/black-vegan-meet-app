@@ -1,11 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { GroceryStoresProvider } from '../../providers/grocery-stores/grocery-stores';
-import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import { GroceryStore } from '../../models/grocery-store';
 import { GroceryStoreModalPage } from '../grocery-store-modal/grocery-store-modal';
-import { MapSearchParameters } from '../../models/map-search-parameters';
-import { MethodCall } from '@angular/compiler';
 
 /**
  * Generated class for the GroceryStoresPage page.
@@ -22,37 +19,45 @@ import { MethodCall } from '@angular/compiler';
 export class GroceryStoresPage {
 
   stores: GroceryStore[] = [];
+  isFetching: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private groceryStoresProvider: GroceryStoresProvider,
-    private geoLocationProvider: GeoLocationProvider,
-    private modalCtrl: ModalController) {
+    private loadingCtrl: LoadingController) {
   }
 
   ionViewDidEnter() {
-    this.initStores();
+    this.getGroceryStores();
   }
 
   openStore(store: GroceryStore) {
-    this.navCtrl.push(GroceryStoreModalPage, {Store: store, Type: 'Display'});
+    this.navCtrl.push(GroceryStoreModalPage, { Store: store, Type: 'Display' });
   }
 
-  private async initStores() {
-    this.groceryStoresProvider.getGroceryStores();
+  getGroceryStores() {
+    this.isFetching = true;
 
-    this.groceryStoresProvider.groceryStoresSubject.subscribe(data => {
-      this.stores = [];
-      
-      data.forEach(element => {
-        this.stores.push(element);
+    this.groceryStoresProvider.getGroceryStores().then(res => {
+
+      this.isFetching = false;
+
+      this.groceryStoresProvider.groceryStoresSubject.subscribe(data => {
+        this.stores = [];
+
+        data.forEach(element => {
+          this.stores.push(element);
+        });
+
+        this.stores = this.stores.sort((l, r): number => {
+          if (l.distance < r.distance) return -1;
+          if (l.distance > r.distance) return 1;
+          return 0
+        });
       });
 
-      this.stores =  this.stores.sort((l, r): number => {
-        if (l.distance < r.distance) return -1;
-        if (l.distance > r.distance) return 1;
-        return 0
-      });
-      console.log("ELEMENT!!: ", this.stores);
+      return new Promise(resolve => {
+        resolve({ Result: true });
+      })
     });
   }
 

@@ -14,6 +14,7 @@
 
 
 <ion-content>
+  <loading *ngIf="isFetching"></loading>
 
   <ion-item *ngFor="let store of stores" (click)="openStore(store)">
     <ion-thumbnail item-start>
@@ -27,5 +28,4 @@
       <p>{{store.distance | number:'1.2-2'}} km</p>
     </div>
   </ion-item>
-
 </ion-content>

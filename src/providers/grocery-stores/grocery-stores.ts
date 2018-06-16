@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import firebase from 'firebase';
 import { GroceryStore } from '../../models/grocery-store';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -53,30 +52,47 @@ export class GroceryStoresProvider {
 
   getGroceryStores() {
     this.groceryStores = [];
-    var storesRef = this.db.list('/groceryStore');
 
     this.getStoresUsingPlacesApi();
 
-    return firebase.database().ref('/groceryStore').once('value').then((res: DataSnapshot) => {
-      res.forEach(item => {
-        let store: GroceryStore = item.val();
+    return new Promise(resolve => {
+      firebase.database().ref('/groceryStore').once('value').then((res: DataSnapshot) => {
+        var idx = 0;
+        let resArray = this.snapshotToArray(res);
+        console.log("RES", resArray);
+        resArray.forEach((item, idx) => {
+          let store: GroceryStore = item;
 
-        console.log("STORE: ", store.images);
-        store.image_url = (store.images != undefined && store.images.length > 0) ? store.images[0] : undefined;
-        store.isAppStore = true;
+          store.image_url = (store.images != undefined && store.images.length > 0) ? store.images[0] : undefined;
+          store.isAppStore = true;
 
-        this.geoLocationProvider.getDistanceFromCurrentLocation({
-          latitude: store.coordinates.latitude,
-          longitude: store.coordinates.longitude,
-          latitudeType: 'N',
-          longitudeType: 'E'
-        }).then((distance) => {
-          store.distance = distance;
-          this.addStoreToList(store);
+          this.geoLocationProvider.getDistanceFromCurrentLocation({
+            latitude: store.coordinates.latitude,
+            longitude: store.coordinates.longitude,
+            latitudeType: 'N',
+            longitudeType: 'E'
+          }).then((distance) => {
+            store.distance = distance;
+            this.addStoreToList(store);
+            resolve({ Result: "Finished" });
+          });
         });
       });
     });
   }
+
+  private snapshotToArray(snapshot) {
+    var returnArr = [];
+
+    snapshot.forEach(function (childSnapshot) {
+      var item = childSnapshot.val();
+      item.key = childSnapshot.key;
+
+      returnArr.push(item);
+    });
+
+    return returnArr;
+  };
 
   private addStoreToList(store: GroceryStore) {
     this.groceryStores.push(store);

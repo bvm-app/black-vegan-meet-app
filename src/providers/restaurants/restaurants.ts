@@ -53,29 +53,47 @@ export class RestaurantsProvider {
 
   getRestaurants() {
     this.restaurants = [];
-    var storesRef = this.db.list('/restaurant');
 
     this.getRestaurantsUsingPlacesApi();
 
-    return firebase.database().ref('/restaurant').once('value').then((res: DataSnapshot) => {
-      res.forEach(item => {
-        let restaurant: Restaurant = item.val();
+    return new Promise(resolve => {
+      firebase.database().ref('/restaurant').once('value').then((res: DataSnapshot) => {
+        var idx = 0;
+        let resArray = this.snapshotToArray(res);
+        console.log("RES", resArray);
+        resArray.forEach((item, idx) => {
+          let restaurant: Restaurant = item;
 
-        console.log("restaurant: ", restaurant.images);
-        restaurant.image_url = (restaurant.images != undefined && restaurant.images.length > 0) ? restaurant.images[0] : undefined;
-        restaurant.isAppRestaurant = true;
-        this.geoLocationProvider.getDistanceFromCurrentLocation({
-          latitude: restaurant.coordinates.latitude,
-          longitude: restaurant.coordinates.longitude,
-          latitudeType: 'N',
-          longitudeType: 'E'
-        }).then((distance) => {
-          restaurant.distance = distance;
-          this.addRestaurantToList(restaurant);
+          restaurant.image_url = (restaurant.images != undefined && restaurant.images.length > 0) ? restaurant.images[0] : undefined;
+          restaurant.isAppRestaurant = true;
+
+          this.geoLocationProvider.getDistanceFromCurrentLocation({
+            latitude: restaurant.coordinates.latitude,
+            longitude: restaurant.coordinates.longitude,
+            latitudeType: 'N',
+            longitudeType: 'E'
+          }).then((distance) => {
+            restaurant.distance = distance;
+            this.addRestaurantToList(restaurant);
+            resolve({ Result: "Finished" });
+          });
         });
       });
     });
   }
+
+  private snapshotToArray(snapshot) {
+    var returnArr = [];
+
+    snapshot.forEach(function (childSnapshot) {
+      var item = childSnapshot.val();
+      item.key = childSnapshot.key;
+
+      returnArr.push(item);
+    });
+
+    return returnArr;
+  };
 
   private addRestaurantToList(restaurant: Restaurant) {
     this.restaurants.push(restaurant);
