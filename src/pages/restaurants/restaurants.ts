@@ -38,7 +38,6 @@ export class RestaurantsPage {
 
     this.restaurantsProvider.getRestaurants().then(res => {
 
-      this.isFetching = false;
 
       this.restaurantsProvider.restaurantsSubject.subscribe(data => {
         this.restaurants = [];
@@ -52,6 +51,9 @@ export class RestaurantsPage {
           if (l.distance > r.distance) return 1;
           return 0
         });
+
+        this.isFetching = false;
+
       });
 
       return new Promise(resolve => {

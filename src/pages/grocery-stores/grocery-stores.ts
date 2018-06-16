@@ -39,8 +39,6 @@ export class GroceryStoresPage {
 
     this.groceryStoresProvider.getGroceryStores().then(res => {
 
-      this.isFetching = false;
-
       this.groceryStoresProvider.groceryStoresSubject.subscribe(data => {
         this.stores = [];
 
@@ -53,6 +51,9 @@ export class GroceryStoresPage {
           if (l.distance > r.distance) return 1;
           return 0
         });
+
+        this.isFetching = false;
+
       });
 
       return new Promise(resolve => {
