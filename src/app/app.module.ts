@@ -55,6 +55,7 @@ import { RestaurantModalPageModule } from '../pages/restaurant-modal/restaurant-
 import { RestaurantsPageModule } from '../pages/restaurants/restaurants.module';
 import { SwipeProvider } from '../providers/swipe/swipe';
 import { ConversationProvider } from '../providers/conversation/conversation';
+import { NotificationProvider } from '../providers/notification/notification';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -102,6 +103,7 @@ import { ConversationProvider } from '../providers/conversation/conversation';
     RestaurantsProvider,
     SwipeProvider,
     ConversationProvider,
+    NotificationProvider,
   ]
 })
 export class AppModule {

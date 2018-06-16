@@ -8,6 +8,7 @@ import { UserProvider } from '../../providers/user/user';
 import moment from 'moment';
 import firebase from 'firebase';
 import { ViewedMeProvider } from '../../providers/viewed-me/viewed-me';
+import { NotificationProvider } from '../../providers/notification/notification';
 
 /**
  * Generated class for the ProfilePage page.
@@ -35,7 +36,8 @@ export class ProfilePage {
     public navParams: NavParams,
     public db: AngularFireDatabase,
     public userProvider: UserProvider,
-    public viewedMeProvider: ViewedMeProvider
+    public viewedMeProvider: ViewedMeProvider,
+    public notificationProvider: NotificationProvider
   ) {}
 
   ionViewWillEnter() {
@@ -66,6 +68,7 @@ export class ProfilePage {
     // Update userViewedMeData of this user
     if (!this.isCurrentLoggedInUser) {
       this.viewedMeProvider.updateCurrentUserViewedMe(userId);
+      this.notificationProvider.setViewedMeNotification(userId);
     }
   }
 
