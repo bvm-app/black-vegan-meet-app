@@ -79,9 +79,10 @@ import { CreateEventPage } from '../pages/create-event/create-event';
     GroceryStoreModalPageModule,
     RefineSearchPageModule,
     RestaurantModalPageModule,
-    RestaurantsPageModule
+    RestaurantsPageModule,
     CreateEventPageModule,
-    ManageEventsPageModule  ],
+    ManageEventsPageModule
+  ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
   providers: [
