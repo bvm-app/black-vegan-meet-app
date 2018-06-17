@@ -1,0 +1,59 @@
+<!--
+  Generated template for the ConversationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{ recipient?.firstName }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding #chatContainer>
+  <div class="chat-container">
+    <div class="bubble-chat"
+      [class.first]="message?.user?.id !== messages[idx-1]?.user?.id"
+      [ngClass]="message?.isSender ? 'you': 'other'" *ngFor="let message of messages;let idx = index">
+      <div class="user-image" *ngIf="(!message?.isSender) && (message?.user?.id != messages[idx - 1]?.user?.id)">
+        <img [src]="message.user?.profilePictureUrl || defaultUserImage">
+        <div *ngIf="isRecipientOnline" class="online-status"></div>
+      </div>
+      <div class="image" *ngIf="message.file">
+        <img [src]="message.file">
+      </div>
+      <div class="content" *ngIf="message.payload">{{ message.payload }}</div>
+      <div class="time">{{ formatTime(message.timestamp) }}</div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer color="primary-1">
+  <ion-toolbar color="primary-1" position="bottom">
+    <ion-buttons [ngClass]="{'hide-upload-files-options': message.length > 0 }" left>
+      <button *ngIf="isMobile" ion-button icon-only (click)="uploadImageFromCamera()">
+        <ion-icon name="md-camera"></ion-icon>
+      </button>
+
+      <button *ngIf="isMobile" ion-button icon-only (click)="uploadImageFromGallery()">
+        <ion-icon name="md-image"></ion-icon>
+      </button>
+
+      <button *ngIf="!isMobile" ion-button icon-only (click)="uploadImageFromWebTrigger()">
+        <input  type="file" id="fileElem" accept="image/*" style="display:none" (change)="uploadImageFromWeb($event.target.files)">
+        <ion-icon name="md-image"></ion-icon>
+      </button>
+
+
+    </ion-buttons>
+    <ion-textarea name="message" fz-elastic rows="1" [(ngModel)]="message"></ion-textarea>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="sendMessage(message)">
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

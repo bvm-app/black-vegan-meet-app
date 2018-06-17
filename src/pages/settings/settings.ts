@@ -11,6 +11,7 @@ import { env } from '../../app/env';
 import { IUser } from '../../models/IUser';
 import { UserProvider } from '../../providers/user/user';
 import { UserSearchProvider } from '../../providers/user-search/user-search';
+import { NotificationProvider } from '../../providers/notification/notification';
 
 /**
  * Generated class for the SettingsPage page.
@@ -36,7 +37,8 @@ export class SettingsPage {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public userProvider: UserProvider,
-    public userSearchProvider: UserSearchProvider
+    public userSearchProvider: UserSearchProvider,
+    public notificationProvider: NotificationProvider
   ) {}
 
   ionViewWillEnter() {
@@ -68,6 +70,7 @@ export class SettingsPage {
             // Remove all provider subscriptions
             this.userProvider.unsubscribeSubscriptions();
             this.userSearchProvider.unsubscribeSubscriptions();
+            this.notificationProvider.unsubscribeSubscriptions();
 
             firebase.auth().signOut();
           }

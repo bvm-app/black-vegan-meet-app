@@ -1,0 +1,14 @@
+<!-- Generated template for the ConversationListItemComponent component -->
+<div class="conversation-detail" (click)="goToConversation()">
+  <div class="user-image">
+    <img [src]="user?.profilePictureUrl || defaultUserImage">
+    <div *ngIf="isUserOnline" class="online-status"></div>
+  </div>
+  <div class="details">
+    <div class="name">{{ user?.firstName }} {{ user?.lastName }}</div>
+    <div class="last-message">{{ _conversationDetails?.lastMessage }}</div>
+  </div>
+  <div class="time">
+    <div class="formatted-time">{{ formattedTime }}</div>
+  </div>
+</div>

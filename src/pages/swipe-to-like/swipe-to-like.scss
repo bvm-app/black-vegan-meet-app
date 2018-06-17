@@ -1,3 +1,133 @@
 page-swipe-to-like {
+  ion-content {
+    .scroll-content {
+      background-color: $section-bg-color !important;
+    }
+  }
+
+  .info-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 2rem;
+    padding: 0 10%;
+
+    p {
+      margin-top: 50px;
+    }
+  }
+
+  #card-stack{
+    height:300px;
+  }
+
+  @media(min-width: 720px){
+    .card-container{
+      .card{
+        width: 300px;
+      }
+    }
+  }
+
+  .slider-buttons{
+    display:flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    justify-content: center;
+
+    ion-fab{
+      position:relative;
+
+      button.fab{
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+
+
+  .card-container{
+    position: relative;
+    .card{
+      border-radius: 5px;
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+
+      .user-details{
+        // position:absolute;
+        // bottom: 3em;
+        position: relative;
+        top: 18em;
+
+        .name, .age{
+          position: relative;
+          color: white;
+          font-size: 17px;
+          font-weight: 700;
+          padding: 10px 0 10px 10px;
+        }
+        .age{
+          padding-left:0;
+        }
+        .address{
+          display: block;
+          padding: 5px 0 10px 10px;
+          color: white;
+        }
+      }
+    }
+
+    img, ion-slides{
+      height:300px;
+      max-height:300px;
+      min-height:300px;
+      object-fit:cover;
+      background-color: #c6b689;
+      width: 100%;
+    }
+
+    .overlay{
+      width: 100%;
+      // height: 100%;
+      height: 300px;
+      position: absolute;
+      opacity:0.3;
+      z-index:99;
+    }
+
+
+  }
+
+  .action-buttons{
+    display:flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-around;
+    padding: 15px;
+    ion-fab{
+      position: relative;
+
+      ion-icon[name='checkmark']:before{
+        font-size:1.5em;
+        color:#7bff7b
+      }
+      ion-icon[name='close']:before{
+        font-size:1.5em;
+        color: #ff7b7b;
+      }
+      ion-icon[name='contact']:before{
+        font-size:35px;
+      }
+    }
+  }
 
 }

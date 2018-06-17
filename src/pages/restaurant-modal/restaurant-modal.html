@@ -1,0 +1,118 @@
+<!--
+  Generated template for the RestaurantModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title *ngIf="editModal">Edit Restaurant</ion-title>
+    <ion-title *ngIf="addModal">Add Restaurant</ion-title>
+    <ion-title *ngIf="displayModal">{{restaurant.name}}</ion-title>
+    <ion-buttons *ngIf="isAdmin && restaurant.isAppRestaurant" end>
+      <button ion-button (click)='openEditPage()' *ngIf='displayModal'>Edit</button>
+      <button ion-button (click)='delete()' *ngIf='editModal'>Delete</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="content-restaurant-modal">
+    <form [formGroup]="restaurantForm" (ngSubmit)='addRestaurant()' *ngIf="addModal || editModal">
+
+      <div class='section'>
+        <ion-item no-padding>
+          <ion-label stacked [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Name</ion-label>
+          <ion-input type="text" formControlName="name" [(ngModel)]="restaurant.name" name="name"></ion-input>
+        </ion-item>
+
+        <ion-label class='invalid' margin-left *ngIf="!restaurantForm.controls.name.valid  && (restaurantForm.controls.name.dirty || submitAttempt)">
+          Enter a valid name.
+        </ion-label>
+
+        <ion-item no-padding>
+          <ion-label stacked [class.invalid]="!restaurantForm.controls.name.valid && (restaurantForm.controls.name.dirty || submitAttempt)">Description</ion-label>
+          <ion-textarea [(ngModel)]="restaurant.description" formControlName="description" name="description"></ion-textarea>
+        </ion-item>
+
+        <ion-item class='invalid' *ngIf="!restaurantForm.controls.description.valid  && (restaurantForm.controls.description.dirty || submitAttempt)">
+          Enter a valid description.
+        </ion-item>
+      </div>
+
+      <div id="wrap1" class='section'>
+        <div style="position: relative;">
+          <div #map id="map"></div>
+          <div id="cross"></div>
+        </div>
+
+        <ion-item no-padding>
+          <ion-label stacked [class.invalid]="!restaurantForm.controls.latitude.valid && (restaurantForm.controls.latitude.dirty || submitAttempt)">Latitude</ion-label>
+          <ion-input [(ngModel)]="restaurant.coordinates.latitude" formControlName="latitude" name="latitude"></ion-input>
+        </ion-item>
+
+        <ion-item no-padding>
+          <ion-label stacked [class.invalid]="!restaurantForm.controls.longitude.valid && (restaurantForm.controls.longitude.dirty || submitAttempt)">longitude</ion-label>
+          <ion-input [(ngModel)]="restaurant.coordinates.longitude" formControlName="longitude" name="longitude"></ion-input>
+        </ion-item>
+
+        <ion-item class='invalid' *ngIf="((!restaurantForm.controls.latitude.valid  && restaurantForm.controls.latitude.dirty) || (!restaurantForm.controls.longitude.valid  && restaurantForm.controls.longitude.dirty) || submitAttempt)">
+          Enter valid coordinates.
+        </ion-item>
+
+        <ion-buttons margin-top>
+          <button ion-button type="button" block (click)="addMarker()">Select location</button>
+        </ion-buttons>
+      </div>
+
+      <div class="section">
+        <div class="container" [dragula]='"first-bag"' [dragulaModel]="restaurantImages">
+          <div class="image-container" *ngFor="let restaurantImage of restaurantImages;let idx = index" id="{{ restaurantImage }}">
+            <div class="close-button" (click)="removeImage(restaurantImage)">
+              <ion-icon name="md-close"></ion-icon>
+            </div>
+            <div class="image-container-inner">
+              <img [src]="restaurantImage" alt="User Image {{ idx }}">
+            </div>
+          </div>
+
+          <div class="image-container" *ngIf="!restaurantImages || restaurantImages.length < 5">
+            <div class="image-container-inner" (click)="addPhoto()">
+              <ion-icon name="md-camera"></ion-icon>
+              <input type="file" id="fileElem" accept="image/*" style="display:none" (change)="uploadImageFromWeb($event.target.files)">
+              <span>Add Photo</span>
+            </div>
+          </div>
+        </div>
+
+        <ion-buttons margin-top>
+          <button ion-button color="secondary" type="submit" *ngIf="addModal" block>Add Restaurant</button>
+          <button ion-button color="secondary" type="submit" *ngIf="editModal" block>Update Restaurant</button>
+        </ion-buttons>
+      </div>
+    </form>
+  </div>
+
+  <div id="details" *ngIf="displayModal">
+    <div class="images-container">
+      <ion-slides [centeredSlides]="centeredSlides" class="image-slider-container" pager>
+        <ion-slide *ngFor="let image of restaurant.images">
+          <img [src]="image || defaultUserImagePlaceholder">
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div class="details-container section">
+      <ion-label>{{restaurant.name}}</ion-label>
+      <p>{{restaurant.description}}</p>
+    </div>
+
+    <div id='wrap1' class='section'>
+      <ion-label>Location</ion-label>
+      <div #map id="map"></div>
+    </div>
+  </div>
+</ion-content>

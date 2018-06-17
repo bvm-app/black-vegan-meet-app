@@ -20,17 +20,25 @@
         </div>
         <span>Search</span>
       </div>
-      <div class="menu-item col-4" (click)="navigateTo('ChatPage')">
+      <div class="menu-item col-4" (click)="navigateTo('ConversationListPage')">
         <div class="menu-icon">
           <img [src]="icons.Messages" alt="icon">
         </div>
         <span>Messages</span>
+        <div class="badge-container">
+          <ion-badge *ngIf="notifications?.messages" color="danger">
+            {{ (notifications.messages.length > 9) ? '9+' : notifications.messages.length }}
+          </ion-badge>
+        </div>
       </div>
       <div class="menu-item col-4" (click)="navigateTo('ViewedMePage')">
         <div class="menu-icon">
           <img [src]="icons.ViewedMe" alt="icon">
         </div>
         <span>Viewed Me</span>
+        <div class="badge-container">
+          <ion-badge *ngIf="notifications?.viewedMe" color="danger">!</ion-badge>
+        </div>
       </div>
     </div>
 

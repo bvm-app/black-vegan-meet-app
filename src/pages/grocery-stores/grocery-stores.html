@@ -13,9 +13,10 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <loading *ngIf="isFetching"></loading>
 
-  <ion-item *ngFor="let store of stores">
+  <ion-item *ngFor="let store of stores" (click)="openStore(store)">
     <ion-thumbnail item-start>
       <img *ngIf="store.image_url != null" src="{{store.image_url}}">
       <img *ngIf="store.image_url == null" src="assets/imgs/image_placeholder.png">
@@ -27,5 +28,4 @@
       <p>{{store.distance | number:'1.2-2'}} km</p>
     </div>
   </ion-item>
-
 </ion-content>
