@@ -61,7 +61,6 @@ export class LoginPage {
     this.afAuth.auth
       .signInAndRetrieveDataWithEmailAndPassword(this.email, this.password)
       .then((userCredential: UserCredential) => {
-        console.log('Sign in success:', userCredential);
         this.presentToast('You have successfully signed in!');
       })
       .catch((error: Error) => {

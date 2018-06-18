@@ -35,11 +35,25 @@ page-profile {
       flex-direction: column;
       width: 100%;
       background-color: $section-bg-color;
+      border-top: $border-style;
 
       .user-name-and-age {
         display: flex;
         font-size: 1.5em;
         font-weight: bold;
+      }
+
+      .user-relationship-status {
+        display: flex;
+        font-size: 1.15em;
+      }
+
+      .user-occupation {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+        font-size: 1.1em;
       }
 
       .user-location {
@@ -68,6 +82,13 @@ page-profile {
         margin-right: 8px;
       }
     }
+  }
+
+  .copyright-text {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
   }
 
   .occupation {

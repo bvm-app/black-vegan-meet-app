@@ -27,6 +27,15 @@
         <div class="user-name-and-age">
           {{ formatNameAndAge() }}
         </div>
+
+        <div class="user-relationship-status" *ngIf="user?.relationshipStatus">
+          {{ user.relationshipStatus }}
+        </div>
+
+        <div class="user-occupation" *ngIf="user?.occupation">
+          <span>{{ user.occupation }}</span>
+        </div>
+
         <div class="user-location" *ngIf="formatAddress()">
           <ion-icon color="secondary" name="md-pin"></ion-icon> <span>{{ formatAddress() }}</span>
         </div>
@@ -51,7 +60,11 @@
       </button>
     </div>
 
-    <ion-list>
+    <div class="copyright-text" padding margin-bottom>
+      Blackveganmeet Copyright ©️2018
+    </div>
+
+    <ion-list *ngIf="false">
       <ion-item>
         <h2>Occupation</h2>
         <p class="occupation">{{ user.occupation ? user.occupation: 'No answer' }}</p>

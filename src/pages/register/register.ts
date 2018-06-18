@@ -65,6 +65,9 @@ export class RegisterPage {
       .then((credentials: UserCredential) => {
         console.log('credentials:', credentials);
 
+        const isNewUser = credentials.additionalUserInfo.isNewUser;
+        if (isNewUser) window.localStorage.setItem('isNewUser', `true`);
+
         let userId = credentials.user.uid;
         let firstName = form.firstName.trim();
         let lastName = form.lastName.trim();
