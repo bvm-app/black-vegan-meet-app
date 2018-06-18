@@ -47,16 +47,20 @@ export class SearchPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
 
-    this.usersSubscription = this.userSearchProvider
-      .getUsers()
-      .pipe(take(1))
-      .subscribe((users: IUser[]) => {
-        this.allUsers = [...users];
+    this.filterUsers(this.navParams.data.filters).then(() => {
+      this.isLoading = false;
+    });
 
-        this.populateUsersList();
+    // this.usersSubscription = this.userSearchProvider
+    //   .getUsers()
+    //   .pipe(take(1))
+    //   .subscribe((users: IUser[]) => {
+    //     this.allUsers = [...users];
 
-        this.isLoading = false;
-      });
+    //     this.populateUsersList();
+
+    //     this.isLoading = false;
+    //   });
   }
 
   populateUsersList() {
@@ -80,7 +84,7 @@ export class SearchPage {
   openRefineSearchModal() {
     let refineSearchModal = this.modalCtrl.create(RefineSearchPage);
     refineSearchModal.onDidDismiss((data: IRefineSearchFilters) => {
-      this.filterUsers(data);
+      if (data) this.filterUsers(data);
     });
     refineSearchModal.present();
   }
@@ -88,10 +92,12 @@ export class SearchPage {
   filterUsers(filters: IRefineSearchFilters) {
     this.users = [];
     this.isLoading = true;
-    this.userSearchProvider.filterUsers(filters).then(users => {
+    return this.userSearchProvider.filterUsers(filters).then(users => {
       this.allUsers = users;
       this.populateUsersList();
       this.isLoading = false;
+
+      return users;
     });
   }
 }
