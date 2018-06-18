@@ -92,4 +92,7 @@ export class HomePage {
     this.navCtrl.push('ProfilePage', { userId: user.id });
   }
 
+  navigateToSearchPage() {
+    this.navCtrl.push('RefineSearchPage', { shouldBeRemovedFromNavStackAfterInput: true });
+  }
 }
