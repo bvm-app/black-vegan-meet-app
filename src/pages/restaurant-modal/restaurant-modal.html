@@ -19,7 +19,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content no-bounce has-bouncing="false" >
   <div class="content-restaurant-modal">
     <form [formGroup]="restaurantForm" (ngSubmit)='addRestaurant()' *ngIf="addModal || editModal">
 

@@ -12,7 +12,7 @@
 
 </ion-header>
 
-<ion-content #container no-padding>
+<ion-content no-bounce has-bouncing="false"  #container no-padding>
   <loading *ngIf="!user"></loading>
   <ng-container *ngIf="user">
 
