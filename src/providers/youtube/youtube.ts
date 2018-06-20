@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { env } from '../../app/env';
-// import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 /*
   Generated class for the YoutubeProvider provider.
