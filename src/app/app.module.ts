@@ -57,6 +57,11 @@ import { SwipeProvider } from '../providers/swipe/swipe';
 import { ConversationProvider } from '../providers/conversation/conversation';
 import { NotificationProvider } from '../providers/notification/notification';
 
+import { CreateEventPageModule } from '../pages/create-event/create-event.module';
+import { CreateEventPage } from '../pages/create-event/create-event';
+import { EventModalPageModule } from '../pages/event-modal/event-modal.module';
+import { EventDetailPageModule } from '../pages/event-detail/event-detail.module';
+
 @NgModule({
   declarations: [MyApp, HomePage],
   imports: [
@@ -76,7 +81,10 @@ import { NotificationProvider } from '../providers/notification/notification';
     GroceryStoreModalPageModule,
     RefineSearchPageModule,
     RestaurantModalPageModule,
-    RestaurantsPageModule
+    RestaurantsPageModule,
+    CreateEventPageModule,
+    EventModalPageModule,
+    EventDetailPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],

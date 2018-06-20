@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { EventsPage } from './events';
+import { EventModalPage } from './event-modal';
+import { DragulaModule } from 'ng2-dragula';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { ComponentsModule } from '../../components/components.module';
+
 
 
 @NgModule({
   declarations: [
-    EventsPage,
+    EventModalPage,
   ],
   imports: [
-    ComponentsModule,
     LazyLoadImageModule,
-    IonicPageModule.forChild(EventsPage),
+    DragulaModule,
+    IonicPageModule.forChild(EventModalPage)
   ],
 })
-export class EventsPageModule { }
+export class EventModalPageModule {}
