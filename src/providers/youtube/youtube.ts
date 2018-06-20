@@ -19,11 +19,11 @@ export class YoutubeProvider {
   }
 
   async searchVideos(searchValue): Promise<any> {
-    return this.http.get('https://www.googleapis.com/youtube/v3/search?key=' + this.apiKey + '&q=' + searchValue + '&part=snippet&maxResults=20');
+    return this.http.get('https://www.googleapis.com/youtube/v3/search?key=' + this.apiKey + '&q=' + searchValue + '&part=snippet&maxResults=50');
   }
 
   getListVideos(listId) {
-    return this.http.get('https://www.googleapis.com/youtube/v3/playlistItems?key=' + this.apiKey + '&playlistId=' + listId +'&part=snippet,id&maxResults=20')
+    return this.http.get('https://www.googleapis.com/youtube/v3/playlistItems?key=' + this.apiKey + '&playlistId=' + listId +'&part=snippet,id&maxResults=50')
     .map((res) => {
       return res;
     });

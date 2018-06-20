@@ -17,7 +17,7 @@
   <ion-list>
     <ion-card *ngFor="let video of videos" (click)="openVideo(video)">
       <img src="{{video.snippet.thumbnails.high.url}}">
-      <ion-card-content>
+      <ion-card-content padding>
         <ion-card-title>
           {{video.snippet.title}}
         </ion-card-title>
