@@ -3,9 +3,13 @@ page-advice-corner {
         object-fit: cover;
     }
 
-    ion-card, .card-ios {
-        margin: 0px;
-        margin-bottom: 12px;
-        width: 100%;
+    ion-card.card {
+        margin: 0px !important;
+        margin-bottom: 12px !important;
+        width: 100% !important;
+
+        &:last-child {
+          margin-bottom: $section-spacer !important;
+        }
     }
 }
