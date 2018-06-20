@@ -13,10 +13,10 @@
 </ion-header>
 
 
-<ion-content no-bounce has-bouncing="false"  padding>
+<ion-content no-padding no-bounce has-bouncing="false" >
   <loading *ngIf="isFetching"></loading>
-  <ion-list class="event-list">
-    <ion-item class="event-item" *ngFor="let event of events" (click)="openEventDetail(event)">
+  <ion-list no-lines no-padding class="event-list">
+    <ion-item padding-left padding-right class="event-item" *ngFor="let event of events" (click)="openEventDetail(event)">
       <ion-avatar item-start class="event-image">
         <img [defaultImage]="defaultEventImagePlaceholder" [lazyLoad]="event.image_url">
       </ion-avatar>

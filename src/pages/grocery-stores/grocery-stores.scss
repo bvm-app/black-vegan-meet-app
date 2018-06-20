@@ -1,8 +1,6 @@
 page-grocery-stores {
-    .scroll-content {
-        background: $section-bg-color !important;
-    }
-    
+
+
     .item {
         cursor: pointer;
         border-color: $border-color !important;
@@ -11,7 +9,7 @@ page-grocery-stores {
     }
 
     h2, p {
-        white-space: nowrap; 
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -23,5 +21,13 @@ page-grocery-stores {
 
     ion-thumbnail img {
         object-fit: cover;
+    }
+
+    ion-item{
+      background-color: $section-bg-color !important;
+
+      &:last-child{
+        padding-bottom: $section-spacer;
+      }
     }
 }
