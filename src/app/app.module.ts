@@ -59,7 +59,6 @@ import { NotificationProvider } from '../providers/notification/notification';
 import { YoutubeProvider } from '../providers/youtube/youtube';
 
 import { CreateEventPageModule } from '../pages/create-event/create-event.module';
-import { CreateEventPage } from '../pages/create-event/create-event';
 import { EventModalPageModule } from '../pages/event-modal/event-modal.module';
 import { EventDetailPageModule } from '../pages/event-detail/event-detail.module';
 
