@@ -29,11 +29,7 @@ export class AdviceCornerPage {
   }
 
   openVideo(video) {
-    if (this.isMobile) {
-      this.youtubeProvider.openVideo(video.id.videoId);
-    } else {
-      window.open('https://www.youtube.com/watch?v=' + video.id.videoId);
-    }
+    window.open('https://www.youtube.com/watch?v=' + video.id.videoId);
   }
 
   getVideos() {

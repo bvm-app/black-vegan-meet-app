@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { env } from '../../app/env';
+// import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 /*
   Generated class for the YoutubeProvider provider.
@@ -12,23 +13,20 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 @Injectable()
 export class YoutubeProvider {
 
-  apiKey = 'AIzaSyBF1xWdAs59VH8mmF5Nxs03c2MHNrvmvzo';
+  apiKey = env.API_KEYS.YOUTUBE;
 
-  constructor(public http: HttpClient, private youtube: YoutubeVideoPlayer) {
-  }
-
-  openVideo(videoId: string) {
-    this.youtube.openVideo(videoId);
+  constructor(public http: HttpClient) {
   }
 
   async searchVideos(searchValue): Promise<any> {
     return this.http.get('https://www.googleapis.com/youtube/v3/search?key=' + this.apiKey + '&q=' + searchValue + '&part=snippet&maxResults=20');
   }
-  
+
   getListVideos(listId) {
     return this.http.get('https://www.googleapis.com/youtube/v3/playlistItems?key=' + this.apiKey + '&playlistId=' + listId +'&part=snippet,id&maxResults=20')
     .map((res) => {
-    })
+      return res;
+    });
   }
 
 }

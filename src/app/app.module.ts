@@ -57,7 +57,6 @@ import { SwipeProvider } from '../providers/swipe/swipe';
 import { ConversationProvider } from '../providers/conversation/conversation';
 import { NotificationProvider } from '../providers/notification/notification';
 import { YoutubeProvider } from '../providers/youtube/youtube';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 import { CreateEventPageModule } from '../pages/create-event/create-event.module';
 import { CreateEventPage } from '../pages/create-event/create-event';
@@ -114,8 +113,7 @@ import { EventDetailPageModule } from '../pages/event-detail/event-detail.module
     SwipeProvider,
     ConversationProvider,
     NotificationProvider,
-    YoutubeProvider,
-    YoutubeVideoPlayer
+    YoutubeProvider
   ]
 })
 export class AppModule {
