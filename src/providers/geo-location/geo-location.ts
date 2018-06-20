@@ -80,23 +80,23 @@ export class GeoLocationProvider {
   async nearbyApi(searchParams: MapSearchParameters): Promise<any> {
     this.currentPosition = await this.geoLocation.getCurrentPosition();
 
-    // return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
-    //   + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
-    //   '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + env.API_KEYS.GOOGLE_MAPS);
-    
-    return this.http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
+    return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
       + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
       '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + env.API_KEYS.GOOGLE_MAPS);
+    
+    // return this.http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
+    //   + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
+    //   '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + env.API_KEYS.GOOGLE_MAPS);
   }
 
   getPhoto(photoRef): any {
-    // return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
-    // + photoRef +
-    // '&key=' + env.API_KEYS.GOOGLE_MAPS);
+    return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
+    + photoRef +
+    '&key=' + env.API_KEYS.GOOGLE_MAPS);
 
-    return this.http.get('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
-      + photoRef +
-      '&key=' + env.API_KEYS.GOOGLE_MAPS);
+    // return this.http.get('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
+    //   + photoRef +
+    //   '&key=' + env.API_KEYS.GOOGLE_MAPS);
   }
 
   geocodeAddress(location: string) {

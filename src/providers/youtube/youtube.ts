@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 /*
   Generated class for the YoutubeProvider provider.
@@ -13,7 +14,11 @@ export class YoutubeProvider {
 
   apiKey = 'AIzaSyBF1xWdAs59VH8mmF5Nxs03c2MHNrvmvzo';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private youtube: YoutubeVideoPlayer) {
+  }
+
+  openVideo(videoId: string) {
+    this.youtube.openVideo(videoId);
   }
 
   async searchVideos(searchValue): Promise<any> {

@@ -17,6 +17,7 @@ import { YoutubeProvider } from '../../providers/youtube/youtube';
 export class AdviceCornerPage {
 
   videos: any = [];
+  isMobile: boolean = !!window['cordova'];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private youtubeProvider: YoutubeProvider) {
   }
@@ -25,6 +26,14 @@ export class AdviceCornerPage {
     console.log('ionViewDidLoad AdviceCornerPage');
 
     this.getVideos();
+  }
+
+  openVideo(video) {
+    if (this.isMobile) {
+      this.youtubeProvider.openVideo(video.id.videoId);
+    } else {
+      window.open('https://www.youtube.com/watch?v=' + video.id.videoId);
+    }
   }
 
   getVideos() {
