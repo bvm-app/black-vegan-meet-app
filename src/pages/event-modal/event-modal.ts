@@ -117,8 +117,6 @@ export class EventModalPage {
       this.event['endDate'] = eventDate.format('YYYY-MM-DD');
       this.event['endTime'] = eventDate.format('HH:mm');
     }
-
-    console.log('update event', this.event);
     this.loadMap();
 
   }
@@ -135,6 +133,7 @@ export class EventModalPage {
       loading.present();
 
       let dbEvent = new Event({
+        id: this.event.id || '',
         coordinates: this.event.coordinates,
         description: this.event.description,
         name: this.event.name,
@@ -144,8 +143,6 @@ export class EventModalPage {
         location: this.event.location || '',
         organizer: this.event.organizer || ''
       });
-
-      console.log('new event', dbEvent);
 
       if (this.addModal) {
         this.eventProvider.add(dbEvent).then((res) => {
