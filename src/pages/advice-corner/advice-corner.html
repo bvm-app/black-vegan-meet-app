@@ -13,15 +13,18 @@
 </ion-header>
 
 
-<ion-content no-bounce has-bouncing="false"  padding>
+<ion-content no-bounce has-bouncing="false">
   <ion-list>
-    <ion-item *ngFor="let video of videos">
-      <ion-thumbnail item-start>
-        <!-- <img *ngIf="store.image_url != null" src="{{store.image_url}}"> -->
-        <img src="assets/imgs/image_placeholder.png">
-      </ion-thumbnail>
-      <h2>{{video.snippet.title}}</h2>
-      <p>{{video.snippet.description}}</p>
-    </ion-item>
+    <ion-card *ngFor="let video of videos" (click)="openVideo(video)">
+      <img src="{{video.snippet.thumbnails.high.url}}">
+      <ion-card-content>
+        <ion-card-title>
+          {{video.snippet.title}}
+        </ion-card-title>
+        <p>
+          {{video.snippet.description}}
+        </p>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 </ion-content>
