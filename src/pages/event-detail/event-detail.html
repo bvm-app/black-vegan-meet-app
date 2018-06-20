@@ -40,7 +40,7 @@
     <span class="event-end">
         Ends on {{ event?.endDateTime | date: 'EEE MMM dd hh:mm a' }}
     </span>
-    <p class="event-description">
+    <p class="event-description" *ngIf="event?.description">
       {{ event?.description }}
     </p>
   </div>

@@ -107,7 +107,7 @@
 
     <div class="details-container section">
       <ion-label>{{restaurant.name}}</ion-label>
-      <p>{{restaurant.description}}</p>
+      <p *ngIf="restaurant?.description">{{restaurant?.description}}</p>
     </div>
 
     <div id='wrap1' class='section'>
