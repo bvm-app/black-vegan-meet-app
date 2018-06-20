@@ -100,4 +100,5 @@
     <engine name="android" spec="7.1.0" />
     <engine name="ios" spec="4.5.4" />
     <plugin name="cordova-plugin-youtube-video-player" spec="^1.0.6" />
+    <plugin name="cordova-plugin-youtube-video-player" spec="^1.0.6" />
 </widget>
