@@ -1,0 +1,53 @@
+<!--
+  Generated template for the EventDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <!-- <ion-title>Event</ion-title> -->
+    <ion-buttons *ngIf="isAdmin" end>
+      <button ion-button [disabled]="event.slug" (click)='openEditPage()'>Edit</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-slides [centeredSlides]="centeredSlides" class="image-slider-container" pager>
+    <ion-slide *ngFor="let image of event?.images">
+      <img [src]="image || defaultEventImagePlaceholder">
+    </ion-slide>
+  </ion-slides>
+
+  <div class="event-details-container">
+    <span class="event-name">
+      {{ event?.name }}
+    </span>
+    <span *ngIf="event?.location" class="event-location">
+      On {{ event?.location }}
+    </span>
+    <span *ngIf="event?.organizer" class="event-organizer">
+      By {{ event?.organizer }}
+    </span>
+    <span class="event-start">
+        Starts on {{ event?.startDateTime | date: 'EEE MMM dd hh:mm a' }}
+    </span>
+    <span class="event-end">
+        Ends on {{ event?.endDateTime | date: 'EEE MMM dd hh:mm a' }}
+    </span>
+    <p class="event-description">
+      {{ event?.description }}
+    </p>
+  </div>
+
+  <div id="wrap1" class="section">
+    <ion-label>Location</ion-label>
+    <div #map id="map"></div>
+  </div>
+
+</ion-content>
