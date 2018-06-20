@@ -4,7 +4,7 @@ page-event-detail {
           height: 350px !important;
         }
       }
-  
+
       .image-slider-container {
         height: 250px;
         // background-color: $section-bg-color;
@@ -15,5 +15,17 @@ page-event-detail {
         margin-top: 10px;
         height: 200px;
     }
-  
+
+    .event-details-container{
+      span{
+        display:block;
+        text-align:center
+      }
+
+      .event-name{
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+
 }

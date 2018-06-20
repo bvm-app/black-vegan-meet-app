@@ -29,10 +29,10 @@
       {{ event?.name }}
     </span>
     <span *ngIf="event?.location" class="event-location">
-      On {{ event?.location }}
+      Located on {{ event?.location }}
     </span>
     <span *ngIf="event?.organizer" class="event-organizer">
-      By {{ event?.organizer }}
+      Organized by {{ event?.organizer }}
     </span>
     <span class="event-start">
         Starts on {{ event?.startDateTime | date: 'EEE MMM dd hh:mm a' }}
@@ -49,5 +49,7 @@
     <ion-label>Location</ion-label>
     <div #map id="map"></div>
   </div>
+
+
 
 </ion-content>

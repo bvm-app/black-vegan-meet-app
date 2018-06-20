@@ -23,8 +23,12 @@
       <h2>{{ event.name }}</h2>
       <h3 *ngIf="event.location" class="location">  {{ event.location }}</h3>
       <h3 *ngIf="event.organizer">By {{ event.organizer }}</h3>
-      
+
       <p>{{ event.startDateTime | date: 'EEE MMM dd hh:mm a' }}</p>
     </ion-item>
   </ion-list>
+
+  <div class="info-container" *ngIf="events && events.length <= 0">
+    <h3 style="text-align: center; padding: 0 20px;"> Oops! Looks like nothing interesting is going on near your location. Check back later to see upcoming events near you.</h3>
+  </div>
 </ion-content>
