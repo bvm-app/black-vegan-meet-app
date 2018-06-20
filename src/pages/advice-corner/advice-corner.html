@@ -14,5 +14,14 @@
 
 
 <ion-content no-bounce has-bouncing="false"  padding>
-
+  <ion-list>
+    <ion-item *ngFor="let video of videos">
+      <ion-thumbnail item-start>
+        <!-- <img *ngIf="store.image_url != null" src="{{store.image_url}}"> -->
+        <img src="assets/imgs/image_placeholder.png">
+      </ion-thumbnail>
+      <h2>{{video.snippet.title}}</h2>
+      <p>{{video.snippet.description}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>
