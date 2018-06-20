@@ -58,13 +58,13 @@ export class EventsPage {
         }
 
         data = data.filter(x => moment(x.endDateTime).isAfter(moment()));
-        this.events = data;
-        this.isFetching = false;
+        // this.events = data;
+        // this.isFetching = false;
 
-        // this.filterEventsByDistanceFromCoordinates(data).then(filtered => {
-        //   this.events = filtered
-        //   this.isFetching = false;
-        // });
+        this.filterEventsByDistanceFromCoordinates(data).then(filtered => {
+          this.events = filtered
+          this.isFetching = false;
+        });
       });
   }
 
