@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Item } from 'ionic-angular';
+import { YoutubeProvider } from '../../providers/youtube/youtube';
 
 /**
  * Generated class for the AdviceCornerPage page.
@@ -15,11 +16,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdviceCornerPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  videos: any = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private youtubeProvider: YoutubeProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdviceCornerPage');
+
+    this.getVideos();
+  }
+
+  getVideos() {
+    this.youtubeProvider.searchVideos('dating_advice').then(res => {
+      res.subscribe(data => {
+        data.items.forEach(element => {
+          this.videos.push(element);
+        });
+      });
+    });
   }
 
 }

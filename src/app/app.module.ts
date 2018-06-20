@@ -56,6 +56,8 @@ import { RestaurantsPageModule } from '../pages/restaurants/restaurants.module';
 import { SwipeProvider } from '../providers/swipe/swipe';
 import { ConversationProvider } from '../providers/conversation/conversation';
 import { NotificationProvider } from '../providers/notification/notification';
+import { YoutubeProvider } from '../providers/youtube/youtube';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -104,6 +106,8 @@ import { NotificationProvider } from '../providers/notification/notification';
     SwipeProvider,
     ConversationProvider,
     NotificationProvider,
+    YoutubeProvider,
+    YoutubeVideoPlayer
   ]
 })
 export class AppModule {
