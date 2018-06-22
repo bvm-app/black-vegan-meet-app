@@ -34,8 +34,9 @@
       </div>
     </div>
   </div>
+  <footer></footer>
 
-  <ion-infinite-scroll (ionInfinite)="fetchViewedMeUsers($event, true)">
+  <ion-infinite-scroll *ngIf="!hasNoMoreToFetch" (ionInfinite)="fetchViewedMeUsers($event, true)">
     <ion-infinite-scroll-content loadingSpinner="circles" loadingText="Fetching more..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

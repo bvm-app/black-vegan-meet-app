@@ -31,6 +31,7 @@ export class ViewedMePage {
   users: any[] = [];
   usersSubscription: Subscription;
   isFetching = false;
+  hasNoMoreToFetch: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -79,11 +80,18 @@ export class ViewedMePage {
         )
         .subscribe(userViewedMeDataPromises => {
           userViewedMeDataPromises.then(userViewedMeData => {
+            const previousCount = this.users.length;
 
             if (concat) {
               this.users = _.uniqBy([...this.users, ...userViewedMeData.reverse()], 'id');
             } else {
               this.users = userViewedMeData.reverse();
+            }
+
+            const afterCount = this.users.length;
+
+            if (previousCount === afterCount) {
+              this.hasNoMoreToFetch = true;
             }
 
             if (infiniteScroll) infiniteScroll.complete();
