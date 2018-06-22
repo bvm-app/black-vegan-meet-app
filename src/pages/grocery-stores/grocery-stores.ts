@@ -26,10 +26,6 @@ export class GroceryStoresPage {
     private loadingCtrl: LoadingController) {
   }
 
-  ionViewDidEnter() {
-    this.getGroceryStores();
-  }
-
   openStore(store: GroceryStore) {
     this.navCtrl.push(GroceryStoreModalPage, { Store: store, Type: 'Display' });
   }
@@ -71,6 +67,7 @@ export class GroceryStoresPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GroceryStoresPage');
+    this.getGroceryStores();
   }
 
 }
