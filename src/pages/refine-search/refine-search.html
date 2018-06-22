@@ -41,7 +41,6 @@
     <ion-item no-padding>
       <ion-label>Looking For</ion-label>
       <ion-select [(ngModel)]="filters.gender" name="gender" placeholder="Gender">
-        <ion-option value="">Both</ion-option>
         <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
       </ion-select>
     </ion-item>

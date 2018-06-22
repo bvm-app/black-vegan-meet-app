@@ -3,6 +3,7 @@ import { EnumProvider } from '../enum/enum';
 import { IRefineSearchFilters } from '../../models/IRefineSearchFilters';
 import { IUser } from '../../models/IUser';
 import { UserProvider } from '../user/user';
+import { GenderOptions } from '../../enums/GenderOptions';
 
 /*
   Generated class for the RefineSearchProvider provider.
@@ -37,7 +38,7 @@ class RefineSearchFilters implements IRefineSearchFilters {
   constructor(heightOptions: string[]) {
     // Init Basic Search values
     this.distance = 130;
-    this.gender = '';
+    this.gender = GenderOptions.Male;
     this.ageRange = {
       lower: 30,
       upper: 50
