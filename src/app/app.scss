@@ -40,6 +40,13 @@ html, body {
 }
 
 ion-slides {
+  .slide-zoom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
   .swiper-pagination-bullet {
     background: white;
     opacity: 0.5;
