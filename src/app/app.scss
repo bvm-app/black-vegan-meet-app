@@ -39,6 +39,18 @@ html, body {
   }
 }
 
+ion-slides {
+  .swiper-pagination-bullet {
+    background: white;
+    opacity: 0.5;
+  }
+
+  .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: white;
+  }
+}
+
 ion-modal {
   .modal-wrapper {
     position: absolute;
