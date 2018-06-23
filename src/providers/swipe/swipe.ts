@@ -71,7 +71,7 @@ export class SwipeProvider {
   showMatchedNotification(user: IUser) {
     let alert = this.alertCtrl.create({
       title: 'Match Found!',
-      message: `${user.firstName} has liked you back. Would you like to message ${user.firstName} now?`,
+      message: `${user.username} has liked you back. Would you like to message ${user.username} now?`,
       buttons: [
         {
           text: 'Later',

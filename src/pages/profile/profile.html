@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>{{ isCurrentLoggedInUser ? 'My Profile': user?.firstName }}</ion-title>
+    <ion-title>{{ isCurrentLoggedInUser ? 'My Profile': user?.username }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -56,7 +56,7 @@
     <div class="actions-container" *ngIf="!isCurrentLoggedInUser" padding>
       <button (click)="goToConversationPage()" class="action-button" ion-button outline>
         <ion-icon item-start name="md-text"></ion-icon>
-        Send a message to {{ user?.firstName }}
+        Send a message to {{ user?.username }}
       </button>
     </div>
 

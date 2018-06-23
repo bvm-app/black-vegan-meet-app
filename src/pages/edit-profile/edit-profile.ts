@@ -91,11 +91,10 @@ export class EditProfilePage {
     this.isUpdating = true;
     let form = {...this.user};
 
-    form.firstName = form.firstName || '';
-    form.lastName = form.lastName || '';
+    form.username = form.username || '';
 
-    if (!form.firstName.trim() || !form.lastName.trim()) {
-      this.presentToast('Oops, your name is required!');
+    if (!form.username.trim()) {
+      this.presentToast('Oops, your username is required!');
       return;
     }
 
@@ -104,7 +103,7 @@ export class EditProfilePage {
     form.country = form.country || '';
 
     form.birthdate = form.birthdate ? moment(form.birthdate).toISOString(true): null;
-    form.searchName = `${form.firstName.trim().toLowerCase()} ${form.lastName.trim().toLowerCase()}`
+    form.searchName = `${form.username.trim().toLowerCase()}`
     form.searchAddress = `${form.city.trim().toLowerCase()} ${form.state.trim().toLowerCase()} ${form.country.trim().toLowerCase()}`
 
     form.geolocation = await this.geolocationProvider.geocodeAddress(form.searchAddress).catch(err => {

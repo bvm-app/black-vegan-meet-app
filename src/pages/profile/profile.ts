@@ -80,7 +80,7 @@ export class ProfilePage {
     if (!this.user) return;
     let temp = [];
 
-    let name = `${this.user.firstName} ${this.user.lastName}`;
+    let name = this.user.username || '';
     if (name.trim().length > 0) {
       temp.push(name);
     }

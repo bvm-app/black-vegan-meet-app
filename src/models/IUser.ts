@@ -6,8 +6,9 @@ import { Coordinates } from './coordinates';
 
 export interface IUser {
   id: string;
-  firstName: string;
-  lastName: string;
+  username: string;
+  firstName?: string;
+  lastName?: string;
   gender: GenderOptions;
   email: string;
 
