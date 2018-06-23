@@ -29,6 +29,13 @@
     </div>
 
     <div class="input-item-container">
+      <div class="slider-label">Browsing Distance:</div>
+      <ion-item no-padding>
+        <ion-input [(ngModel)]="filters.distance" name="distance" type="tel" placeholder="Browsing distance"></ion-input>
+      </ion-item>
+    </div>
+
+    <!-- <div class="input-item-container">
       <div class="slider-label">
         <span>Browsing Distance:</span>
         <span class="slider-label-value">{{ filters.distance }}</span>
@@ -36,7 +43,7 @@
       <ion-item no-padding>
         <ion-range [(ngModel)]="filters.distance" min="10" max="250" step="5" color="primary"></ion-range>
       </ion-item>
-    </div>
+    </div> -->
 
     <ion-item no-padding>
       <ion-label>Looking For</ion-label>

@@ -59,7 +59,11 @@ export class UserSearchProvider {
 
     // Browsing distance based on geocoded location
     if (filters.location.trim() && coordinatesOfLocationInput) {
-      const maxDistance = filters.distance;
+      let maxDistance = +filters.distance;
+
+      if (maxDistance === NaN || !maxDistance) {
+        maxDistance = 1000;
+      }
 
       users = users.filter(user => {
         if (!user.geolocation) return false;
