@@ -22,9 +22,23 @@
     <ion-list-header no-padding>Filter Your Matches</ion-list-header>
 
     <div class="input-item-container">
-      <div class="slider-label">Location</div>
+      <div class="slider-label">City</div>
       <ion-item no-padding>
-        <ion-input [(ngModel)]="filters.location" name="location" type="text" placeholder="Location"></ion-input>
+        <ion-input [(ngModel)]="filters.city" name="city" type="text" placeholder="City"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-item-container">
+      <div class="slider-label">State</div>
+      <ion-item no-padding>
+        <ion-input [(ngModel)]="filters.state" name="state" type="text" placeholder="State"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-item-container">
+      <div class="slider-label">Country</div>
+      <ion-item no-padding>
+        <ion-input [(ngModel)]="filters.country" name="country" type="text" placeholder="Country"></ion-input>
       </ion-item>
     </div>
 

@@ -14,6 +14,9 @@ import { GenderOptions } from '../../enums/GenderOptions';
 
 class RefineSearchFilters implements IRefineSearchFilters {
   // Basic Search
+  city;
+  state;
+  country;
   location;
   distance;
   gender;
@@ -76,6 +79,9 @@ export class RefineSearchProvider {
     console.log('Hello RefineSearchProvider Provider');
     this.filters = new RefineSearchFilters(this.enumProvider.getHeightOptions());
     this.userProvider.getCurrentUser().subscribe(user => {
+      this.filters.city = user.city || '';
+      this.filters.state = user.state || '';
+      this.filters.country = user.country || '';
       this.filters.location = this.userProvider.formatAddress(user) || '';
     });
   }

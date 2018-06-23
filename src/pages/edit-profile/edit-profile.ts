@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { GenderOptions } from '../../enums/GenderOptions';
 import { IUser } from '../../models/IUser';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -95,6 +94,7 @@ export class EditProfilePage {
 
     if (!form.username.trim()) {
       this.presentToast('Oops, your username is required!');
+      this.isUpdating = false;
       return;
     }
 

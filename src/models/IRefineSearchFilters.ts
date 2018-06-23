@@ -15,7 +15,11 @@ interface ionicRangeSlider {
 
 export interface IRefineSearchFilters {
   // Basic Search
+  city: string;
+  state: string;
+  country: string;
   location: string;
+
   distance: number;
   gender: GenderOptions | string;
   ageRange: ionicRangeSlider;

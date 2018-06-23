@@ -81,6 +81,23 @@ export class RefineSearchPage {
   }
 
   filterUsers() {
+    const city = this.filters.city || '';
+    const state = this.filters.state || '';
+    const country = this.filters.country || '';
+
+    let address = [];
+    if (city) {
+      address.push(city);
+    }
+    if (state) {
+      address.push(state);
+    }
+    if(country) {
+      address.push(country);
+    }
+    this.filters.location = address.join(', ');
+
+
     if (this.shouldBeRemovedFromNavStackAfterInput) {
       this.navCtrl.push('SearchPage', { filters: this.filters }).then(() => {
         const startIndex = this.navCtrl.getActive().index - 1;
