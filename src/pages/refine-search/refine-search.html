@@ -141,7 +141,7 @@
     </ion-item>
 
     <ion-item no-padding>
-      <ion-label>Their Alcohol Usage</ion-label>
+      <ion-label>Their Alcohol</ion-label>
       <ion-select [(ngModel)]="filters.preferenceAlcohol" name="preferenceAlcohol" placeholder="Alcohol">
         <ion-option value="">No preference</ion-option>
         <ion-option *ngFor="let alcoholOption of alcoholOptions" [value]="alcoholOption">{{ alcoholOption }}</ion-option>
