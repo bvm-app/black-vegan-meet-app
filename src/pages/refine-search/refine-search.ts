@@ -33,6 +33,9 @@ export class RefineSearchPage {
   alcoholOptions: string[] = [];
   cigaretteOptions: string[] = [];
 
+  minBrowsingDistance = 10;
+  maxBrowsingDistance = 151;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -52,6 +55,10 @@ export class RefineSearchPage {
   }
 
   initVariables() {
+    if (!this.filters.distance) {
+      this.filters.distance = this.maxBrowsingDistance;
+    }
+
     this.userProvider.getCurrentUser().subscribe(user => this.user = user);
 
     this.heightOptions = this.enumProvider.getHeightOptions();
@@ -99,6 +106,10 @@ export class RefineSearchPage {
 
 
     if (this.shouldBeRemovedFromNavStackAfterInput) {
+      if (this.filters.distance === this.maxBrowsingDistance) {
+        this.filters.distance = null;
+      }
+
       this.navCtrl.push('SearchPage', { filters: this.filters }).then(() => {
         const startIndex = this.navCtrl.getActive().index - 1;
         this.navCtrl.remove(startIndex, 1);
