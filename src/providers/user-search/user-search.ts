@@ -175,7 +175,6 @@ export class UserSearchProvider {
           if (!user.preferences.drug) return false;
           if (!user.preferences.education) return false;
           if (!user.preferences.intentions) return false;
-          if (!user.preferences.physicalActivity) return false;
           if (!user.preferences.religion) return false;
         }
 

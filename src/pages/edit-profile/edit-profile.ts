@@ -30,7 +30,6 @@ export class EditProfilePage {
   drugOptions: string[];
   childrenOptions: string[];
   educationOptions: string[];
-  physicalActivityOptions: string[];
   relationshipStatusOptions: string[];
   intentionOptions: string[];
 
@@ -65,7 +64,6 @@ export class EditProfilePage {
     this.drugOptions = this.enumProvider.getDrugOptions();
     this.childrenOptions = this.enumProvider.getChildrenOptions();
     this.educationOptions = this.enumProvider.getEducationOptions();
-    this.physicalActivityOptions = this.enumProvider.getPhysicalActivityOptions();
     this.intentionOptions = this.enumProvider.getIntentionOptions();
 
     this.userSubscription = this.db

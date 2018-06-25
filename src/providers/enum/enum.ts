@@ -7,7 +7,6 @@ import { CigaretteOptions } from '../../enums/CigaretteOptions';
 import { DrugOptions } from '../../enums/DrugOptions';
 import { ChildrenOptions } from '../../enums/ChildrenOptions';
 import { EducationOptions } from '../../enums/EducationOptions';
-import { PhysicalActivityOptions } from '../../enums/PhysicalActivityOptions';
 import { RelationshipStatusOptions } from '../../enums/RelationshipStatusOptions';
 import { IntentionOptions } from '../../enums/IntentionOptions';
 import { BodyTypeOptions } from '../../enums/BodyTypeOptions';
@@ -93,10 +92,6 @@ export class EnumProvider {
 
   getEducationOptions() {
     return this.getValues(EducationOptions);
-  }
-
-  getPhysicalActivityOptions() {
-    return this.getValues(PhysicalActivityOptions);
   }
 
   getIntentionOptions() {

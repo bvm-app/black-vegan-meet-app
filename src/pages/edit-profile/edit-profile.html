@@ -141,14 +141,6 @@
           </ion-select>
         </ion-item>
 
-        <ion-item>
-          <ion-label stacked>Physical Activity</ion-label>
-          <ion-select [(ngModel)]="user.preferences.physicalActivity" name="preferencePhysicalActivity" placeholder="Select">
-            <ion-option></ion-option>
-            <ion-option *ngFor="let physicalActivity of physicalActivityOptions" [value]="physicalActivity">{{ physicalActivity }}</ion-option>
-          </ion-select>
-        </ion-item>
-
         <div class="button-container" padding>
           <button [disabled]="isUpdating" (click)="submitForm()" ion-button round>{{ isUpdating ? 'Updating...': 'Update profile' }}</button>
         </div>
