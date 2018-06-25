@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { GroceryStoresProvider } from '../../providers/grocery-stores/grocery-stores';
 import { GroceryStore } from '../../models/grocery-store';
 import { GroceryStoreModalPage } from '../grocery-store-modal/grocery-store-modal';
+import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 
 /**
  * Generated class for the GroceryStoresPage page.
@@ -23,7 +24,7 @@ export class GroceryStoresPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private groceryStoresProvider: GroceryStoresProvider,
-    private loadingCtrl: LoadingController) {
+    private geoLocationProvider: GeoLocationProvider) {
   }
 
   openStore(store: GroceryStore) {
