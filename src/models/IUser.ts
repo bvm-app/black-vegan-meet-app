@@ -34,4 +34,6 @@ export interface IUser {
   lastActive?: number;
 
   premiumSubscriptionExpiry?: string | Moment;
+
+  aboutMe?: string;
 }

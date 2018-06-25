@@ -100,6 +100,9 @@ export class EditProfilePage {
     form.state = form.state || '';
     form.country = form.country || '';
 
+    form.aboutMe = form.aboutMe || '';
+    form.aboutMe = form.aboutMe.trim();
+
     form.birthdate = form.birthdate ? moment(form.birthdate).toISOString(true): null;
     form.searchName = `${form.username.trim().toLowerCase()}`
     form.searchAddress = `${form.city.trim().toLowerCase()} ${form.state.trim().toLowerCase()} ${form.country.trim().toLowerCase()}`

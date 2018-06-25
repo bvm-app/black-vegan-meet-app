@@ -141,6 +141,11 @@
           </ion-select>
         </ion-item>
 
+        <ion-item>
+          <ion-label stacked>About Yourself</ion-label>
+          <ion-textarea [(ngModel)]="user.aboutMe" rows="5" placeholder="Describe yourself"></ion-textarea>
+        </ion-item>
+
         <div class="button-container" padding>
           <button [disabled]="isUpdating" (click)="submitForm()" ion-button round>{{ isUpdating ? 'Updating...': 'Update profile' }}</button>
         </div>
