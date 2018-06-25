@@ -31,6 +31,7 @@ class RefineSearchFilters implements IRefineSearchFilters {
   newUsers;
   moreThanOnePhoto;
   completeProfile;
+  preferenceRelationshipStatus;
   preferenceIntention;
   preferenceDiet;
   preferenceEducation;
@@ -60,6 +61,7 @@ class RefineSearchFilters implements IRefineSearchFilters {
 
     this.preferenceReligion = '';
     this.preferenceChildren = '';
+    this.preferenceRelationshipStatus = '';
     this.preferenceIntention = [];
     this.preferenceDiet = '';
     this.preferenceEducation = '';

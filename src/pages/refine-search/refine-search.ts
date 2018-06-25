@@ -26,6 +26,7 @@ export class RefineSearchPage {
   genderOptions: string[] = [];
   religionOptions: string[] = [];
   childrenOptions: string[] = [];
+  relationshipStatusOptions: string[] = [];
   intentionOptions: string[] = [];
   dietOptions: string[] = [];
   educationOptions: string[] = [];
@@ -65,6 +66,7 @@ export class RefineSearchPage {
     this.genderOptions = this.enumProvider.getGenderOptions();
     this.religionOptions = this.enumProvider.getReligionOptions();
     this.childrenOptions = this.enumProvider.getChildrenOptions();
+    this.relationshipStatusOptions = this.enumProvider.getRelationshipStatusOptions();
     this.intentionOptions = this.enumProvider.getIntentionOptions();
     this.dietOptions = this.enumProvider.getDietOptions();
     this.educationOptions = this.enumProvider.getEducationOptions();

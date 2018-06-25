@@ -191,6 +191,14 @@ export class UserSearchProvider {
     }
     console.log('[complete profile] users:', users);
 
+    // Relationship Status filter
+    if (filters.preferenceRelationshipStatus) {
+      users = users.filter(
+        user => user.relationshipStatus == filters.preferenceRelationshipStatus
+      );
+    }
+    console.log('[relationship status] users:', users);
+
     // Intentions filter
     if (filters.preferenceIntention.length > 0) {
       users = users.filter(user => {

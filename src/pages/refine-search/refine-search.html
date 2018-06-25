@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content no-bounce has-bouncing="false"  no-padding>
+<ion-content no-bounce has-bouncing="false" no-padding>
   <ion-list padding>
     <ion-list-header no-padding>Filter Your Matches</ion-list-header>
 
@@ -45,7 +45,8 @@
     <div class="input-item-container">
       <div class="slider-label">
         <span>Browsing Distance:</span>
-        <span class="slider-label-value">{{ (filters.distance < maxBrowsingDistance) ? filters.distance: 'No limit' }}</span>
+        <span class="slider-label-value">{{ (filters.distance
+          < maxBrowsingDistance) ? filters.distance: 'No limit' }}</span>
       </div>
       <ion-item no-padding>
         <ion-range [(ngModel)]="filters.distance" [min]="minBrowsingDistance" [max]="maxBrowsingDistance" step="1" color="primary"></ion-range>
@@ -101,36 +102,13 @@
     </ion-item>
 
     <ion-item no-padding>
-      <ion-label>Premium Users</ion-label>
-      <ion-toggle [(ngModel)]="filters.premiumSubscription"></ion-toggle>
-      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.premiumSubscription"></ion-toggle> -->
+      <ion-label>Their Relationship Status</ion-label>
+      <ion-select [(ngModel)]="filters.preferenceRelationshipStatus" name="preferenceRelationshipStatus" placeholder="No preference">
+        <ion-option value="">No preference</ion-option>
+        <ion-option *ngFor="let relationshipStatusOption of relationshipStatusOptions" [value]="relationshipStatusOption">{{ relationshipStatusOption }}</ion-option>
+      </ion-select>
     </ion-item>
 
-    <ion-item no-padding>
-      <ion-label>Online Recently</ion-label>
-      <ion-toggle [(ngModel)]="filters.onlineRecently"></ion-toggle>
-      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.onlineRecently"></ion-toggle> -->
-    </ion-item>
-
-    <ion-item no-padding>
-      <ion-label>New Users</ion-label>
-      <ion-toggle [(ngModel)]="filters.newUsers"></ion-toggle>
-      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.newUsers"></ion-toggle> -->
-    </ion-item>
-
-    <ion-item no-padding>
-      <ion-label>More Than One Photo</ion-label>
-      <ion-toggle [(ngModel)]="filters.moreThanOnePhoto"></ion-toggle>
-      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.moreThanOnePhoto"></ion-toggle> -->
-    </ion-item>
-
-    <ion-item no-padding>
-      <ion-label>Complete Profile</ion-label>
-      <ion-toggle [(ngModel)]="filters.completeProfile"></ion-toggle>
-      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.completeProfile"></ion-toggle> -->
-    </ion-item>
-
-    <pre>{{ filters.preferenceRelationshipStatus }}</pre>
     <ion-item no-padding>
       <ion-label>Their Intentions</ion-label>
       <ion-select multiple="true" [(ngModel)]="filters.preferenceIntention" name="preferenceIntention" placeholder="No preference">
@@ -176,6 +154,36 @@
         <ion-option value="">No preference</ion-option>
         <ion-option *ngFor="let cigaretteOption of cigaretteOptions" [value]="cigaretteOption">{{ cigaretteOption }}</ion-option>
       </ion-select>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Premium Users</ion-label>
+      <ion-toggle [(ngModel)]="filters.premiumSubscription"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.premiumSubscription"></ion-toggle> -->
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Online Recently</ion-label>
+      <ion-toggle [(ngModel)]="filters.onlineRecently"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.onlineRecently"></ion-toggle> -->
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>New Users</ion-label>
+      <ion-toggle [(ngModel)]="filters.newUsers"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.newUsers"></ion-toggle> -->
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>More Than One Photo</ion-label>
+      <ion-toggle [(ngModel)]="filters.moreThanOnePhoto"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.moreThanOnePhoto"></ion-toggle> -->
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label>Complete Profile</ion-label>
+      <ion-toggle [(ngModel)]="filters.completeProfile"></ion-toggle>
+      <!-- <ion-toggle [disabled]="!user?.premiumSubscriptionExpiry" [(ngModel)]="filters.completeProfile"></ion-toggle> -->
     </ion-item>
 
     <div margin>
