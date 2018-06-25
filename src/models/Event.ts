@@ -15,6 +15,8 @@ export class Event {
     location?: string;
     slug?: string;
     coordinates: Coordinates = new Coordinates();
+    distance?: number;
+    
     
     constructor(init?:Partial<Event>){
         Object.assign(this, init);

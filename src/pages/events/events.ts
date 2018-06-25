@@ -70,19 +70,20 @@ export class EventsPage {
 
   async filterEventsByDistanceFromCoordinates(events: Event[], maxDistance: number = 100) {
     let position = await this.geolocation.getCurrentPosition();
-
+    let distanceBetweenCoordinates;
     if (position && position.coords) {
       let filteredEvents = [...events];
       filteredEvents = events.filter(event => {
         if (!event.coordinates) return false;
 
-        let distanceBetweenCoordinates = this.geolocationProvider.getDistanceBetweenCoordinates(
+        distanceBetweenCoordinates = this.geolocationProvider.getDistanceBetweenCoordinates(
           position.coords,
           event.coordinates
         );
 
         // Convert to miles
         distanceBetweenCoordinates = this.geolocationProvider.convertKMtoMile(distanceBetweenCoordinates);
+        event.distance = distanceBetweenCoordinates;
         return distanceBetweenCoordinates <= maxDistance;
       });
 
