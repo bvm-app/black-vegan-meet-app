@@ -9,6 +9,7 @@ import moment from 'moment';
 import firebase from 'firebase';
 import { ViewedMeProvider } from '../../providers/viewed-me/viewed-me';
 import { NotificationProvider } from '../../providers/notification/notification';
+import { PremiumSubscriptionPage } from '../premium-subscription/premium-subscription';
 
 /**
  * Generated class for the ProfilePage page.
@@ -28,6 +29,7 @@ export class ProfilePage {
   currentLoggedInUserId: string;
 
   isCurrentLoggedInUser: boolean = true;
+  isPremiumSubscriber: boolean = false;
   user: IUser;
   userSubscription: Subscription;
 
@@ -110,5 +112,9 @@ export class ProfilePage {
 
   goToConversationPage() {
     this.navCtrl.push('ConversationPage', { recipient: this.user })
+  }
+
+  openPremiumSubscriptionPage() {
+    this.navCtrl.push(PremiumSubscriptionPage);
   }
 }
