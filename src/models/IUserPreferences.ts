@@ -6,6 +6,8 @@ import { DrugOptions } from '../enums/DrugOptions';
 import { ChildrenOptions } from '../enums/ChildrenOptions';
 import { EducationOptions } from '../enums/EducationOptions';
 import { IntentionOptions } from '../enums/IntentionOptions';
+import { HobbyOptions } from '../enums/HobbyOptions';
+import { ExerciseOptions } from '../enums/ExerciseOptions';
 
 export interface IUserPreferences {
   diet?: DietOptions;
@@ -16,4 +18,6 @@ export interface IUserPreferences {
   children?: ChildrenOptions;
   education?: EducationOptions;
   intentions?: IntentionOptions[];
+  hobbies?: HobbyOptions[];
+  exercises?: ExerciseOptions[];
 }

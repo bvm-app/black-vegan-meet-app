@@ -10,6 +10,8 @@ import { EducationOptions } from '../../enums/EducationOptions';
 import { RelationshipStatusOptions } from '../../enums/RelationshipStatusOptions';
 import { IntentionOptions } from '../../enums/IntentionOptions';
 import { BodyTypeOptions } from '../../enums/BodyTypeOptions';
+import { HobbyOptions } from '../../enums/HobbyOptions';
+import { ExerciseOptions } from '../../enums/ExerciseOptions';
 
 /*
   Generated class for the EnumProvider provider.
@@ -100,6 +102,14 @@ export class EnumProvider {
 
   getBodyTypeOptions() {
     return this.getValues(BodyTypeOptions);
+  }
+
+  getHobbyOptions() {
+    return this.getValues(HobbyOptions);
+  }
+
+  getExerciseOptions() {
+    return this.getValues(ExerciseOptions);
   }
 
   private getValues(enumInstance: Object) {

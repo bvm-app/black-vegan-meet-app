@@ -32,6 +32,8 @@ export class EditProfilePage {
   educationOptions: string[];
   relationshipStatusOptions: string[];
   intentionOptions: string[];
+  hobbyOptions: string[];
+  exerciseOptions: string[];
 
   user: IUser;
   userSubscription: Subscription;
@@ -65,6 +67,8 @@ export class EditProfilePage {
     this.childrenOptions = this.enumProvider.getChildrenOptions();
     this.educationOptions = this.enumProvider.getEducationOptions();
     this.intentionOptions = this.enumProvider.getIntentionOptions();
+    this.hobbyOptions = this.enumProvider.getHobbyOptions();
+    this.exerciseOptions = this.enumProvider.getExerciseOptions();
 
     this.userSubscription = this.db
       .object(`userData/${firebase.auth().currentUser.uid}`)

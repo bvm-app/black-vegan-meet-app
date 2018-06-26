@@ -142,6 +142,20 @@
         </ion-item>
 
         <ion-item>
+          <ion-label stacked>Hobby</ion-label>
+          <ion-select multiple="true" [(ngModel)]="user.preferences.hobbies" name="preferenceHobbies" placeholder="Select">
+            <ion-option *ngFor="let hobby of hobbyOptions" [value]="hobby">{{ hobby }}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Exercise</ion-label>
+          <ion-select multiple="true" [(ngModel)]="user.preferences.exercises" name="preferenceExercises" placeholder="Select">
+            <ion-option *ngFor="let exercise of exerciseOptions" [value]="exercise">{{ exercise }}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
           <ion-label stacked>About Yourself</ion-label>
           <ion-textarea [(ngModel)]="user.aboutMe" rows="5" placeholder="Describe yourself"></ion-textarea>
         </ion-item>
