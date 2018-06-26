@@ -6,4 +6,5 @@ export interface IPremiumOption {
   price: number;
   savePercentage: number;
   selected: boolean;
+  duration: number;
 }
