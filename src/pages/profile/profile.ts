@@ -52,7 +52,6 @@ export class ProfilePage {
       this.isCurrentLoggedInUser = this.currentLoggedInUserId === userId;
     }
 
-
     this.userSubscription = this.db
       .object(`userData/${userId}`)
       .valueChanges()
