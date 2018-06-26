@@ -32,6 +32,7 @@ interface IRegisterForm {
   templateUrl: 'register.html'
 })
 export class RegisterPage {
+  confirmAge: boolean = false;
   genderOptions: string[];
 
   constructor(
