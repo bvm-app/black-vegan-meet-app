@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { PayPalPayment } from '@ionic-native/paypal';
 import { IPremiumOption } from '../../models/IPremiumOption';
 import { PremiumSubscriptionOptionsProvider } from '../../providers/premium-subscription-options/premium-subscription-options';
-import { HttpClient } from '@angular/common/http';
+import { UserProvider } from '../../providers/user/user';
 
 /**
  * Generated class for the PremiumSubscriptionPage page.
@@ -25,7 +25,7 @@ export class PremiumSubscriptionPage {
   payment: PayPalPayment;
   options: IPremiumOption[] = [];
   selectedOptionId: number;
-  selectedOption: IPremiumOption = { id: 0, name: '', description: '', price: 0, savePercentage: 0, selected: false };
+  selectedOption: IPremiumOption = { id: 0, name: '', description: '', price: 0, savePercentage: 0, selected: false, duration: 0 };
 
   addScript: boolean = false;
   paypalLoad: boolean = true;
@@ -50,6 +50,8 @@ export class PremiumSubscriptionPage {
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
         //Do something when payment is successful.
+        console.log("PAYMENT: ", payment);
+        this.userProvider.updatePremiumSubscription(this.selectedOption);
         let alert = this.alertCtrl.create({
           title: 'Congratulations!',
           subTitle: 'You are now subscribed for ' + this.selectedOption.name.toLowerCase() + '! You my now enjoy all of the premium features.',
@@ -63,7 +65,7 @@ export class PremiumSubscriptionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private premiumOptionsProvider: PremiumSubscriptionOptionsProvider, 
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController, private userProvider: UserProvider) {
     this.getOptions();
   }
 
@@ -84,6 +86,7 @@ export class PremiumSubscriptionPage {
   }
 
   ionViewDidLoad() {
+    // this.userProvider.updatePremiumSubscription(this.selectedOption);
   }
 
   loadWeb() {
@@ -118,7 +121,7 @@ export class PremiumSubscriptionPage {
 
   updateSelectedOption() {
     this.selectedOption = this.options.find(x => x.id == this.selectedOptionId);
-    if (this.selectedOption === undefined) this.selectedOption = { id: 0, name: '', description: '', price: 0, savePercentage: 0, selected: false };
+    if (this.selectedOption === undefined) this.selectedOption = { id: 0, name: '', description: '', price: 0, savePercentage: 0, selected: false, duration: 0 };
   }
  
 }

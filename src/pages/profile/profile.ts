@@ -52,12 +52,13 @@ export class ProfilePage {
       this.isCurrentLoggedInUser = this.currentLoggedInUserId === userId;
     }
 
+
     this.userSubscription = this.db
       .object(`userData/${userId}`)
       .valueChanges()
       .subscribe((user: IUser) => {
         this.user = user;
-
+        
         if (!this.user.images) {
           this.user.images = [this.defaultUserImagePlaceholder];
         }
@@ -65,6 +66,9 @@ export class ProfilePage {
         if (!this.user.preferences) {
           this.user.preferences = {};
         }
+
+        this.isPremiumSubscriber = this.userProvider.getPremiumStatus();
+        console.log("IS PREMIUM: ", this.userProvider.getPremiumStatus());
       });
 
     // Update userViewedMeData of this user
@@ -72,6 +76,10 @@ export class ProfilePage {
       this.viewedMeProvider.updateCurrentUserViewedMe(userId);
       this.notificationProvider.setViewedMeNotification(userId);
     }
+  }
+
+  ionViewDidEnter() {
+    
   }
 
   ionViewDidLeave() {
