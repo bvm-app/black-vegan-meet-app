@@ -61,6 +61,11 @@ import { YoutubeProvider } from '../providers/youtube/youtube';
 import { CreateEventPageModule } from '../pages/create-event/create-event.module';
 import { EventModalPageModule } from '../pages/event-modal/event-modal.module';
 import { EventDetailPageModule } from '../pages/event-detail/event-detail.module';
+import { PaypalProvider } from '../providers/paypal/paypal';
+import { PremiumSubscriptionPageModule } from '../pages/premium-subscription/premium-subscription.module';
+import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscription-options/premium-subscription-options';
+import { PayPal } from '@ionic-native/paypal';
+import { UserTransactionProvider } from '../providers/user-transaction/user-transaction';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -84,7 +89,8 @@ import { EventDetailPageModule } from '../pages/event-detail/event-detail.module
     RestaurantsPageModule,
     CreateEventPageModule,
     EventModalPageModule,
-    EventDetailPageModule
+    EventDetailPageModule,
+    PremiumSubscriptionPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
@@ -94,6 +100,7 @@ import { EventDetailPageModule } from '../pages/event-detail/event-detail.module
     Camera,
     FileChooser,
     FilePath,
+    PayPal,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireDatabase,
     FirebaseStorageProvider,
@@ -112,7 +119,10 @@ import { EventDetailPageModule } from '../pages/event-detail/event-detail.module
     SwipeProvider,
     ConversationProvider,
     NotificationProvider,
-    YoutubeProvider
+    YoutubeProvider,
+    PaypalProvider,
+    PremiumSubscriptionOptionsProvider,
+    UserTransactionProvider
   ]
 })
 export class AppModule {

@@ -42,6 +42,10 @@
       </div>
     </div>
 
+    <div class="subscribe-section" *ngIf="isCurrentLoggedInUser && !isPremiumSubscriber" (click)="openPremiumSubscriptionPage()">
+      <button ion-button block>Go Premium</button>
+    </div>
+
     <div class="actions-container" *ngIf="isCurrentLoggedInUser" padding>
       <button (click)="navigateTo('EditPhotosPage')" class="action-button" ion-button outline>
         <ion-icon item-start name="md-camera"></ion-icon>

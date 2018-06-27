@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { Restaurant } from '../../models/restaurant';
 import { RestaurantsProvider } from '../../providers/restaurants/restaurants';
 import { RestaurantModalPage } from '../restaurant-modal/restaurant-modal';
+import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 
 /**
  * Generated class for the RestaurantsPage page.
@@ -22,7 +23,8 @@ export class RestaurantsPage {
   isFetching: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private restaurantsProvider: RestaurantsProvider) {
+    private restaurantsProvider: RestaurantsProvider,
+    private geoLocationProvider: GeoLocationProvider) {
   }
 
   ionViewDidLoad() {
