@@ -4,6 +4,9 @@ import { PayPalPayment } from '@ionic-native/paypal';
 import { IPremiumOption } from '../../models/IPremiumOption';
 import { PremiumSubscriptionOptionsProvider } from '../../providers/premium-subscription-options/premium-subscription-options';
 import { UserProvider } from '../../providers/user/user';
+import { UserTransactionProvider } from '../../providers/user-transaction/user-transaction';
+import { IUser } from '../../models/IUser';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the PremiumSubscriptionPage page.
@@ -22,6 +25,7 @@ declare let paypal: any;
 export class PremiumSubscriptionPage {
   cordova = window['cordova'];
 
+  user: IUser;
   payment: PayPalPayment;
   options: IPremiumOption[] = [];
   selectedOptionId: number;
@@ -51,21 +55,27 @@ export class PremiumSubscriptionPage {
       return actions.payment.execute().then((payment) => {
         //Do something when payment is successful.
         console.log("PAYMENT: ", payment);
-        this.userProvider.updatePremiumSubscription(this.selectedOption);
-        let alert = this.alertCtrl.create({
-          title: 'Congratulations!',
-          subTitle: 'You are now subscribed for ' + this.selectedOption.name.toLowerCase() + '! You my now enjoy all of the premium features.',
-          buttons: ['Dismiss']
+        this.userTransactionProvider.addTransaction(payment, this.selectedOption, this.user).then(res => {
+          this.userProvider.updatePremiumSubscription(this.selectedOption).then(res => {
+            let alert = this.alertCtrl.create({
+              title: 'Congratulations!',
+              subTitle: 'You are now subscribed for ' + this.selectedOption.name.toLowerCase() + '! You my now enjoy all of the premium features.',
+              buttons: ['Dismiss']
+            });
+            alert.present();
+            this.navCtrl.popToRoot();
+          });
         });
-        alert.present();
-        this.navCtrl.popToRoot();
-      })
+      });
     }
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private premiumOptionsProvider: PremiumSubscriptionOptionsProvider,
-    private alertCtrl: AlertController, private userProvider: UserProvider) {
+    private alertCtrl: AlertController, private userProvider: UserProvider,
+    private userTransactionProvider: UserTransactionProvider, private db: AngularFireDatabase) {
+
+    this.db.list('/userTransaction').remove();
     this.getOptions();
   }
 
@@ -78,6 +88,9 @@ export class PremiumSubscriptionPage {
   }
 
   ionViewWillEnter() {
+    this.userProvider.getCurrentUser().subscribe(res => {
+      this.user = res;
+    });
     this.getOptions();
     if (this.cordova) {
     } else {
