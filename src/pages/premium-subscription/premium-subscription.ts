@@ -4,6 +4,7 @@ import { PayPalPayment } from '@ionic-native/paypal';
 import { IPremiumOption } from '../../models/IPremiumOption';
 import { PremiumSubscriptionOptionsProvider } from '../../providers/premium-subscription-options/premium-subscription-options';
 import { UserProvider } from '../../providers/user/user';
+import { AppConfig } from '../../config/app.config';
 
 /**
  * Generated class for the PremiumSubscriptionPage page.
@@ -33,8 +34,8 @@ export class PremiumSubscriptionPage {
   paypalConfig = {
     env: 'sandbox',
     client: {
-      sandbox: 'AQ-5yE0IlUP78n7-3kA55Vm6aQyJQtOCrXgEa1yWwyrOeywVXIR-9Oe8Ta7_hMFV2Lb08Mu8jBNjzhu0',
-      production: '<your-production-key here>'
+      sandbox: 'ATiVmaN_xR5Qy_795IYQEcVRoYBilmhV2-9SaARdhq0tD7Qg8QqLLwbp_GdPU219RSCUfNLHU9ZL6of0',
+      production: 'ATPD8IsAs7xpZXhu-P1EMXKF1Ak85GH1hhTAYMoaq-MzUarsRLa_CVIFGjhnQqLn2NUwA1tiqVJf_caa'
     },
     commit: true,
     payment: (data, actions) => {
@@ -64,8 +65,10 @@ export class PremiumSubscriptionPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private premiumOptionsProvider: PremiumSubscriptionOptionsProvider, 
-    private alertCtrl: AlertController, private userProvider: UserProvider) {
+    private premiumOptionsProvider: PremiumSubscriptionOptionsProvider,
+    private alertCtrl: AlertController, private userProvider: UserProvider,
+    private appConfig: AppConfig) {
+
     this.getOptions();
   }
 
@@ -123,5 +126,5 @@ export class PremiumSubscriptionPage {
     this.selectedOption = this.options.find(x => x.id == this.selectedOptionId);
     if (this.selectedOption === undefined) this.selectedOption = { id: 0, name: '', description: '', price: 0, savePercentage: 0, selected: false, duration: 0 };
   }
- 
+
 }
