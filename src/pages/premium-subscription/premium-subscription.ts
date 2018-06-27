@@ -4,7 +4,6 @@ import { PayPalPayment } from '@ionic-native/paypal';
 import { IPremiumOption } from '../../models/IPremiumOption';
 import { PremiumSubscriptionOptionsProvider } from '../../providers/premium-subscription-options/premium-subscription-options';
 import { UserProvider } from '../../providers/user/user';
-import { AppConfig } from '../../config/app.config';
 
 /**
  * Generated class for the PremiumSubscriptionPage page.
@@ -66,9 +65,7 @@ export class PremiumSubscriptionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private premiumOptionsProvider: PremiumSubscriptionOptionsProvider,
-    private alertCtrl: AlertController, private userProvider: UserProvider,
-    private appConfig: AppConfig) {
-
+    private alertCtrl: AlertController, private userProvider: UserProvider) {
     this.getOptions();
   }
 
