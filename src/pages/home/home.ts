@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 import { env } from '../../app/env';
 import { UserProvider } from '../../providers/user/user';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -13,6 +13,8 @@ import { ConversationProvider } from '../../providers/conversation/conversation'
 import { NotificationProvider } from '../../providers/notification/notification';
 import { INotifications } from '../../models/INotifications';
 import { SwipeProvider } from '../../providers/swipe/swipe';
+import { RefineSearchProvider } from '../../providers/refine-search/refine-search';
+import { Coordinates } from '../../models/coordinates';
 
 @Component({
   selector: 'page-home',
@@ -22,6 +24,8 @@ export class HomePage {
   defaultUserImage = env.DEFAULT.userImagePlaceholder;
   icons = env.DEFAULT.icons;
   maximumProspectDatesCount = 25;
+
+  currentGeoposition: any = false;
 
   user: IUser;
   isLoading: boolean = true;
@@ -38,7 +42,9 @@ export class HomePage {
     public geolocationProvider: GeoLocationProvider,
     private conversationProvider: ConversationProvider,
     private notificationProvider: NotificationProvider,
-    private swipeProvider: SwipeProvider
+    private swipeProvider: SwipeProvider,
+    private modalCtrl: ModalController,
+    private refineSearchProvider: RefineSearchProvider
   ) { }
 
   ionViewDidLeave() {
@@ -47,6 +53,21 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.geolocationProvider.getCurrentPosition().then(position => {
+      console.log('value:', position.coords);
+      const coordinates: Coordinates = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      };
+      this.currentGeoposition = coordinates;
+      this.userSearchProvider
+        .filterUsersByDistanceFromCoordinates(coordinates)
+        .then(users => {
+          console.log('results:', users);
+          this.prospectDates = users;
+        });
+    });
+
     this.currentLoggedInUserSubscription = this.db
       .object(`userData/${firebase.auth().currentUser.uid}`)
       .valueChanges()
@@ -54,13 +75,13 @@ export class HomePage {
       .subscribe((user: IUser) => {
         this.user = user;
         this.isLoading = false;
-        if (user.geolocation) {
-          this.userSearchProvider
-            .filterUsersByDistanceFromCoordinates(user.geolocation)
-            .then(users => {
-              this.prospectDates = users;
-            });
-        }
+        // if (user.geolocation) {
+        //   this.userSearchProvider
+        //     .filterUsersByDistanceFromCoordinates(user.geolocation)
+        //     .then(users => {
+        //       this.prospectDates = users;
+        //     });
+        // }
       });
 
     this.notificationProvider.getNotifications().subscribe(notifications => {
@@ -90,7 +111,7 @@ export class HomePage {
   redirectToProfilePage() {
     if (window.localStorage.getItem('isNewUser')) {
       window.localStorage.removeItem('isNewUser');
-      this.navCtrl.push('ProfilePage');
+      this.modalCtrl.create('EditProfilePage' , { isNewUser: true }).present();
     }
   }
 
@@ -104,6 +125,6 @@ export class HomePage {
   }
 
   navigateToSearchPage() {
-    this.navCtrl.push('RefineSearchPage', { shouldBeRemovedFromNavStackAfterInput: true });
+    this.navCtrl.push('SearchPage', { filters: this.refineSearchProvider.getFilters() });
   }
 }

@@ -79,7 +79,6 @@ export class RegisterPage {
             id: userId,
             username: username,
             email: form.email.trim(),
-            searchName: username.toLowerCase(),
             gender: gender,
             createdAt: firebase.database.ServerValue.TIMESTAMP,
           })

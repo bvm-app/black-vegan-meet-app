@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { IUser } from '../../models/IUser';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -38,6 +38,7 @@ export class EditProfilePage {
   user: IUser;
   userSubscription: Subscription;
   isUpdating: boolean = false;
+  isNewUser: boolean = false;
 
   maxDate: string;
 
@@ -47,11 +48,14 @@ export class EditProfilePage {
     public db: AngularFireDatabase,
     public enumProvider: EnumProvider,
     public toastCtrl: ToastController,
-    public geolocationProvider: GeoLocationProvider
+    public geolocationProvider: GeoLocationProvider,
+    public viewCtrl: ViewController
   ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditProfilePage');
+
+    this.isNewUser = this.navParams.data.isNewUser;
 
     let maxDate = new Date((new Date().getFullYear() - 18),new Date().getMonth(), new Date().getDate());
     this.maxDate = moment(maxDate).format("YYYY-MM-DD");
@@ -121,6 +125,14 @@ export class EditProfilePage {
     this.db.object(`userData/${firebase.auth().currentUser.uid}`).set(form).then(() => {
       this.isUpdating = false;
       this.presentToast('Profile updated!');
+
+      if (this.isNewUser) {
+        this.viewCtrl.dismiss();
+        this.navCtrl.push('RefineSearchPage', { shouldBeRemovedFromNavStackAfterInput: true });
+      } else {
+        this.navCtrl.pop();
+      }
+
     }).catch((err: Error) => {
       console.log('error:', err.message);
       this.isUpdating = false;

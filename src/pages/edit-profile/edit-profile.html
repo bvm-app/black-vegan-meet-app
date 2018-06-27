@@ -19,7 +19,7 @@
   <ng-container *ngIf="user">
     <div class="list-container" padding>
       <ion-list>
-        <ion-list-header>The Matchmaking Essentials</ion-list-header>
+        <ion-list-header>{{ isNewUser ? 'Please complete your profile': 'The Matchmaking Essentials' }}</ion-list-header>
         <ion-item>
           <ion-label stacked>Username</ion-label>
           <ion-input [(ngModel)]="user.username" name="userName" type="text" placeholder="Username"></ion-input>

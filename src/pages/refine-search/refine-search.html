@@ -187,7 +187,9 @@
     </ion-item>
 
     <div margin>
-      <button (click)="filterUsers()" ion-button round full>Find Your Match</button>
+      <button (click)="filterUsers()" ion-button round full>
+        {{ shouldBeRemovedFromNavStackAfterInput ? 'Set Search Settings': 'Find Your Match' }}
+      </button>
     </div>
   </ion-list>
 

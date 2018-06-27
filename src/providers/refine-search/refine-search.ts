@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EnumProvider } from '../enum/enum';
 import { IRefineSearchFilters } from '../../models/IRefineSearchFilters';
-import { IUser } from '../../models/IUser';
 import { UserProvider } from '../user/user';
 import { GenderOptions } from '../../enums/GenderOptions';
 
@@ -24,20 +23,20 @@ class RefineSearchFilters implements IRefineSearchFilters {
 
   // Premium Search
   heightRangeIndex;
-  preferenceReligion;
-  preferenceChildren;
+  preferenceReligion?;
+  preferenceChildren?;
   premiumSubscription;
   onlineRecently;
   newUsers;
   moreThanOnePhoto;
   completeProfile;
-  preferenceRelationshipStatus;
-  preferenceIntention;
-  preferenceDiet;
-  preferenceEducation;
-  preferenceDrug;
-  preferenceAlcohol;
-  preferenceCigarette;
+  preferenceRelationshipStatus?;
+  preferenceIntention?;
+  preferenceDiet?;
+  preferenceEducation?;
+  preferenceDrug?;
+  preferenceAlcohol?;
+  preferenceCigarette?;
 
   constructor(heightOptions: string[]) {
     // Init Basic Search values
@@ -73,22 +72,40 @@ class RefineSearchFilters implements IRefineSearchFilters {
 
 @Injectable()
 export class RefineSearchProvider {
-  filters: RefineSearchFilters;
+  private filters: RefineSearchFilters;
+  private localStorageKey = 'searchFilters';
+
   constructor(
     private enumProvider: EnumProvider,
     private userProvider: UserProvider
   ) {
     console.log('Hello RefineSearchProvider Provider');
-    this.filters = new RefineSearchFilters(this.enumProvider.getHeightOptions());
-    this.userProvider.getCurrentUser().subscribe(user => {
-      this.filters.city = user.city || '';
-      this.filters.state = user.state || '';
-      this.filters.country = user.country || '';
-      this.filters.location = this.userProvider.formatAddress(user) || '';
-    });
+
+    this.initFilters();
+  }
+
+  private initFilters() {
+    const filters = window.localStorage.getItem(this.localStorageKey);
+
+    if (filters) {
+      this.filters = JSON.parse(filters);
+    } else {
+      this.filters = new RefineSearchFilters(this.enumProvider.getHeightOptions());
+      this.userProvider.getCurrentUser().subscribe(user => {
+        this.filters.city = user.city || '';
+        this.filters.state = user.state || '';
+        this.filters.country = user.country || '';
+        this.filters.location = this.userProvider.formatAddress(user) || '';
+      });
+    }
   }
 
   getFilters() {
     return this.filters;
+  }
+
+  updateFilters(filters: IRefineSearchFilters) {
+    this.filters = filters;
+    window.localStorage.setItem(this.localStorageKey, JSON.stringify(filters));
   }
 }

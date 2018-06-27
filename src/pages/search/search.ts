@@ -12,6 +12,7 @@ import { IRefineSearchFilters } from '../../models/IRefineSearchFilters';
 import { UserSearchProvider } from '../../providers/user-search/user-search';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { RefineSearchProvider } from '../../providers/refine-search/refine-search';
 
 /**
  * Generated class for the SearchPage page.
@@ -37,7 +38,8 @@ export class SearchPage {
     public navParams: NavParams,
     public db: AngularFireDatabase,
     public modalCtrl: ModalController,
-    public userSearchProvider: UserSearchProvider
+    public userSearchProvider: UserSearchProvider,
+    public refineSearchProvider: RefineSearchProvider
   ) {}
 
   ionViewDidLeave() {
@@ -92,6 +94,8 @@ export class SearchPage {
   filterUsers(filters: IRefineSearchFilters) {
     this.users = [];
     this.isLoading = true;
+    this.refineSearchProvider.updateFilters(filters);
+
     return this.userSearchProvider.filterUsers(filters).then(users => {
       this.allUsers = users;
       this.populateUsersList();

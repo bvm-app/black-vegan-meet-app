@@ -106,18 +106,14 @@ export class RefineSearchPage {
     }
     this.filters.location = address.join(', ');
 
+    if (this.filters.distance === this.maxBrowsingDistance) {
+      this.filters.distance = null;
+    }
 
     if (this.shouldBeRemovedFromNavStackAfterInput) {
-      if (this.filters.distance === this.maxBrowsingDistance) {
-        this.filters.distance = null;
-      }
-
-      this.navCtrl.push('SearchPage', { filters: this.filters }).then(() => {
-        const startIndex = this.navCtrl.getActive().index - 1;
-        this.navCtrl.remove(startIndex, 1);
-      });
-    } else {
-      this.viewCtrl.dismiss(this.filters);
+      this.refineSearchProvider.updateFilters(this.filters);
     }
+
+    this.viewCtrl.dismiss(this.filters);
   }
 }

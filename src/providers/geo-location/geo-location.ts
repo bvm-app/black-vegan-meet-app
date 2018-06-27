@@ -83,7 +83,7 @@ export class GeoLocationProvider {
     return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
       + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
       '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + env.API_KEYS.GOOGLE_MAPS);
-    
+
     // return this.http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
     //   + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
     //   '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + env.API_KEYS.GOOGLE_MAPS);
