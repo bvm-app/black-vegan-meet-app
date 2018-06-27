@@ -65,6 +65,8 @@ import { PaypalProvider } from '../providers/paypal/paypal';
 import { PremiumSubscriptionPageModule } from '../pages/premium-subscription/premium-subscription.module';
 import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscription-options/premium-subscription-options';
 import { PayPal } from '@ionic-native/paypal';
+import { UserTransactionProvider } from '../providers/user-transaction/user-transaction';
+import { AppConfig } from '../config/app.config';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -94,6 +96,7 @@ import { PayPal } from '@ionic-native/paypal';
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
   providers: [
+    AppConfig,
     StatusBar,
     SplashScreen,
     Camera,
@@ -120,7 +123,8 @@ import { PayPal } from '@ionic-native/paypal';
     NotificationProvider,
     YoutubeProvider,
     PaypalProvider,
-    PremiumSubscriptionOptionsProvider
+    PremiumSubscriptionOptionsProvider,
+    UserTransactionProvider
   ]
 })
 export class AppModule {

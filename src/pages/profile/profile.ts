@@ -10,6 +10,7 @@ import firebase from 'firebase';
 import { ViewedMeProvider } from '../../providers/viewed-me/viewed-me';
 import { NotificationProvider } from '../../providers/notification/notification';
 import { PremiumSubscriptionPage } from '../premium-subscription/premium-subscription';
+import { AppConfig } from '../../config/app.config';
 
 /**
  * Generated class for the ProfilePage page.
@@ -39,10 +40,13 @@ export class ProfilePage {
     public db: AngularFireDatabase,
     public userProvider: UserProvider,
     public viewedMeProvider: ViewedMeProvider,
-    public notificationProvider: NotificationProvider
-  ) {}
+    public notificationProvider: NotificationProvider,
+    public appConfig: AppConfig
+  ) { }
 
   ionViewWillEnter() {
+    console.log('AppConfig', this.appConfig);
+    
     console.log('ionViewWillEnter ProfilePage');
     this.currentLoggedInUserId = firebase.auth().currentUser.uid;
 
@@ -57,7 +61,7 @@ export class ProfilePage {
       .valueChanges()
       .subscribe((user: IUser) => {
         this.user = user;
-        
+
         if (!this.user.images) {
           this.user.images = [this.defaultUserImagePlaceholder];
         }
@@ -66,8 +70,7 @@ export class ProfilePage {
           this.user.preferences = {};
         }
 
-        this.isPremiumSubscriber = this.userProvider.getPremiumStatus();
-        console.log("IS PREMIUM: ", this.userProvider.getPremiumStatus());
+
       });
 
     // Update userViewedMeData of this user
@@ -78,7 +81,8 @@ export class ProfilePage {
   }
 
   ionViewDidEnter() {
-    
+    this.isPremiumSubscriber = this.userProvider.getPremiumStatus();
+    console.log("IS PREMIUM: ", this.userProvider.getPremiumStatus());
   }
 
   ionViewDidLeave() {
