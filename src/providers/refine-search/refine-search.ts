@@ -106,6 +106,7 @@ export class RefineSearchProvider {
 
   updateFilters(filters: IRefineSearchFilters) {
     this.filters = filters;
+    if (!filters) return;
     window.localStorage.setItem(this.localStorageKey, JSON.stringify(filters));
   }
 }
