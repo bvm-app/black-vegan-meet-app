@@ -124,4 +124,12 @@ export class ProfilePage {
   openPremiumSubscriptionPage() {
     this.navCtrl.push(PremiumSubscriptionPage);
   }
+
+  openBlockConfirmation(userId){
+    console.log('blocked');
+  }
+ 
+  openReportConfirmation(userId){
+    console.log('report');
+  }
 }
