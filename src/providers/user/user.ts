@@ -91,6 +91,7 @@ export class UserProvider {
   }
 
   getPremiumStatus() {
+    if (!this._user.premiumSubscriptionExpiry) return false;
     return moment(new Date()).isBefore(moment(this._user.premiumSubscriptionExpiry));
   }
 
