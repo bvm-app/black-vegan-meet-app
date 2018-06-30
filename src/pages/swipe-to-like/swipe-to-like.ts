@@ -113,7 +113,7 @@ export class SwipeToLikePage {
     }
 
     this.updatePotentialMatches(this.allPotentialMatches.indexOf(removedCard));
-    this.presentToast(this.recentCard);
+    // this.presentToast(this.recentCard);
     this.swipeProvider.updateUserSwipeData(potentialMatch.id, liked);
   }
 
@@ -146,9 +146,10 @@ export class SwipeToLikePage {
   generatePotentialMatches() {
     this.geolocationProvider.getCurrentPosition().then((res) => {
       this.userSearchProvider.sortByDistanceFromCoordinates(res.coords).then(users => {
-        users = [...users];
-        let currentUser = users.find(x => x.id == firebase.auth().currentUser.uid);
+        users = [...users];       
 
+        let currentUser = users.find(x => x.id == firebase.auth().currentUser.uid);
+        
         if (currentUser) {
           users.splice(users.indexOf(currentUser), 1);
         }

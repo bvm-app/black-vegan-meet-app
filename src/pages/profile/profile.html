@@ -71,8 +71,9 @@
         Report
       </button>
       <button ion-button (click)="openBlockConfirmation(user.id)">
-        <ion-icon item-start name="md-close-circle"></ion-icon>
-        Block
+        <ion-icon item-start name="md-close-circle" *ngIf='!isBlocked'></ion-icon>
+        <ion-icon item-start name="md-checkmark-circle" *ngIf='isBlocked'></ion-icon>
+        {{isBlocked ? 'Unblock' : 'Block'}}
       </button>
     </div>
 
