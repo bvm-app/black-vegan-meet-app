@@ -5,6 +5,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Subscription, ReplaySubject } from 'rxjs';
 import { IPremiumOption } from '../../models/IPremiumOption';
 import moment from 'moment';
+import { UserCredential } from '@firebase/auth-types';
+import { GenderOptions } from '../../enums/GenderOptions';
 /*
   Generated class for the UserProvider provider.
 
@@ -113,5 +115,46 @@ export class UserProvider {
     }
 
     return address.join(', ');
+  }
+
+  saveUserData(userCredential: UserCredential, method: string): Promise<void> {
+    let user: IUser;
+
+    switch (method.toLocaleLowerCase()) {
+      case 'google':
+        user = {
+          id: userCredential.user.uid,
+          username: userCredential.additionalUserInfo.username || '',
+          email: userCredential.user.email,
+          searchName: userCredential.user.displayName,
+          images: [],
+          profilePictureUrl: userCredential.user.photoURL
+        };
+
+        user.images.push(userCredential.user.photoURL);
+        break;
+
+      case 'facebook':
+        user = {
+          id: userCredential.user.uid,
+          username: userCredential.additionalUserInfo.username || '',
+          email: userCredential.user.email,
+          searchName: userCredential.user.displayName,
+          firstName: userCredential.additionalUserInfo.profile['first_name'],
+          lastName: userCredential.additionalUserInfo.profile['last_name'],
+          images: [],
+          profilePictureUrl: userCredential.user.photoURL
+        };
+        
+        if(!userCredential.additionalUserInfo.profile['picture']['data']['is_silhouette']) {
+          user.profilePictureUrl = userCredential.additionalUserInfo.profile['picture']['data']['url'];
+          user.images.push(userCredential.additionalUserInfo.profile['picture']['data']['url']);
+        }
+
+        break;
+    }
+
+
+    return this.db.object(`/userData/${userCredential.user.uid}`).update(user);
   }
 }

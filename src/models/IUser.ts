@@ -9,7 +9,7 @@ export interface IUser {
   username: string;
   firstName?: string;
   lastName?: string;
-  gender: GenderOptions;
+  gender?: GenderOptions;
   email: string;
 
   searchName: string;
