@@ -57,4 +57,18 @@ page-login {
       flex-direction: column;
     }
   }
+
+  .third-party-buttons {
+    p {
+      width: 100%;
+    }
+  }
+
+  .action-buttons-divider {
+    p {
+      width: 100%;
+      text-align: center;
+      color: #adadad;
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import {
   IonicPage,
   NavController,
@@ -12,6 +12,9 @@ import { UserCredential } from '@firebase/auth-types';
 import { RegisterPage } from '../register/register';
 import { StartPage } from '../start/start';
 import { env } from '../../app/env';
+import * as firebase from 'firebase/app';
+import { UserProvider } from '../../providers/user/user';
+import { FirebaseNameOrConfigToken } from 'angularfire2';
 
 /**
  * Generated class for the LoginPage page.
@@ -35,8 +38,10 @@ export class LoginPage {
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
-    public afAuth: AngularFireAuth
-  ) {}
+    public afAuth: AngularFireAuth,
+    private ref: ChangeDetectorRef,
+    private userProvider: UserProvider
+  ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -68,6 +73,46 @@ export class LoginPage {
         this.presentToast('Wrong username or password!');
         loader.dismiss();
       });
+  }
+
+  loginThirdParty(method: string) {
+    console.log("LOGIN FB");
+
+    let loader = this.getLoader('Logging in...');
+    loader.present();
+
+    this.afAuth.auth
+      .signInWithPopup(this.getAuthProvider(method))
+      .then((userCredential: UserCredential) => {
+        this.userProvider.saveUserData(userCredential, method);
+
+        if (userCredential.additionalUserInfo.isNewUser) {
+          this.userProvider.saveUserData(userCredential, method);
+        }
+
+        this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+      })
+      .catch((error: Error) => {
+        loader.dismiss();
+        console.log('signin error', error);
+        this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+      });
+  }
+
+  getAuthProvider(method: string) {
+    switch (method.toLocaleLowerCase()) {
+      case 'facebook':
+        return new firebase.auth.FacebookAuthProvider();
+      case 'google':
+        return new firebase.auth.GoogleAuthProvider();
+    }
+  }
+
+  private getLoader(content: string, dismissOnPageChange: boolean = true) {
+    return this.loadingCtrl.create({
+      content: content,
+      dismissOnPageChange: dismissOnPageChange
+    });
   }
 
   register() {
