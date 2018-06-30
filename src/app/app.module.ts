@@ -66,6 +66,7 @@ import { PremiumSubscriptionPageModule } from '../pages/premium-subscription/pre
 import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscription-options/premium-subscription-options';
 import { PayPal } from '@ionic-native/paypal';
 import { UserTransactionProvider } from '../providers/user-transaction/user-transaction';
+import { BlockProvider } from '../providers/block/block';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -122,7 +123,8 @@ import { UserTransactionProvider } from '../providers/user-transaction/user-tran
     YoutubeProvider,
     PaypalProvider,
     PremiumSubscriptionOptionsProvider,
-    UserTransactionProvider
+    UserTransactionProvider,
+    BlockProvider
   ]
 })
 export class AppModule {

@@ -12,7 +12,7 @@
 
 </ion-header>
 
-<ion-content no-bounce has-bouncing="false"  #container no-padding>
+<ion-content no-bounce has-bouncing="false" #container no-padding>
   <loading *ngIf="!user"></loading>
   <ng-container *ngIf="user">
 
@@ -37,7 +37,8 @@
         </div>
 
         <div class="user-location" *ngIf="formatAddress()">
-          <ion-icon color="secondary" name="md-pin"></ion-icon> <span>{{ formatAddress() }}</span>
+          <ion-icon color="secondary" name="md-pin"></ion-icon>
+          <span>{{ formatAddress() }}</span>
         </div>
       </div>
     </div>
@@ -61,6 +62,18 @@
       <button (click)="goToConversationPage()" class="action-button" ion-button outline>
         <ion-icon item-start name="md-text"></ion-icon>
         Send a message to {{ user?.username }}
+      </button>
+    </div>
+
+    <div class="block-report-container" *ngIf="!isCurrentLoggedInUser" padding>
+      <button ion-button (click)="openReportConfirmation(user.id)">
+        <ion-icon item-start name="md-flag"></ion-icon>
+        Report
+      </button>
+      <button ion-button (click)="openBlockConfirmation(user.id)">
+        <ion-icon item-start name="md-close-circle" *ngIf='!isBlocked'></ion-icon>
+        <ion-icon item-start name="md-checkmark-circle" *ngIf='isBlocked'></ion-icon>
+        {{isBlocked ? 'Unblock' : 'Block'}}
       </button>
     </div>
 

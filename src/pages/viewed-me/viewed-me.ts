@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators/map';
 import moment from 'moment';
 import _ from 'lodash';
 import { NotificationProvider } from '../../providers/notification/notification';
+import { BlockProvider } from '../../providers/block/block';
 
 /**
  * Generated class for the ViewedMePage page.
@@ -39,8 +40,9 @@ export class ViewedMePage {
     public db: AngularFireDatabase,
     public viewedMeProvider: ViewedMeProvider,
     public userProvider: UserProvider,
-    public notificationProvider: NotificationProvider
-  ) {}
+    public notificationProvider: NotificationProvider,
+    private blockProvider: BlockProvider
+  ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewedMePage');
@@ -90,13 +92,18 @@ export class ViewedMePage {
 
             const afterCount = this.users.length;
 
-            if (previousCount === afterCount) {
-              this.hasNoMoreToFetch = true;
-            }
+            this.blockProvider.filterBlockedUsers(this.users).then(users => {
+              this.users = users;
 
-            if (infiniteScroll) infiniteScroll.complete();
+              if (previousCount === afterCount) {
+                this.hasNoMoreToFetch = true;
+              }
 
-            this.isFetching = false;
+              if (infiniteScroll) infiniteScroll.complete();
+
+              this.isFetching = false;
+            });
+
             this.usersSubscription.unsubscribe();
           });
         });

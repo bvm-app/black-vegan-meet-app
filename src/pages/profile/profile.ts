@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { IUser } from '../../models/IUser';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import firebase from 'firebase';
 import { ViewedMeProvider } from '../../providers/viewed-me/viewed-me';
 import { NotificationProvider } from '../../providers/notification/notification';
 import { PremiumSubscriptionPage } from '../premium-subscription/premium-subscription';
+import { BlockProvider } from '../../providers/block/block';
 
 /**
  * Generated class for the ProfilePage page.
@@ -40,7 +41,11 @@ export class ProfilePage {
     public userProvider: UserProvider,
     public viewedMeProvider: ViewedMeProvider,
     public notificationProvider: NotificationProvider,
+    private alertCtrl: AlertController,
+    private blockProvider: BlockProvider
   ) { }
+
+  isBlocked: boolean = false;
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter ProfilePage');
@@ -74,6 +79,8 @@ export class ProfilePage {
       this.viewedMeProvider.updateCurrentUserViewedMe(userId);
       this.notificationProvider.setViewedMeNotification(userId);
     }
+
+    this.getIsBlocked(userId);
   }
 
   ionViewDidEnter() {
@@ -123,5 +130,42 @@ export class ProfilePage {
 
   openPremiumSubscriptionPage() {
     this.navCtrl.push(PremiumSubscriptionPage);
+  }
+
+  openBlockConfirmation(userId: string) {
+    if (this.isBlocked) {
+      this.blockProvider.unblockUser(userId);
+      this.getIsBlocked(this.user.id);
+    } else {
+      let alert = this.alertCtrl.create({
+        title: 'Block',
+        message: 'Are you sure you want to block this user?',
+        buttons: [
+          {
+            text: 'No'
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              this.blockProvider.blockUser(userId);
+              this.getIsBlocked(this.user.id);
+            }
+          }
+        ]
+      });
+
+      alert.present();
+    }
+  }
+
+  openReportConfirmation(userId) {
+    console.log('report');
+  }
+
+  getIsBlocked(userId: string) {
+    let blockSubscription = this.blockProvider.checkIfBlocked(userId).subscribe(isBlocked => {
+      this.isBlocked = isBlocked;
+      blockSubscription.unsubscribe();
+    });
   }
 }
