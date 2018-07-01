@@ -29,6 +29,7 @@ import { FirebaseNameOrConfigToken } from 'angularfire2';
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  cordova = window['cordova'];
   email: string = '';
   password: string = '';
   logo: string = env.DEFAULT.icons.LogoWithText;
@@ -81,6 +82,7 @@ export class LoginPage {
     let loader = this.getLoader('Logging in...');
     loader.present();
 
+    if (!this.cordova) {
     this.afAuth.auth
       .signInWithPopup(this.getAuthProvider(method))
       .then((userCredential: UserCredential) => {
@@ -97,6 +99,22 @@ export class LoginPage {
         console.log('signin error', error);
         this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
       });
+    } else {
+      this.afAuth.auth.signInWithRedirect(this.getAuthProvider(method)) .then((userCredential: UserCredential) => {
+        this.userProvider.saveUserData(userCredential, method);
+
+        if (userCredential.additionalUserInfo.isNewUser) {
+          this.userProvider.saveUserData(userCredential, method);
+        }
+
+        // this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+      })
+      .catch((error: Error) => {
+        loader.dismiss();
+        console.log('signin error', error);
+        // this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+      });
+    }
   }
 
   getAuthProvider(method: string) {
