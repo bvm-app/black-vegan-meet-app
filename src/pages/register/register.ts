@@ -66,6 +66,8 @@ export class RegisterPage {
       .then((credentials: UserCredential) => {
         console.log('credentials:', credentials);
 
+        firebase.auth().currentUser.sendEmailVerification();
+
         const isNewUser = credentials.additionalUserInfo.isNewUser;
         if (isNewUser) window.localStorage.setItem('isNewUser', `true`);
 
