@@ -67,6 +67,7 @@ import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscri
 import { PayPal } from '@ionic-native/paypal';
 import { UserTransactionProvider } from '../providers/user-transaction/user-transaction';
 import { BlockProvider } from '../providers/block/block';
+import { ForgotPasswordPageModule } from '../pages/forgot-password/forgot-password.module';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -91,7 +92,8 @@ import { BlockProvider } from '../providers/block/block';
     CreateEventPageModule,
     EventModalPageModule,
     EventDetailPageModule,
-    PremiumSubscriptionPageModule
+    PremiumSubscriptionPageModule,
+    ForgotPasswordPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
