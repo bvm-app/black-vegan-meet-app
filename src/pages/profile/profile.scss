@@ -66,6 +66,28 @@ page-profile {
     }
   }
 
+  .block-report-container{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: $section-spacer 0;
+    background: none;
+
+    button{
+      border:0;
+      background:none;
+      color:#333;
+      box-shadow: none;
+      opacity:0.6;
+      font-size:16px;
+
+      ion-icon{
+        margin:5px;
+        font-size: 1em;
+      }
+    }
+  }
+
   .actions-container {
     display: flex;
     flex-direction: row;
@@ -82,13 +104,6 @@ page-profile {
         margin-right: 8px;
       }
     }
-  }
-
-  .copyright-text {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
   }
 
   .occupation {
@@ -113,5 +128,11 @@ page-profile {
     ion-chip {
       margin-right: 4px;
     }
+  }
+
+  .subscribe-section {
+    margin: $section-spacer 0;
+    padding: 20px;
+    background: $section-bg-color;
   }
 }

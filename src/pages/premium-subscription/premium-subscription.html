@@ -1,0 +1,35 @@
+<!--
+  Generated template for the PremiumSubscriptionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Premium Subscription</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div>
+    <ion-list radio-group [(ngModel)]="selectedOptionId">
+      <div id="option-{{option.id}}" *ngFor="let option of options; let isFirst = first" class="section-web" [class.selected]="option.selected" (click)="changeSelectedOption(option.id)">
+        <div class="badge">
+          <div class="save">
+            Save
+          </div>
+          <div class="percentage">{{option.savePercentage | number:'1.0-0'}}%</div>
+        </div>
+        <ion-label class="price">${{option.price}}</ion-label>
+        <ion-label class="subscription-name">{{option.name}}</ion-label>
+        <p>{{option.description}}</p>
+      </div>
+    </ion-list>
+
+
+    <h2 *ngIf="paypalLoad">Paypal button is loading</h2>
+    <div id="paypal-checkout-btn"></div>
+  </div>
+</ion-content>

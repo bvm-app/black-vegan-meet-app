@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { EnumProvider } from '../enum/enum';
 import { IRefineSearchFilters } from '../../models/IRefineSearchFilters';
-import { IUser } from '../../models/IUser';
 import { UserProvider } from '../user/user';
+import { GenderOptions } from '../../enums/GenderOptions';
 
 /*
   Generated class for the RefineSearchProvider provider.
@@ -13,6 +13,9 @@ import { UserProvider } from '../user/user';
 
 class RefineSearchFilters implements IRefineSearchFilters {
   // Basic Search
+  city;
+  state;
+  country;
   location;
   distance;
   gender;
@@ -20,24 +23,25 @@ class RefineSearchFilters implements IRefineSearchFilters {
 
   // Premium Search
   heightRangeIndex;
-  preferenceReligion;
-  preferenceChildren;
+  preferenceReligion?;
+  preferenceChildren?;
   premiumSubscription;
   onlineRecently;
   newUsers;
   moreThanOnePhoto;
   completeProfile;
-  preferenceIntention;
-  preferenceDiet;
-  preferenceEducation;
-  preferenceDrug;
-  preferenceAlcohol;
-  preferenceCigarette;
+  preferenceRelationshipStatus?;
+  preferenceIntention?;
+  preferenceDiet?;
+  preferenceEducation?;
+  preferenceDrug?;
+  preferenceAlcohol?;
+  preferenceCigarette?;
 
   constructor(heightOptions: string[]) {
     // Init Basic Search values
     this.distance = 130;
-    this.gender = '';
+    this.gender = GenderOptions.Male;
     this.ageRange = {
       lower: 30,
       upper: 50
@@ -56,6 +60,7 @@ class RefineSearchFilters implements IRefineSearchFilters {
 
     this.preferenceReligion = '';
     this.preferenceChildren = '';
+    this.preferenceRelationshipStatus = '';
     this.preferenceIntention = [];
     this.preferenceDiet = '';
     this.preferenceEducation = '';
@@ -67,19 +72,41 @@ class RefineSearchFilters implements IRefineSearchFilters {
 
 @Injectable()
 export class RefineSearchProvider {
-  filters: RefineSearchFilters;
+  private filters: RefineSearchFilters;
+  private localStorageKey = 'searchFilters';
+
   constructor(
     private enumProvider: EnumProvider,
     private userProvider: UserProvider
   ) {
     console.log('Hello RefineSearchProvider Provider');
-    this.filters = new RefineSearchFilters(this.enumProvider.getHeightOptions());
-    this.userProvider.getCurrentUser().subscribe(user => {
-      this.filters.location = this.userProvider.formatAddress(user) || '';
-    });
+
+    this.initFilters();
+  }
+
+  private initFilters() {
+    const filters = window.localStorage.getItem(this.localStorageKey);
+
+    if (filters) {
+      this.filters = JSON.parse(filters);
+    } else {
+      this.filters = new RefineSearchFilters(this.enumProvider.getHeightOptions());
+      this.userProvider.getCurrentUser().subscribe(user => {
+        this.filters.city = user.city || '';
+        this.filters.state = user.state || '';
+        this.filters.country = user.country || '';
+        this.filters.location = this.userProvider.formatAddress(user) || '';
+      });
+    }
   }
 
   getFilters() {
     return this.filters;
+  }
+
+  updateFilters(filters: IRefineSearchFilters) {
+    this.filters = filters;
+    if (!filters) return;
+    window.localStorage.setItem(this.localStorageKey, JSON.stringify(filters));
   }
 }

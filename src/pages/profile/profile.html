@@ -7,12 +7,12 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>{{ isCurrentLoggedInUser ? 'My Profile': user?.firstName }}</ion-title>
+    <ion-title>{{ isCurrentLoggedInUser ? 'My Profile': user?.username }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content no-bounce has-bouncing="false"  #container no-padding>
+<ion-content no-bounce has-bouncing="false" #container no-padding>
   <loading *ngIf="!user"></loading>
   <ng-container *ngIf="user">
 
@@ -37,9 +37,14 @@
         </div>
 
         <div class="user-location" *ngIf="formatAddress()">
-          <ion-icon color="secondary" name="md-pin"></ion-icon> <span>{{ formatAddress() }}</span>
+          <ion-icon color="secondary" name="md-pin"></ion-icon>
+          <span>{{ formatAddress() }}</span>
         </div>
       </div>
+    </div>
+
+    <div class="subscribe-section" *ngIf="isCurrentLoggedInUser && !isPremiumSubscriber" (click)="openPremiumSubscriptionPage()">
+      <button ion-button block>Go Premium</button>
     </div>
 
     <div class="actions-container" *ngIf="isCurrentLoggedInUser" padding>
@@ -56,13 +61,23 @@
     <div class="actions-container" *ngIf="!isCurrentLoggedInUser" padding>
       <button (click)="goToConversationPage()" class="action-button" ion-button outline>
         <ion-icon item-start name="md-text"></ion-icon>
-        Send a message to {{ user?.firstName }}
+        Send a message to {{ user?.username }}
       </button>
     </div>
 
-    <div class="copyright-text" padding margin-bottom>
-      Blackveganmeet Copyright ©️2018
+    <div class="block-report-container" *ngIf="!isCurrentLoggedInUser" padding>
+      <button ion-button (click)="openReportConfirmation(user.id)">
+        <ion-icon item-start name="md-flag"></ion-icon>
+        Report
+      </button>
+      <button ion-button (click)="openBlockConfirmation(user.id)">
+        <ion-icon item-start name="md-close-circle" *ngIf='!isBlocked'></ion-icon>
+        <ion-icon item-start name="md-checkmark-circle" *ngIf='isBlocked'></ion-icon>
+        {{isBlocked ? 'Unblock' : 'Block'}}
+      </button>
     </div>
+
+    <footer></footer>
 
     <ion-list *ngIf="false">
       <ion-item>
@@ -108,11 +123,6 @@
       <ion-item>
         Alcohol
         <ion-note item-end>{{ user.preferences.alcohol ? user.preferences.alcohol : 'No answer' }}</ion-note>
-      </ion-item>
-
-      <ion-item>
-        Exercise
-        <ion-note item-end>{{ user.preferences.physicalActivity ? user.preferences.physicalActivity : 'No answer' }}</ion-note>
       </ion-item>
 
       <ion-item>

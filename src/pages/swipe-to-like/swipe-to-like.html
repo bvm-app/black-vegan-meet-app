@@ -30,7 +30,7 @@
         <!-- <img class="image" [src]="imageToDisplay || potentialMatch?.profilePictureUrl || defaultUserImagePlaceholder"> -->
         <div class="user-details">
           <span class="name">
-            {{ potentialMatch?.firstName }} {{ potentialMatch?.lastName }}
+            {{ potentialMatch?.username }}
           </span>
           <span class="age" *ngIf="potentialMatch.birthdate">
             , {{ calculateAge(potentialMatch?.birthdate)}}
@@ -65,4 +65,6 @@
       </button>
     </ion-fab>
   </div>
+
+  <footer></footer>
 </ion-content>

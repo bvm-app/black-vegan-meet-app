@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content no-padding no-bounce has-bouncing="false" >
+<ion-content no-padding no-bounce has-bouncing="false">
   <loading *ngIf="isFetching"></loading>
   <ion-list no-lines no-padding class="event-list">
     <ion-item padding-left padding-right class="event-item" *ngFor="let event of events" (click)="openEventDetail(event)">
@@ -21,14 +21,18 @@
         <img [defaultImage]="defaultEventImagePlaceholder" [lazyLoad]="event.image_url">
       </ion-avatar>
       <h2>{{ event.name }}</h2>
-      <h3 *ngIf="event.location" class="location">  {{ event.location }}</h3>
+      <h3 *ngIf="event.location" class="location"> {{ event.location }}</h3>
       <h3 *ngIf="event.organizer">By {{ event.organizer }}</h3>
-
       <p>{{ event.startDateTime | date: 'EEE MMM dd hh:mm a' }}</p>
+      <div item-end>
+        <p *ngIf="event.distance">{{ event?.distance | number:'1.2-2'}} mi</p>
+      </div>
     </ion-item>
   </ion-list>
 
   <div class="info-container" *ngIf="events && events.length <= 0">
     <h3 style="text-align: center; padding: 0 20px;"> Oops! Looks like nothing interesting is going on near your location. Check back later to see upcoming events near you.</h3>
   </div>
+
+  <footer></footer>
 </ion-content>

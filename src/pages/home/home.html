@@ -85,12 +85,13 @@
     </div>
   </div>
 
-  <div *ngIf="!user?.geolocation && !isLoading" class="no-address-info-container">
-    <span>Add an address to your profile to see prospect dates!</span>
-    <button (click)="navigateTo('EditProfilePage')" ion-button round full>Edit Profile</button>
+  <div *ngIf="!currentGeoposition && !isLoading" class="no-address-info-container">
+    <span>Enable location permission for BVM to be able to see prospect dates near you!</span>
+    <!-- <span>Add an address to your profile to see prospect dates!</span>
+    <button (click)="navigateTo('EditProfilePage')" ion-button round full>Edit Profile</button> -->
   </div>
 
-  <ng-container *ngIf="user?.geolocation && !isLoading">
+  <ng-container *ngIf="currentGeoposition && !isLoading">
     <div class="prospect-dates-header">
       Prospect Dates
     </div>
@@ -107,4 +108,6 @@
       </div>
     </div>
   </ng-container>
+
+  <footer></footer>
 </ion-content>

@@ -1,1 +1,17 @@
-<svg fill="#c6b689" stroke="#7F6E3B" stroke-width="15px" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.01 576.8"><defs><style>.cls-1{font-size:60px;font-family:Roboto-Bold, Roboto;font-weight:700;}</style></defs><path d="M61,63a165.29,165.29,0,1,0,233.75,2A165.29,165.29,0,0,0,61,63ZM256.86,262.34a114.16,114.16,0,1,1,1.4-161.45A114.16,114.16,0,0,1,256.86,262.34Z" transform="translate(-11.54 -15.62)"/><path d="M300.75,285.42a25.62,25.62,0,0,0,8.83,9c8.22,3.3,17.86,3.19,28.63.26L488.54,447.54,437.94,497.1,287.71,344.2c3.49-10.63,3.9-20.42.6-28.75a30.12,30.12,0,0,0-8.91-9Z" transform="translate(-11.54 -15.62)"/></svg>
+<svg fill="#c6b689" stroke="#7F6E3B" stroke-width="15px" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.01 576.8">
+<defs>
+<style>.cls-1{font-size:60px;font-family:Roboto-Bold, Roboto;font-weight:700;}</style>
+   <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+     <stop offset="0%"   stop-color="#7F6E3B"/>
+     <stop offset="50%"  stop-color="#A69460"/>
+     <stop offset="100%" stop-color="#c6b689"/>
+   </linearGradient>
+
+    <linearGradient id="linear2" x1="0%" y1="0%" x2="100%" y2="0%">
+     <stop offset="0%"   stop-color="#c6b689"/>
+     <stop offset="50%"  stop-color="#EBDFBE"/>
+     <stop offset="100%" stop-color="#7F6E3B"/>
+   </linearGradient>
+</defs>
+<path fill="url(#linear2)" d="M61,63a165.29,165.29,0,1,0,233.75,2A165.29,165.29,0,0,0,61,63ZM256.86,262.34a114.16,114.16,0,1,1,1.4-161.45A114.16,114.16,0,0,1,256.86,262.34Z" transform="translate(-11.54 -15.62)"/>
+<path fill="url(#linear)" d="M300.75,285.42a25.62,25.62,0,0,0,8.83,9c8.22,3.3,17.86,3.19,28.63.26L488.54,447.54,437.94,497.1,287.71,344.2c3.49-10.63,3.9-20.42.6-28.75a30.12,30.12,0,0,0-8.91-9Z" transform="translate(-11.54 -15.62)"/></svg>

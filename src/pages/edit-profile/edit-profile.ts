@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { GenderOptions } from '../../enums/GenderOptions';
+import { IonicPage, NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { IUser } from '../../models/IUser';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -31,13 +30,15 @@ export class EditProfilePage {
   drugOptions: string[];
   childrenOptions: string[];
   educationOptions: string[];
-  physicalActivityOptions: string[];
   relationshipStatusOptions: string[];
   intentionOptions: string[];
+  hobbyOptions: string[];
+  exerciseOptions: string[];
 
   user: IUser;
   userSubscription: Subscription;
   isUpdating: boolean = false;
+  isNewUser: boolean = false;
 
   maxDate: string;
 
@@ -47,11 +48,14 @@ export class EditProfilePage {
     public db: AngularFireDatabase,
     public enumProvider: EnumProvider,
     public toastCtrl: ToastController,
-    public geolocationProvider: GeoLocationProvider
+    public geolocationProvider: GeoLocationProvider,
+    public viewCtrl: ViewController
   ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditProfilePage');
+
+    this.isNewUser = this.navParams.data.isNewUser;
 
     let maxDate = new Date((new Date().getFullYear() - 18),new Date().getMonth(), new Date().getDate());
     this.maxDate = moment(maxDate).format("YYYY-MM-DD");
@@ -66,8 +70,9 @@ export class EditProfilePage {
     this.drugOptions = this.enumProvider.getDrugOptions();
     this.childrenOptions = this.enumProvider.getChildrenOptions();
     this.educationOptions = this.enumProvider.getEducationOptions();
-    this.physicalActivityOptions = this.enumProvider.getPhysicalActivityOptions();
     this.intentionOptions = this.enumProvider.getIntentionOptions();
+    this.hobbyOptions = this.enumProvider.getHobbyOptions();
+    this.exerciseOptions = this.enumProvider.getExerciseOptions();
 
     this.userSubscription = this.db
       .object(`userData/${firebase.auth().currentUser.uid}`)
@@ -91,11 +96,11 @@ export class EditProfilePage {
     this.isUpdating = true;
     let form = {...this.user};
 
-    form.firstName = form.firstName || '';
-    form.lastName = form.lastName || '';
+    form.username = form.username || '';
 
-    if (!form.firstName.trim() || !form.lastName.trim()) {
-      this.presentToast('Oops, your name is required!');
+    if (!form.username.trim()) {
+      this.presentToast('Oops, your username is required!');
+      this.isUpdating = false;
       return;
     }
 
@@ -103,8 +108,11 @@ export class EditProfilePage {
     form.state = form.state || '';
     form.country = form.country || '';
 
+    form.aboutMe = form.aboutMe || '';
+    form.aboutMe = form.aboutMe.trim();
+
     form.birthdate = form.birthdate ? moment(form.birthdate).toISOString(true): null;
-    form.searchName = `${form.firstName.trim().toLowerCase()} ${form.lastName.trim().toLowerCase()}`
+    form.searchName = `${form.username.trim().toLowerCase()}`
     form.searchAddress = `${form.city.trim().toLowerCase()} ${form.state.trim().toLowerCase()} ${form.country.trim().toLowerCase()}`
 
     form.geolocation = await this.geolocationProvider.geocodeAddress(form.searchAddress).catch(err => {
@@ -117,6 +125,14 @@ export class EditProfilePage {
     this.db.object(`userData/${firebase.auth().currentUser.uid}`).set(form).then(() => {
       this.isUpdating = false;
       this.presentToast('Profile updated!');
+
+      if (this.isNewUser) {
+        this.viewCtrl.dismiss();
+        this.navCtrl.push('RefineSearchPage', { shouldBeRemovedFromNavStackAfterInput: true });
+      } else {
+        this.navCtrl.pop();
+      }
+
     }).catch((err: Error) => {
       console.log('error:', err.message);
       this.isUpdating = false;

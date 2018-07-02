@@ -3,7 +3,8 @@ import { IUser } from '../../models/IUser';
 import firebase from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Subscription, ReplaySubject } from 'rxjs';
-
+import { IPremiumOption } from '../../models/IPremiumOption';
+import moment from 'moment';
 /*
   Generated class for the UserProvider provider.
 
@@ -76,6 +77,22 @@ export class UserProvider {
   unsubscribeSubscriptions() {
     if (this.userSubscription) this.userSubscription.unsubscribe();
     if (this.adminSubscription) this.adminSubscription.unsubscribe();
+  }
+
+  updatePremiumSubscription(premiumOption: IPremiumOption) {
+
+    this._user.premiumSubscriptionExpiry = (this._user.premiumSubscriptionExpiry)
+      ? moment(this._user.premiumSubscriptionExpiry).add(premiumOption.duration, 'months').toDate().toString()
+      : moment(new Date()).add(premiumOption.duration, 'months').toDate().toString();
+
+    return this.db.object(`/userData/${this._user.id}`).update({
+      premiumSubscriptionExpiry: this._user.premiumSubscriptionExpiry
+    });
+  }
+
+  getPremiumStatus() {
+    if (!this._user.premiumSubscriptionExpiry) return false;
+    return moment(new Date()).isBefore(moment(this._user.premiumSubscriptionExpiry));
   }
 
   formatAddress(user: IUser) {

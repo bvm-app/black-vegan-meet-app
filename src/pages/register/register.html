@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content no-bounce has-bouncing="false"  padding>
+<ion-content no-bounce has-bouncing="false" padding>
 
   <form #registerForm="ngForm" (ngSubmit)="submitForm(registerForm.value)">
     <ion-list>
@@ -28,13 +28,8 @@
       </ion-item>
 
       <ion-item no-padding>
-        <ion-label stacked>First Name</ion-label>
-        <ion-input ngModel required name="firstName" type="text" placeholder="First Name"></ion-input>
-      </ion-item>
-
-      <ion-item no-padding>
-        <ion-label stacked>Last Name</ion-label>
-        <ion-input ngModel required name="lastName" type="text" placeholder="Last Name"></ion-input>
+        <ion-label stacked>Username</ion-label>
+        <ion-input ngModel required name="username" type="text" placeholder="Username"></ion-input>
       </ion-item>
 
       <ion-item no-padding>
@@ -43,8 +38,17 @@
           <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
         </ion-select>
       </ion-item>
+
     </ion-list>
 
-    <button class="register-button" [disabled]="!registerForm.valid" type="submit" ion-button full round>Register</button>
+
+    <div class="confirm-age-container">
+      <ion-checkbox [(ngModel)]="confirmAge" [ngModelOptions]="{ standalone: true }"></ion-checkbox>
+      <span class="label">I certify that I am 18 years of age or older.</span>
+    </div>
+
+    <button class="register-button" [disabled]="!registerForm.valid || !confirmAge" type="submit" ion-button full round>Register</button>
   </form>
+
+  <footer></footer>
 </ion-content>

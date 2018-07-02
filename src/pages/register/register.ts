@@ -22,8 +22,8 @@ import firebase from 'firebase';
 interface IRegisterForm {
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  username: string;
+  gender: string;
 }
 
 @IonicPage()
@@ -32,6 +32,7 @@ interface IRegisterForm {
   templateUrl: 'register.html'
 })
 export class RegisterPage {
+  confirmAge: boolean = false;
   genderOptions: string[];
 
   constructor(
@@ -69,17 +70,16 @@ export class RegisterPage {
         if (isNewUser) window.localStorage.setItem('isNewUser', `true`);
 
         let userId = credentials.user.uid;
-        let firstName = form.firstName.trim();
-        let lastName = form.lastName.trim();
+        let username = form.username.trim();
+        let gender = form.gender;
 
         this.db
           .object(`userData/${userId}`)
           .set({
             id: userId,
-            firstName: firstName,
-            lastName: lastName,
+            username: username,
             email: form.email.trim(),
-            searchName: `${firstName.toLowerCase()} ${lastName.toLowerCase()}`,
+            gender: gender,
             createdAt: firebase.database.ServerValue.TIMESTAMP,
           })
           .then(() => {

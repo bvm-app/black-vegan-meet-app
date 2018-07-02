@@ -26,7 +26,7 @@
         <img [src]="user?.profilePictureUrl || defaultUserImage">
       </div>
       <div class="details-container">
-        <p class="name">{{ user?.firstName }} {{ user?.lastName }}</p>
+        <p class="name">{{ user?.username }}</p>
         <p class="last-viewed">{{ fromNow(user?.lastViewed) }}</p>
       </div>
       <div class="chevron-container">
@@ -34,8 +34,9 @@
       </div>
     </div>
   </div>
+  <footer></footer>
 
-  <ion-infinite-scroll (ionInfinite)="fetchViewedMeUsers($event, true)">
+  <ion-infinite-scroll *ngIf="!hasNoMoreToFetch" (ionInfinite)="fetchViewedMeUsers($event, true)">
     <ion-infinite-scroll-content loadingSpinner="circles" loadingText="Fetching more..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

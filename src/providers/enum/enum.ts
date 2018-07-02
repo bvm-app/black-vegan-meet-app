@@ -7,9 +7,11 @@ import { CigaretteOptions } from '../../enums/CigaretteOptions';
 import { DrugOptions } from '../../enums/DrugOptions';
 import { ChildrenOptions } from '../../enums/ChildrenOptions';
 import { EducationOptions } from '../../enums/EducationOptions';
-import { PhysicalActivityOptions } from '../../enums/PhysicalActivityOptions';
 import { RelationshipStatusOptions } from '../../enums/RelationshipStatusOptions';
 import { IntentionOptions } from '../../enums/IntentionOptions';
+import { BodyTypeOptions } from '../../enums/BodyTypeOptions';
+import { HobbyOptions } from '../../enums/HobbyOptions';
+import { ExerciseOptions } from '../../enums/ExerciseOptions';
 
 /*
   Generated class for the EnumProvider provider.
@@ -94,12 +96,20 @@ export class EnumProvider {
     return this.getValues(EducationOptions);
   }
 
-  getPhysicalActivityOptions() {
-    return this.getValues(PhysicalActivityOptions);
-  }
-
   getIntentionOptions() {
     return this.getValues(IntentionOptions);
+  }
+
+  getBodyTypeOptions() {
+    return this.getValues(BodyTypeOptions);
+  }
+
+  getHobbyOptions() {
+    return this.getValues(HobbyOptions);
+  }
+
+  getExerciseOptions() {
+    return this.getValues(ExerciseOptions);
   }
 
   private getValues(enumInstance: Object) {

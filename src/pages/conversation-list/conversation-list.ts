@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { IConversationListItem } from '../../models/IConversationListItem';
 import firebase from 'firebase';
 import { IUser } from '../../models/IUser';
+import { BlockProvider } from '../../providers/block/block';
 
 /**
  * Generated class for the ConversationListPage page.
@@ -28,8 +29,9 @@ export class ConversationListPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public conversationProvider: ConversationProvider,
-    public db: AngularFireDatabase
-  ) {}
+    public db: AngularFireDatabase,
+    private blockProvider: BlockProvider
+  ) { }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter ConversationListPage');
@@ -51,8 +53,10 @@ export class ConversationListPage {
       )
       .valueChanges()
       .subscribe((conversationItems: IConversationListItem[]) => {
-        this.conversationList = conversationItems.reverse();
-        this.isFetching = false;
+        this.blockProvider.filterBlockedUsers(conversationItems, 'recipient').then(filtered => {
+          this.conversationList = filtered.reverse();
+          this.isFetching = false;
+        });
       });
   }
 }

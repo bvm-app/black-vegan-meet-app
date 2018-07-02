@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Item } from 'ionic-angular';
 import { YoutubeProvider } from '../../providers/youtube/youtube';
+import * as _ from 'lodash';
 
 /**
  * Generated class for the AdviceCornerPage page.
@@ -38,6 +39,7 @@ export class AdviceCornerPage {
         data.items.forEach(element => {
           this.videos.push(element);
         });
+        this.videos = _.shuffle(this.videos);
       });
     });
   }

@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators/map';
 import moment from 'moment';
 import _ from 'lodash';
 import { NotificationProvider } from '../../providers/notification/notification';
+import { BlockProvider } from '../../providers/block/block';
 
 /**
  * Generated class for the ViewedMePage page.
@@ -31,6 +32,7 @@ export class ViewedMePage {
   users: any[] = [];
   usersSubscription: Subscription;
   isFetching = false;
+  hasNoMoreToFetch: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -38,8 +40,9 @@ export class ViewedMePage {
     public db: AngularFireDatabase,
     public viewedMeProvider: ViewedMeProvider,
     public userProvider: UserProvider,
-    public notificationProvider: NotificationProvider
-  ) {}
+    public notificationProvider: NotificationProvider,
+    private blockProvider: BlockProvider
+  ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewedMePage');
@@ -79,6 +82,7 @@ export class ViewedMePage {
         )
         .subscribe(userViewedMeDataPromises => {
           userViewedMeDataPromises.then(userViewedMeData => {
+            const previousCount = this.users.length;
 
             if (concat) {
               this.users = _.uniqBy([...this.users, ...userViewedMeData.reverse()], 'id');
@@ -86,9 +90,20 @@ export class ViewedMePage {
               this.users = userViewedMeData.reverse();
             }
 
-            if (infiniteScroll) infiniteScroll.complete();
+            const afterCount = this.users.length;
 
-            this.isFetching = false;
+            this.blockProvider.filterBlockedUsers(this.users).then(users => {
+              this.users = users;
+
+              if (previousCount === afterCount) {
+                this.hasNoMoreToFetch = true;
+              }
+
+              if (infiniteScroll) infiniteScroll.complete();
+
+              this.isFetching = false;
+            });
+
             this.usersSubscription.unsubscribe();
           });
         });

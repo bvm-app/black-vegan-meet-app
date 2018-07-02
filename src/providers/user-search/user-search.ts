@@ -10,6 +10,7 @@ import { EnumProvider } from '../enum/enum';
 import { GeoLocationProvider } from '../geo-location/geo-location';
 import { Coordinates } from '../../models/coordinates';
 import { take, filter } from 'rxjs/operators';
+import { BlockProvider } from '../block/block';
 
 /*
   Generated class for the UserSearchProvider provider.
@@ -28,7 +29,8 @@ export class UserSearchProvider {
   constructor(
     private db: AngularFireDatabase,
     private enumProvider: EnumProvider,
-    private geolocationProvider: GeoLocationProvider
+    private geolocationProvider: GeoLocationProvider,
+    private blockProvider: BlockProvider
   ) {
     console.log('Hello UserSearchProvider Provider');
     this.users = new ReplaySubject<IUser[]>(1);
@@ -58,9 +60,9 @@ export class UserSearchProvider {
     }
 
     // Browsing distance based on geocoded location
-    if (filters.location.trim() && coordinatesOfLocationInput) {
-      const maxDistance = filters.distance;
-
+    let maxDistance = +filters.distance;
+    const hasDistanceValue = maxDistance > 0;
+    if (filters.location.trim() && coordinatesOfLocationInput && hasDistanceValue) {
       users = users.filter(user => {
         if (!user.geolocation) return false;
 
@@ -175,7 +177,6 @@ export class UserSearchProvider {
           if (!user.preferences.drug) return false;
           if (!user.preferences.education) return false;
           if (!user.preferences.intentions) return false;
-          if (!user.preferences.physicalActivity) return false;
           if (!user.preferences.religion) return false;
         }
 
@@ -190,6 +191,14 @@ export class UserSearchProvider {
       });
     }
     console.log('[complete profile] users:', users);
+
+    // Relationship Status filter
+    if (filters.preferenceRelationshipStatus) {
+      users = users.filter(
+        user => user.relationshipStatus == filters.preferenceRelationshipStatus
+      );
+    }
+    console.log('[relationship status] users:', users);
 
     // Intentions filter
     if (filters.preferenceIntention.length > 0) {
@@ -307,13 +316,15 @@ export class UserSearchProvider {
       .list(this.dbPath)
       .valueChanges()
       .subscribe((users: IUser[]) => {
-        let temp = _.filter(
-          users,
-          user => user.id !== firebase.auth().currentUser.uid
-        );
-        temp = _.orderBy(temp, ['lastActive'], ['desc']);
-        this._users = temp;
-        this.notifyObservables();
+        this.blockProvider.filterBlockedUsers(users).then(users => {
+          let temp = _.filter(
+            users,
+            user => user.id !== firebase.auth().currentUser.uid
+          );
+          temp = _.orderBy(temp, ['lastActive'], ['desc']);
+          this._users = temp;
+          this.notifyObservables();
+        });
       });
   }
 
