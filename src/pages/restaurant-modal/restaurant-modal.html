@@ -19,7 +19,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content no-bounce has-bouncing="false" >
   <div class="content-restaurant-modal">
     <form [formGroup]="restaurantForm" (ngSubmit)='addRestaurant()' *ngIf="addModal || editModal">
 
@@ -107,7 +107,7 @@
 
     <div class="details-container section">
       <ion-label>{{restaurant.name}}</ion-label>
-      <p>{{restaurant.description}}</p>
+      <p *ngIf="restaurant?.description">{{restaurant?.description}}</p>
     </div>
 
     <div id='wrap1' class='section'>

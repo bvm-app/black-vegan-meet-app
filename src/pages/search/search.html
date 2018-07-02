@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content no-padding>
+<ion-content no-bounce has-bouncing="false"  no-padding>
   <div class="refine-search-button-container">
     <button [disabled]="isLoading" ion-button round full (click)="openRefineSearchModal()">{{ isLoading ? 'Loading...': 'Refine Search' }}</button>
   </div>

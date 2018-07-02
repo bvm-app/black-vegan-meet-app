@@ -1,0 +1,54 @@
+page-event-detail {
+  @media screen and (min-width: "720px") {
+    .image-slider-container {
+      height: 350px !important;
+    }
+  }
+
+  .image-slider-container {
+    height: 250px;
+    // background-color: $section-bg-color;
+  }
+
+  #map {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 200px;
+  }
+
+  .event-details-container {
+    padding-top: 15px;
+    margin-top: 25px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+
+    span {
+      display: block;
+      text-align: center;
+    }
+
+    .event-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+  }
+
+  ion-slides,
+  .event-details-container,
+  #wrap1 {
+    background-color: $section-bg-color !important;
+    margin-bottom: $section-spacer;
+  }
+
+  #wrap1 {
+    padding-top: 15px;
+    position: relative;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+  }
+}

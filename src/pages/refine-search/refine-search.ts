@@ -19,6 +19,7 @@ import { IUser } from '../../models/IUser';
   templateUrl: 'refine-search.html'
 })
 export class RefineSearchPage {
+  shouldBeRemovedFromNavStackAfterInput: boolean = false;
   user: IUser;
   filters: IRefineSearchFilters | any = {};
   heightOptions: string[] = [];
@@ -46,6 +47,7 @@ export class RefineSearchPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RefineSearchPage');
+    this.shouldBeRemovedFromNavStackAfterInput = this.navParams.data.shouldBeRemovedFromNavStackAfterInput;
     this.initVariables();
   }
 
@@ -75,6 +77,17 @@ export class RefineSearchPage {
   }
 
   dismissModal() {
-    this.viewCtrl.dismiss(this.filters);
+    this.viewCtrl.dismiss();
+  }
+
+  filterUsers() {
+    if (this.shouldBeRemovedFromNavStackAfterInput) {
+      this.navCtrl.push('SearchPage', { filters: this.filters }).then(() => {
+        const startIndex = this.navCtrl.getActive().index - 1;
+        this.navCtrl.remove(startIndex, 1);
+      });
+    } else {
+      this.viewCtrl.dismiss(this.filters);
+    }
   }
 }

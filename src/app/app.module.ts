@@ -56,6 +56,11 @@ import { RestaurantsPageModule } from '../pages/restaurants/restaurants.module';
 import { SwipeProvider } from '../providers/swipe/swipe';
 import { ConversationProvider } from '../providers/conversation/conversation';
 import { NotificationProvider } from '../providers/notification/notification';
+import { YoutubeProvider } from '../providers/youtube/youtube';
+
+import { CreateEventPageModule } from '../pages/create-event/create-event.module';
+import { EventModalPageModule } from '../pages/event-modal/event-modal.module';
+import { EventDetailPageModule } from '../pages/event-detail/event-detail.module';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -76,7 +81,10 @@ import { NotificationProvider } from '../providers/notification/notification';
     GroceryStoreModalPageModule,
     RefineSearchPageModule,
     RestaurantModalPageModule,
-    RestaurantsPageModule
+    RestaurantsPageModule,
+    CreateEventPageModule,
+    EventModalPageModule,
+    EventDetailPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
@@ -104,6 +112,7 @@ import { NotificationProvider } from '../providers/notification/notification';
     SwipeProvider,
     ConversationProvider,
     NotificationProvider,
+    YoutubeProvider
   ]
 })
 export class AppModule {

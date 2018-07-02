@@ -19,7 +19,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content no-bounce has-bouncing="false" >
   <div class="content-grocery-store-modal">
     <form [formGroup]="storeForm" (ngSubmit)='addGroceryStore()' *ngIf="addModal || editModal">
       <div class='section'>
@@ -107,7 +107,7 @@
 
     <div class="details-container section">
       <ion-label>{{store.name}}</ion-label>
-      <p>{{store.description}}</p>
+      <p *ngIf="store?.description">{{store?.description}}</p>
     </div>
 
     <div id="wrap1" class="section">

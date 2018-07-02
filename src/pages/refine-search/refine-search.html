@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-buttons start>
+    <ion-buttons start *ngIf="!shouldBeRemovedFromNavStackAfterInput">
       <button ion-button (click)="dismissModal()">Close</button>
     </ion-buttons>
 
@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content no-padding>
+<ion-content no-bounce has-bouncing="false"  no-padding>
   <ion-list padding>
     <ion-list-header no-padding>Filter Your Matches</ion-list-header>
 
@@ -164,5 +164,11 @@
         <ion-option *ngFor="let cigaretteOption of cigaretteOptions" [value]="cigaretteOption">{{ cigaretteOption }}</ion-option>
       </ion-select>
     </ion-item>
+
+    <div margin>
+      <button (click)="filterUsers()" ion-button round full>Find Your Match</button>
+    </div>
   </ion-list>
+
+
 </ion-content>

@@ -39,6 +39,8 @@ export class EditProfilePage {
   userSubscription: Subscription;
   isUpdating: boolean = false;
 
+  maxDate: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -50,6 +52,10 @@ export class EditProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditProfilePage');
+
+    let maxDate = new Date((new Date().getFullYear() - 18),new Date().getMonth(), new Date().getDate());
+    this.maxDate = moment(maxDate).format("YYYY-MM-DD");
+
     this.heightOptions = this.enumProvider.getHeightOptions();
     this.genderOptions = this.enumProvider.getGenderOptions();
     this.relationshipStatusOptions = this.enumProvider.getRelationshipStatusOptions();
@@ -84,7 +90,20 @@ export class EditProfilePage {
   async submitForm() {
     this.isUpdating = true;
     let form = {...this.user};
-    form.birthdate = moment(form.birthdate).toISOString(true);
+
+    form.firstName = form.firstName || '';
+    form.lastName = form.lastName || '';
+
+    if (!form.firstName.trim() || !form.lastName.trim()) {
+      this.presentToast('Oops, your name is required!');
+      return;
+    }
+
+    form.city = form.city || '';
+    form.state = form.state || '';
+    form.country = form.country || '';
+
+    form.birthdate = form.birthdate ? moment(form.birthdate).toISOString(true): null;
     form.searchName = `${form.firstName.trim().toLowerCase()} ${form.lastName.trim().toLowerCase()}`
     form.searchAddress = `${form.city.trim().toLowerCase()} ${form.state.trim().toLowerCase()} ${form.country.trim().toLowerCase()}`
 
@@ -92,6 +111,8 @@ export class EditProfilePage {
       console.log('Error on retrieving geolocation for provided address:', err);
       return null;
     });
+
+    console.log('updating profile with values:', form);
 
     this.db.object(`userData/${firebase.auth().currentUser.uid}`).set(form).then(() => {
       this.isUpdating = false;

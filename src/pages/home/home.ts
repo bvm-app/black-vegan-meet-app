@@ -76,11 +76,22 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    console.log('currentUserId:', firebase.auth().currentUser.uid);
+    console.log('creationTime:', firebase.auth().currentUser.metadata.creationTime);
+    console.log('lastSignInTime:', firebase.auth().currentUser.metadata.lastSignInTime);
 
+    this.redirectToProfilePage();
 
     this.userProvider.initOnlinePresence();
     this.userProvider.initCurrentUser();
     this.userProvider.initAdminStatus();
+  }
+
+  redirectToProfilePage() {
+    if (window.localStorage.getItem('isNewUser')) {
+      window.localStorage.removeItem('isNewUser');
+      this.navCtrl.push('ProfilePage');
+    }
   }
 
   navigateTo(page) {
@@ -92,4 +103,7 @@ export class HomePage {
     this.navCtrl.push('ProfilePage', { userId: user.id });
   }
 
+  navigateToSearchPage() {
+    this.navCtrl.push('RefineSearchPage', { shouldBeRemovedFromNavStackAfterInput: true });
+  }
 }

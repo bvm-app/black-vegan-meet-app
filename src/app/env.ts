@@ -39,6 +39,7 @@ export const env = {
     messagingSenderId: '1038454495212'
   },
   API_KEYS: {
-    GOOGLE_MAPS: 'AIzaSyAnsLLV7D_TSP-UpC7gRayKScoz_YahpkA'
+    GOOGLE_MAPS: 'AIzaSyAnsLLV7D_TSP-UpC7gRayKScoz_YahpkA',
+    YOUTUBE: 'AIzaSyBF1xWdAs59VH8mmF5Nxs03c2MHNrvmvzo'
   }
 };

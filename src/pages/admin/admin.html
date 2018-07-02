@@ -13,9 +13,9 @@
 </ion-header>
 
 
-<ion-content no-padding>
+<ion-content no-bounce has-bouncing="false"  no-padding>
   <ion-list>
-    <ion-item (click)="navigateTo('SettingsPage')">
+    <ion-item (click)="openNewEvent()">
       <ion-icon name="md-create" item-start></ion-icon>
       New event
     </ion-item>

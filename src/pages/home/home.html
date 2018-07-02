@@ -11,10 +11,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content no-bounce has-bouncing="false" >
   <div class="menu-container">
     <div class="menu-row">
-      <div class="menu-item col-4" (click)="navigateTo('SearchPage')">
+      <div class="menu-item col-4" (click)="navigateToSearchPage()">
         <div class="menu-icon">
           <img [src]="icons.Search" alt="icon">
         </div>

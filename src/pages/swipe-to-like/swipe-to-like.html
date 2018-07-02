@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-bounce has-bouncing="false"  padding>
   <loading *ngIf="isFetching"></loading>
   <div id="card-stack">
     <div swing-stack #myswing1 [stackConfig]="stackConfig" *ngFor="let potentialMatch of potentialMatches; let index=index" (throwoutleft)="voteUp(false, potentialMatch)"

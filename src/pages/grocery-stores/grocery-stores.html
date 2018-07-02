@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content no-padding no-bounce has-bouncing="false" >
   <loading *ngIf="isFetching"></loading>
 
   <ion-item *ngFor="let store of stores" (click)="openStore(store)">
@@ -23,7 +23,7 @@
     </ion-thumbnail>
     <h2>{{store.name}}</h2>
     <p>{{store.description}}</p>
-    
+
     <div item-end>
       <p>{{store.distance | number:'1.2-2'}} km</p>
     </div>
