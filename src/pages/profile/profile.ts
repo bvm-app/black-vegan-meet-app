@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Header, ToastController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { IUser } from '../../models/IUser';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { ViewedMeProvider } from '../../providers/viewed-me/viewed-me';
 import { NotificationProvider } from '../../providers/notification/notification';
 import { PremiumSubscriptionPage } from '../premium-subscription/premium-subscription';
 import { BlockProvider } from '../../providers/block/block';
-
+import { EmailProvider } from '../../providers/email/email';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -42,7 +42,9 @@ export class ProfilePage {
     public viewedMeProvider: ViewedMeProvider,
     public notificationProvider: NotificationProvider,
     private alertCtrl: AlertController,
-    private blockProvider: BlockProvider
+    private blockProvider: BlockProvider,
+    private emailProvider: EmailProvider,
+    private toastCtrl: ToastController
   ) { }
 
   isBlocked: boolean = false;
@@ -159,10 +161,39 @@ export class ProfilePage {
   }
 
   openReportConfirmation(userId) {
-    console.log('report');
+    let alert = this.alertCtrl.create({
+      title: 'Report',
+      message: 'Please state the reason for your report',
+      inputs: [
+        {
+          name: 'reason',
+          placeholder: 'Reason'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Send',
+          handler: data => {
+            this.emailProvider.emailReport(this.user.id, this.currentLoggedInUserId, data.reason);
+            let toast = this.toastCtrl.create({
+              message: 'Report has been sent.',
+              duration: 3000,
+              position: 'bottom'
+            });
+                               
+            toast.present();
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
-  getIsBlocked(userId: string) {
+  private getIsBlocked(userId: string) {
     let blockSubscription = this.blockProvider.checkIfBlocked(userId).subscribe(isBlocked => {
       this.isBlocked = isBlocked;
       blockSubscription.unsubscribe();
