@@ -9,7 +9,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { EmailComposer } from '@ionic-native/email-composer';
 
 // Environment configs
 import { env } from './env';
@@ -67,6 +67,8 @@ import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscri
 import { PayPal } from '@ionic-native/paypal';
 import { UserTransactionProvider } from '../providers/user-transaction/user-transaction';
 import { BlockProvider } from '../providers/block/block';
+import { EmailProvider } from '../providers/email/email';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -91,7 +93,8 @@ import { BlockProvider } from '../providers/block/block';
     CreateEventPageModule,
     EventModalPageModule,
     EventDetailPageModule,
-    PremiumSubscriptionPageModule
+    PremiumSubscriptionPageModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
@@ -102,6 +105,7 @@ import { BlockProvider } from '../providers/block/block';
     FileChooser,
     FilePath,
     PayPal,
+    EmailComposer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireDatabase,
     FirebaseStorageProvider,
@@ -124,7 +128,8 @@ import { BlockProvider } from '../providers/block/block';
     PaypalProvider,
     PremiumSubscriptionOptionsProvider,
     UserTransactionProvider,
-    BlockProvider
+    BlockProvider,
+    EmailProvider
   ]
 })
 export class AppModule {
