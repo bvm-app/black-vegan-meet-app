@@ -27,12 +27,12 @@ export class ForgotPasswordPage {
     private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
 
     this.forgotPasswordForm = formBuilder.group({
-      email: ['', 
-      Validators.compose(
-        [Validators.maxLength(255), 
-          Validators.pattern('[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})'), 
+      email: ['',
+        Validators.compose(
+          [Validators.maxLength(255),
+          Validators.pattern('[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})'),
           Validators.required])
-        ],
+      ],
     });
   }
 
@@ -52,7 +52,11 @@ export class ForgotPasswordPage {
         this.navCtrl.pop();
         this.presentToast('A recovery email has been sent.');
         loading.dismiss();
-      });
+      },
+        err => {
+          this.presentToast('This email is not registered in the application.');
+          loading.dismiss();
+        });
     }
   }
 
