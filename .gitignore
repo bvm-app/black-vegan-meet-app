@@ -37,3 +37,4 @@ UserInterfaceState.xcuserstate
 # Build files
 *.apk
 *.keystore
+/.vs/slnx.sqlite

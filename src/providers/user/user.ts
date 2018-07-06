@@ -119,6 +119,8 @@ export class UserProvider {
 
   saveUserData(userCredential: UserCredential, method: string): Promise<void> {
     let user: IUser;
+    console.log("WORK!: ", userCredential.additionalUserInfo['profile']['first_name']);
+    console.log("METHOD!: ", method);
 
     switch (method.toLocaleLowerCase()) {
       case 'google':
@@ -128,7 +130,9 @@ export class UserProvider {
           email: userCredential.user.email,
           searchName: userCredential.user.displayName,
           images: [],
-          profilePictureUrl: userCredential.user.photoURL
+          profilePictureUrl: userCredential.user.photoURL,
+          firstName: userCredential.additionalUserInfo['profile']['given_name'],
+          lastName: userCredential.additionalUserInfo['profile']['family_name'],
         };
 
         user.images.push(userCredential.user.photoURL);
@@ -140,8 +144,8 @@ export class UserProvider {
           username: userCredential.additionalUserInfo.username || '',
           email: userCredential.user.email,
           searchName: userCredential.user.displayName,
-          firstName: userCredential.additionalUserInfo.profile['first_name'],
-          lastName: userCredential.additionalUserInfo.profile['last_name'],
+          firstName: userCredential.additionalUserInfo['profile']['first_name'],
+          lastName: userCredential.additionalUserInfo['profile']['last_name'],
           images: [],
           profilePictureUrl: userCredential.user.photoURL
         };
