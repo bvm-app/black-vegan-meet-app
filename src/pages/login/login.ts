@@ -115,11 +115,15 @@ export class LoginPage {
               console.log("Firebase success: ", success);
               console.log("Firebase success: ", success.additionalUserInfo['profile']['first_name']);
               if (success.additionalUserInfo.isNewUser) {
+                window.localStorage.setItem('isNewUser', `true`);
                 this.userProvider.saveUserData(success, method);
               }
+              loader.dismiss();
             })
             .catch((error) => {
               console.log("Firebase failure: " + JSON.stringify(error));
+              this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+              loader.dismiss();
             });
 
         }).catch((error) => { console.log(error) });
@@ -132,15 +136,19 @@ export class LoginPage {
               .then((success) => {
                 console.log("Firebase success: ", success);
                 if (success.additionalUserInfo.isNewUser) {
+                  window.localStorage.setItem('isNewUser', `true`);
                   this.userProvider.saveUserData(success, method);
                 }
+              loader.dismiss();
               })
               .catch((error) => {
                 console.log("Firebase failure: " + JSON.stringify(error));
-              });
+                loader.dismiss();
+            });
           })
           .catch(err => {
             console.error(err);
+            this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
             loader.dismiss();
           });
       }
