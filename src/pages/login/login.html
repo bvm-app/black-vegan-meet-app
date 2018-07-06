@@ -29,6 +29,26 @@
         <button (click)="login()" color="primary" ion-button round full>Login</button>
         <button (click)="register()" color="secondary" ion-button round full>Sign up</button>
       </div>
+
+      <div class="action-buttons-divider">
+        <p>or</p>
+      </div>
+
+      <div class="third-party-buttons">
+        <button (click)="loginThirdParty('facebook')" color="fb" ion-button round full icon-start>
+          <ion-icon name="logo-facebook"></ion-icon>
+          <p>Login with Facebook</p>
+        </button>
+        <button (click)="loginThirdParty('google')" color="google" ion-button round full icon-start>
+          <ion-icon name="logo-google"></ion-icon>
+          <p>Login with Google</p>
+        </button>
+      </div>
+
+      <div class="forgot-password">
+        <a (click)="forgotPassword()">Forgot Password</a>
+      </div>
+
     </div>
   </div>
 </main>

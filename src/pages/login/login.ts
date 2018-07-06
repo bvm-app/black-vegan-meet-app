@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import {
   IonicPage,
   NavController,
@@ -8,10 +8,16 @@ import {
 } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { UserCredential } from '@firebase/auth-types';
+import { UserCredential, AuthProvider } from '@firebase/auth-types';
 import { RegisterPage } from '../register/register';
 import { StartPage } from '../start/start';
 import { env } from '../../app/env';
+import * as firebase from 'firebase/app';
+import { UserProvider } from '../../providers/user/user';
+import { FirebaseNameOrConfigToken } from 'angularfire2';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 /**
  * Generated class for the LoginPage page.
@@ -26,6 +32,7 @@ import { env } from '../../app/env';
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  cordova = window['cordova'];
   email: string = '';
   password: string = '';
   logo: string = env.DEFAULT.icons.LogoWithText;
@@ -35,8 +42,12 @@ export class LoginPage {
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
-    public afAuth: AngularFireAuth
-  ) {}
+    public afAuth: AngularFireAuth,
+    private ref: ChangeDetectorRef,
+    private userProvider: UserProvider,
+    private facebook: Facebook,
+    private googlePlus: GooglePlus
+  ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -70,6 +81,105 @@ export class LoginPage {
       });
   }
 
+  loginThirdParty(method: string) {
+    console.log("LOGIN FB");
+
+    let loader = this.getLoader('Logging in...');
+    loader.present();
+
+    if (!this.cordova) {
+      this.afAuth.auth
+        .signInWithPopup(this.getAuthProvider(method))
+        .then((userCredential: UserCredential) => {
+          this.userProvider.saveUserData(userCredential, method);
+
+          if (userCredential.additionalUserInfo.isNewUser) {
+            this.userProvider.saveUserData(userCredential, method);
+          }
+
+          this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+        })
+        .catch((error: Error) => {
+          loader.dismiss();
+          console.log('signin error', error);
+          this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+        });
+    } else {
+      if (method === 'facebook') {
+        this.facebook.login(['email', 'public_profile']).then((response) => {
+          const facebookCredential = firebase.auth.FacebookAuthProvider
+            .credential(response.authResponse.accessToken);
+
+          firebase.auth().signInAndRetrieveDataWithCredential(facebookCredential)
+            .then((success) => {
+              console.log("Firebase success: ", success);
+              console.log("Firebase success: ", success.additionalUserInfo['profile']['first_name']);
+              if (success.additionalUserInfo.isNewUser) {
+                window.localStorage.setItem('isNewUser', `true`);
+                this.userProvider.saveUserData(success, method);
+              }
+              loader.dismiss();
+            })
+            .catch((error) => {
+              console.log("Firebase failure: " + JSON.stringify(error));
+              this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+              loader.dismiss();
+            });
+
+        }).catch((error) => { console.log(error) });
+      } else {
+        this.googlePlus.login({})
+          .then(res => {
+            console.log("RES!: ", res);
+
+            firebase.auth().signInAndRetrieveDataWithCredential(firebase.auth.GoogleAuthProvider.credential(null, res.accessToken))
+              .then((success) => {
+                console.log("Firebase success: ", success);
+                if (success.additionalUserInfo.isNewUser) {
+                  window.localStorage.setItem('isNewUser', `true`);
+                  this.userProvider.saveUserData(success, method);
+                }
+              loader.dismiss();
+              })
+              .catch((error) => {
+                console.log("Firebase failure: " + JSON.stringify(error));
+                loader.dismiss();
+            });
+          })
+          .catch(err => {
+            console.error(err);
+            this.ref.detectChanges(); //A fix taken from: https://stackoverflow.com/questions/46479930/signinwithpopup-promise-doesnt-execute-the-catch-until-i-click-the-ui-angular
+            loader.dismiss();
+          });
+      }
+    }
+  }
+
+  getAuthProvider(method: string) {
+
+    switch (method.toLocaleLowerCase()) {
+      case 'facebook':
+        let fbProvider = new firebase.auth.FacebookAuthProvider();
+        fbProvider.setCustomParameters({
+          prompt: 'select_account'
+        });
+        return fbProvider;
+      case 'google':
+        let googleProvider = new firebase.auth.GoogleAuthProvider();
+        googleProvider.setCustomParameters({
+          prompt: 'select_account'
+        });
+        return googleProvider;
+    }
+  }
+
+  private getLoader(content: string, dismissOnPageChange: boolean = true) {
+    return this.loadingCtrl.create({
+      content: content,
+      dismissOnPageChange: dismissOnPageChange
+    });
+  }
+
   register() {
     this.navCtrl.push(RegisterPage);
   }
@@ -81,5 +191,10 @@ export class LoginPage {
         duration: duration
       })
       .present();
+  }
+
+  forgotPassword() {
+    this.navCtrl.push(ForgotPasswordPage);
+
   }
 }

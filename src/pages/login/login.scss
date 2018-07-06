@@ -4,7 +4,7 @@ page-login {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100%;
     width: 100vw;
     position: relative;
     background-color: white;
@@ -55,6 +55,29 @@ page-login {
       margin-top: 20px;
       display: flex;
       flex-direction: column;
+    }
+  }
+
+  .third-party-buttons {
+    p {
+      width: 100%;
+    }
+  }
+
+  .action-buttons-divider {
+    p {
+      width: 100%;
+      text-align: center;
+      color: #adadad;
+    }
+  }
+
+  .forgot-password {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    a {
+      color: #adadad !important;
     }
   }
 }

@@ -10,10 +10,6 @@ import { FilePath } from '@ionic-native/file-path';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
 
-
-// Environment configs
-import { env } from './env';
-
 // 3rd party
 import { AngularFireModule } from 'angularfire2';
 import {
@@ -67,6 +63,11 @@ import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscri
 import { PayPal } from '@ionic-native/paypal';
 import { UserTransactionProvider } from '../providers/user-transaction/user-transaction';
 import { BlockProvider } from '../providers/block/block';
+import { ForgotPasswordPageModule } from '../pages/forgot-password/forgot-password.module';
+import { env } from './env';
+import firebase from 'firebase';
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -77,6 +78,7 @@ import { BlockProvider } from '../providers/block/block';
     LazyLoadImageModule,
     IonicModule.forRoot(MyApp),
     LoginPageModule,
+    // AngularFireModule,
     AngularFireModule.initializeApp(env.FIREBASE),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -91,7 +93,8 @@ import { BlockProvider } from '../providers/block/block';
     CreateEventPageModule,
     EventModalPageModule,
     EventDetailPageModule,
-    PremiumSubscriptionPageModule
+    PremiumSubscriptionPageModule,
+    ForgotPasswordPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
@@ -124,7 +127,9 @@ import { BlockProvider } from '../providers/block/block';
     PaypalProvider,
     PremiumSubscriptionOptionsProvider,
     UserTransactionProvider,
-    BlockProvider
+    BlockProvider,
+    Facebook,
+    GooglePlus
   ]
 })
 export class AppModule {

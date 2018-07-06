@@ -48,6 +48,8 @@ $accent-3: #574571 ;
 $accent-4: #3E2D57 ;
 
 $danger: #fa3e3e;
+$fb-blue: #3b5998;
+$google-red: #db3236;
 
 $colors: (
   primary: $primary-0,
@@ -71,7 +73,10 @@ $colors: (
   danger: $danger,
 
   light: $primary-1,
-  dark: $primary-4
+  dark: $primary-4,
+
+  fb: $fb-blue,
+  google: $google-red,
 );
 
 // App
