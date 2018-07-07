@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { EmailComposer } from '@ionic-native/email-composer';
 
+// Environment configs
+import { env } from './env';
+
 // 3rd party
 import { AngularFireModule } from 'angularfire2';
 import {
@@ -97,6 +100,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
     EventModalPageModule,
     EventDetailPageModule,
     PremiumSubscriptionPageModule,
+    HttpModule,
     ForgotPasswordPageModule
   ],
   bootstrap: [IonicApp],
