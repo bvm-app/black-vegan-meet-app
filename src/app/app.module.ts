@@ -9,7 +9,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
-import { EmailComposer } from '@ionic-native/email-composer';
+
 
 
 // 3rd party
@@ -110,7 +110,6 @@ import { ReportModalPageModule } from '../pages/report-modal/report-modal.module
     FileChooser,
     FilePath,
     PayPal,
-    EmailComposer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireDatabase,
     FirebaseStorageProvider,
