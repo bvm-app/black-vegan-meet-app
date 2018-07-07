@@ -9,7 +9,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
-import { EmailComposer } from '@ionic-native/email-composer';
+
 
 // 3rd party
 import { AngularFireModule } from 'angularfire2';
@@ -67,7 +67,6 @@ import { BlockProvider } from '../providers/block/block';
 import { EmailProvider } from '../providers/email/email';
 import { HttpModule } from '@angular/http';
 import { ForgotPasswordPageModule } from '../pages/forgot-password/forgot-password.module';
-import { env } from './env';
 import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
@@ -108,7 +107,6 @@ import { GooglePlus } from '@ionic-native/google-plus';
     FileChooser,
     FilePath,
     PayPal,
-    EmailComposer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireDatabase,
     FirebaseStorageProvider,
