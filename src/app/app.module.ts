@@ -70,6 +70,7 @@ import { ForgotPasswordPageModule } from '../pages/forgot-password/forgot-passwo
 import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { ReportModalPageModule } from '../pages/report-modal/report-modal.module';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -96,7 +97,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     EventModalPageModule,
     EventDetailPageModule,
     PremiumSubscriptionPageModule,
-    ForgotPasswordPageModule
+    ForgotPasswordPageModule,
+    ReportModalPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],

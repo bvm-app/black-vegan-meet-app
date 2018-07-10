@@ -1,0 +1,29 @@
+page-report-modal {
+    form{
+        padding: $section-spacer;
+
+        .form-group{
+            display:flex;
+            flex-direction:column;
+            margin-bottom: $section-spacer;
+
+            ion-select{
+                width: 100%;
+                max-width: 100%;
+                border: 1px solid black;
+                border-radius:5px;
+                background-color:$section-bg-color;
+
+                .item-cover{
+                    height: auto;
+                }
+            }
+            ion-textarea{
+                border: 1px solid black;
+                border-radius: 5px;
+                background-color:$section-bg-color;
+            }
+        }
+    }
+
+}

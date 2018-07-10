@@ -14,19 +14,27 @@ export class EmailProvider {
 
   constructor(private http: Http) { }
 
-  public emailReport(reported: string, reporter: string, reason: string) {
-    let message = `Report from: ${reporter}<br>
-    Reported: ${reported}<br>
-    Reason: ${reason}`;
+  public emailReport(reported: any, reporter: any, reason: any) {
 
-    let recipient = 'grphxprod@gmail.com';
+    let message = `Report from: ${reporter.firstName} <${reporter.email}> (${reporter.id})<br>
+    Reported: ${reported.firstName} <${reported.email}> (${reported.id})<br><br>
+    -- Details of the report -- <br>
+    <div style="padding:10px;">
+    Reason: ${reason.reason} <br>
+    Suggesed course of action: ${reason.suggestedAction} <br>
+    Specific details: ${reason.specificDetails}
+    </div>
+    `;
+
+    // let recipient = 'grphxprod@gmail.com';
+    let recipient = 'info@blackveganmeet.com';
     let fromName = 'BVM User Report';
-    let subject = `User Report From ${reporter}`
+    let subject = `User Report From ${reporter.email}`
     this.sendEmail(recipient, message, subject, fromName);
   }
 
   private sendEmail(toEmail: string, message: string, subject: string = '<no subject>', fromName: string = 'BVM') {
-    //TODO
+    //TODO store in db
     let api_key = 'cda1d1cc5fdb5bb23383640e1074f4fa-e44cc7c1-18566e03';
     let DOMAIN = 'sandboxbe671af25f684657a58298a02816c725.mailgun.org';
 
