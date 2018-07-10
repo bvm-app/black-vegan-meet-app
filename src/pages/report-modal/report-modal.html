@@ -1,0 +1,44 @@
+<!--
+  Generated template for the ReportModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Close</button>
+    </ion-buttons>
+    <ion-title>Report User</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <form (ngSubmit)="submitReport()">
+    <div class="form-group">
+      <ion-label>REPORT THIS USER FOR: </ion-label>
+      <ion-select [(ngModel)]="reportDetails.reason" name="reason" okText="Okay" cancelText="Dismiss" multiple="false" placeholder="Pick one">
+        <ion-option *ngFor="let reason of reportReasons" [value]="reason">{{ reason }}</ion-option>
+      </ion-select>
+    </div>
+
+    <div class="form-group">
+      <ion-label>WHAT SHOULD WE DO? </ion-label>
+      <ion-select [(ngModel)]="reportDetails.suggestedAction" name="suggestedAction" okText="Okay" cancelText="Dismiss" multiple="false"
+        placeholder="Pick one">
+        <ion-option *ngFor="let action of suggestedActions" [value]="action">{{ action }}</ion-option>
+      </ion-select>
+    </div>
+
+    <div class="form-group">
+      <ion-label>SPECIFIC DETAILS OF THE REPORT </ion-label>
+      <ion-textarea [(ngModel)]="reportDetails.specificDetails" name="specificDetails"></ion-textarea>
+    </div>
+
+    <button ion-button type="submit" block>Submit</button>
+  </form>
+
+</ion-content>
