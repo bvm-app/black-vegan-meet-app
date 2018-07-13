@@ -48,7 +48,7 @@ export class UserSearchProvider {
 
     let coordinatesOfLocationInput = null;
     // Geocode location
-    if (filters.location.trim()) {
+    if (filters.location && filters.location.trim()) {
       console.log('getting coordinates');
       coordinatesOfLocationInput = await this.geolocationProvider
         .geocodeAddress(filters.location)
@@ -62,7 +62,7 @@ export class UserSearchProvider {
     // Browsing distance based on geocoded location
     let maxDistance = +filters.distance;
     const hasDistanceValue = maxDistance > 0;
-    if (filters.location.trim() && coordinatesOfLocationInput && hasDistanceValue) {
+    if (filters.location && filters.location.trim() && coordinatesOfLocationInput && hasDistanceValue) {
       users = users.filter(user => {
         if (!user.geolocation) return false;
 
