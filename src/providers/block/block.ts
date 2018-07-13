@@ -20,23 +20,25 @@ export class BlockProvider {
   }
 
   private readonly dbPath = 'blockedUserData';
-  private currentLoggedInUserId = firebase.auth().currentUser.uid;
 
   public blockUser(userId: string) {
-    this.db.object(`${this.dbPath}/${this.currentLoggedInUserId}/blocked/${userId}`).set(true);
-    this.db.object(`${this.dbPath}/${userId}/blockedBy/${this.currentLoggedInUserId}`).set(true);
+    const currentLoggedInUserId = firebase.auth().currentUser.uid;
+    this.db.object(`${this.dbPath}/${currentLoggedInUserId}/blocked/${userId}`).set(true);
+    this.db.object(`${this.dbPath}/${userId}/blockedBy/${currentLoggedInUserId}`).set(true);
   }
 
   public unblockUser(userId: string) {
-    let blockDataToDelete = this.db.object(`${this.dbPath}/${this.currentLoggedInUserId}/blocked/${userId}`);
+    const currentLoggedInUserId = firebase.auth().currentUser.uid;
+    let blockDataToDelete = this.db.object(`${this.dbPath}/${currentLoggedInUserId}/blocked/${userId}`);
     blockDataToDelete.remove();
 
-    blockDataToDelete = this.db.object(`${this.dbPath}/${userId}/blockedBy/${this.currentLoggedInUserId}`);
+    blockDataToDelete = this.db.object(`${this.dbPath}/${userId}/blockedBy/${currentLoggedInUserId}`);
     blockDataToDelete.remove();
   }
 
   public getBlockedByUsers() {
-    return this.db.object(`${this.dbPath}/${this.currentLoggedInUserId}/blockedBy`)
+    const currentLoggedInUserId = firebase.auth().currentUser.uid;
+    return this.db.object(`${this.dbPath}/${currentLoggedInUserId}/blockedBy`)
       .valueChanges()
       .map(result => result ? Object.keys(result) : []).first().toPromise();
   }
@@ -48,7 +50,8 @@ export class BlockProvider {
   }
 
   public checkIfBlocked(userId: string) {
-    return this.db.object(`${this.dbPath}/${this.currentLoggedInUserId}/blocked/${userId}`)
+    const currentLoggedInUserId = firebase.auth().currentUser.uid;
+    return this.db.object(`${this.dbPath}/${currentLoggedInUserId}/blocked/${userId}`)
       .valueChanges()
       .map(result => <boolean>result);
   }
