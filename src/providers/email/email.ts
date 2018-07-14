@@ -14,10 +14,10 @@ export class EmailProvider {
 
   constructor(private http: Http) { }
 
-  public emailReport(reported: any, reporter: any, reason: any) {
+  public emailReport(reported: IUser, reporter: IUser, reason: any) {
 
-    let message = `Report from: ${reporter.firstName} <${reporter.email}> (${reporter.id})<br>
-    Reported: ${reported.firstName} <${reported.email}> (${reported.id})<br><br>
+    let message = `Report from: ${reporter.username} <${reporter.email}> (${reporter.id})<br>
+    Reported: ${reported.username} <${reported.email}> (${reported.id})<br><br>
     -- Details of the report -- <br>
     <div style="padding:10px;">
     Reason: ${reason.reason} <br>
@@ -32,6 +32,22 @@ export class EmailProvider {
     let subject = `User Report From ${reporter.email}`
     this.sendEmail(recipient, message, subject, fromName);
   }
+
+  public emailConversationMessage(recipient: IUser, sender: IUser, message: string) {
+
+    let emailMessage = `Message from: ${sender.username}<br><br>
+    -- Message Content -- <br>
+    <div style="padding:10px;">
+    ${message.trim()}
+    </div>
+    `;
+
+    // let recipient = 'grphxprod@gmail.com';
+    let fromName = 'BVM';
+    let subject = `${sender.firstName} Sent a Message`
+    this.sendEmail(recipient.email, emailMessage, subject, fromName);
+  }
+
 
   private sendEmail(toEmail: string, message: string, subject: string = '<no subject>', fromName: string = 'BVM') {
     //TODO store in db
