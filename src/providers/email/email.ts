@@ -16,8 +16,8 @@ export class EmailProvider {
 
   public emailReport(reported: IUser, reporter: IUser, reason: any) {
 
-    let message = `Report from: ${reporter.username} <${reporter.email}> (${reporter.id})<br>
-    Reported: ${reported.username} <${reported.email}> (${reported.id})<br><br>
+    let message = `Report from: ${reporter.username} -- ${reporter.email} (${reporter.id})<br>
+    Reported: ${reported.username} -- ${reported.email} (${reported.id})<br><br>
     -- Details of the report -- <br>
     <div style="padding:10px;">
     Reason: ${reason.reason} <br>

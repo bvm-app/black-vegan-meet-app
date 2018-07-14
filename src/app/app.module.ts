@@ -101,7 +101,8 @@ import { ReportModalPageModule } from '../pages/report-modal/report-modal.module
     EventDetailPageModule,
     PremiumSubscriptionPageModule,
     ForgotPasswordPageModule,
-    ReportModalPageModule
+    ReportModalPageModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
