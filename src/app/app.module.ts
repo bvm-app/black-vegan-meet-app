@@ -72,6 +72,7 @@ import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { ReportModalPageModule } from '../pages/report-modal/report-modal.module';
+import { env } from './env';
 
 @NgModule({
   declarations: [MyApp, HomePage],
