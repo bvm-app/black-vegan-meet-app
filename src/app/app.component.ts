@@ -24,7 +24,6 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     public afAuth: AngularFireAuth,
-    // public navCtrl: NavController,
   ) {
     if (!firebase.apps.length) {
       firebase.initializeApp(env.FIREBASE);
@@ -34,43 +33,12 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      
+
       this.afAuth.authState.subscribe((user: firebase.User) => {
         this.nav.setRoot(!user ? LoginPage : HomePage);
         splashScreen.hide();
         // this.navCtrl.setRoot(!user ? LoginPage : HomePage);
       });
-      
-
-      // if (!firebase.apps.length) {
-      // firebase.initializeApp({
-      //   apiKey: "AIzaSyBf9FgZ2RpR6bHNDEPB4OSZDAaKP5BD9aw",
-      //   authDomain: "bvm-dev-firebase.firebaseapp.com",
-      //   databaseURL: "https://bvm-dev-firebase.firebaseio.com",
-      //   projectId: "bvm-dev-firebase",
-      //   storageBucket: "bvm-dev-firebase.appspot.com",
-      //   messagingSenderId: "1038454495212"
-      // });
-      // }
-
-      // firebase
-      //   .auth()
-      //   .getRedirectResult()
-      //   .then(function (userCredential) {
-      //     if (userCredential.credential) {
-      //       console.log('User Credentials App Component: ', userCredential);
-      //       let method = 'google';
-      //       if (userCredential.additionalUserInfo.providerId === 'facebook.com') {
-      //         method = 'facebook';
-      //       }
-
-      //       this.userProvider.saveUserData(userCredential, method);
-
-      //       if (userCredential.additionalUserInfo.isNewUser) {
-      //         this.userProvider.saveUserData(userCredential, method);
-      //       }
-      //     }
-      //   })
     });
   }
 }
