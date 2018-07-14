@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
 
 
+// Environment configs
+import { env } from './env';
+
 // 3rd party
 import { AngularFireModule } from 'angularfire2';
 import {
@@ -97,6 +100,7 @@ import { ReportModalPageModule } from '../pages/report-modal/report-modal.module
     EventModalPageModule,
     EventDetailPageModule,
     PremiumSubscriptionPageModule,
+    HttpModule,
     ForgotPasswordPageModule,
     ReportModalPageModule
   ],
