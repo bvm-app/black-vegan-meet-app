@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
 
 
+// Environment configs
+import { env } from './env';
 
 // 3rd party
 import { AngularFireModule } from 'angularfire2';
@@ -72,7 +74,6 @@ import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { ReportModalPageModule } from '../pages/report-modal/report-modal.module';
-import { env } from './env';
 
 @NgModule({
   declarations: [MyApp, HomePage],
