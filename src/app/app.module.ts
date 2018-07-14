@@ -10,6 +10,10 @@ import { FilePath } from '@ionic-native/file-path';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
 
+
+// Environment configs
+import { env } from './env';
+
 // 3rd party
 import { AngularFireModule } from 'angularfire2';
 import {
@@ -63,11 +67,13 @@ import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscri
 import { PayPal } from '@ionic-native/paypal';
 import { UserTransactionProvider } from '../providers/user-transaction/user-transaction';
 import { BlockProvider } from '../providers/block/block';
+import { EmailProvider } from '../providers/email/email';
+import { HttpModule } from '@angular/http';
 import { ForgotPasswordPageModule } from '../pages/forgot-password/forgot-password.module';
-import { env } from './env';
 import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { ReportModalPageModule } from '../pages/report-modal/report-modal.module';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -94,7 +100,9 @@ import { GooglePlus } from '@ionic-native/google-plus';
     EventModalPageModule,
     EventDetailPageModule,
     PremiumSubscriptionPageModule,
-    ForgotPasswordPageModule
+    ForgotPasswordPageModule,
+    ReportModalPageModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage],
@@ -128,6 +136,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
     PremiumSubscriptionOptionsProvider,
     UserTransactionProvider,
     BlockProvider,
+    EmailProvider,
     Facebook,
     GooglePlus
   ]

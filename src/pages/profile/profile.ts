@@ -1,17 +1,26 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { IUser } from '../../models/IUser';
-import { Subscription } from 'rxjs';
-import { env } from '../../app/env';
-import { UserProvider } from '../../providers/user/user';
-import moment from 'moment';
-import firebase from 'firebase';
-import { ViewedMeProvider } from '../../providers/viewed-me/viewed-me';
-import { NotificationProvider } from '../../providers/notification/notification';
-import { PremiumSubscriptionPage } from '../premium-subscription/premium-subscription';
-import { BlockProvider } from '../../providers/block/block';
-
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController,
+  Header,
+  ToastController,
+  ModalController
+} from "ionic-angular";
+import { AngularFireDatabase } from "angularfire2/database";
+import { IUser } from "../../models/IUser";
+import { Subscription } from "rxjs";
+import { env } from "../../app/env";
+import { UserProvider } from "../../providers/user/user";
+import moment from "moment";
+import firebase from "firebase";
+import { ViewedMeProvider } from "../../providers/viewed-me/viewed-me";
+import { NotificationProvider } from "../../providers/notification/notification";
+import { PremiumSubscriptionPage } from "../premium-subscription/premium-subscription";
+import { BlockProvider } from "../../providers/block/block";
+import { EmailProvider } from "../../providers/email/email";
+import { ReportModalPage } from "../report-modal/report-modal";
 /**
  * Generated class for the ProfilePage page.
  *
@@ -21,8 +30,8 @@ import { BlockProvider } from '../../providers/block/block';
 
 @IonicPage()
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html'
+  selector: "page-profile",
+  templateUrl: "profile.html"
 })
 export class ProfilePage {
   defaultUserImagePlaceholder = env.DEFAULT.icons.Logo;
@@ -42,13 +51,16 @@ export class ProfilePage {
     public viewedMeProvider: ViewedMeProvider,
     public notificationProvider: NotificationProvider,
     private alertCtrl: AlertController,
-    private blockProvider: BlockProvider
-  ) { }
+    private blockProvider: BlockProvider,
+    private emailProvider: EmailProvider,
+    private toastCtrl: ToastController,
+    private modalCtrl: ModalController
+  ) {}
 
   isBlocked: boolean = false;
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter ProfilePage');
+    console.log("ionViewWillEnter ProfilePage");
     this.currentLoggedInUserId = firebase.auth().currentUser.uid;
 
     let userId = firebase.auth().currentUser.uid;
@@ -70,8 +82,6 @@ export class ProfilePage {
         if (!this.user.preferences) {
           this.user.preferences = {};
         }
-
-
       });
 
     // Update userViewedMeData of this user
@@ -96,7 +106,7 @@ export class ProfilePage {
     if (!this.user) return;
     let temp = [];
 
-    let name = this.user.username || '';
+    let name = this.user.username || "";
     if (name.trim().length > 0) {
       temp.push(name);
     }
@@ -104,16 +114,16 @@ export class ProfilePage {
     if (this.user.birthdate) {
       let age = this.calculateAge(this.user.birthdate.toString());
       if (age > 0) {
-        temp.push(age.toString())
+        temp.push(age.toString());
       }
     }
 
-    return temp.join(', ');
+    return temp.join(", ");
   }
 
   calculateAge(birthdate: string) {
-    if (!birthdate) return '';
-    return moment().diff(birthdate, 'years');
+    if (!birthdate) return "";
+    return moment().diff(birthdate, "years");
   }
 
   formatAddress() {
@@ -125,7 +135,7 @@ export class ProfilePage {
   }
 
   goToConversationPage() {
-    this.navCtrl.push('ConversationPage', { recipient: this.user })
+    this.navCtrl.push("ConversationPage", { recipient: this.user });
   }
 
   openPremiumSubscriptionPage() {
@@ -138,14 +148,14 @@ export class ProfilePage {
       this.getIsBlocked(this.user.id);
     } else {
       let alert = this.alertCtrl.create({
-        title: 'Block',
-        message: 'Are you sure you want to block this user?',
+        title: "Block",
+        message: "Are you sure you want to block this user?",
         buttons: [
           {
-            text: 'No'
+            text: "No"
           },
           {
-            text: 'Yes',
+            text: "Yes",
             handler: () => {
               this.blockProvider.blockUser(userId);
               this.getIsBlocked(this.user.id);
@@ -159,13 +169,54 @@ export class ProfilePage {
   }
 
   openReportConfirmation(userId) {
-    console.log('report');
+    let alert = this.alertCtrl.create({
+      title: "Report User",
+      message:
+        "You may report users based on inappropriate behaviour or the contents of a user's profile. Reports about interpersonal issues or disputes will be dismissed.",
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+          }
+        },
+        {
+          text: "Okay",
+          handler: () => {
+            let reportModal = this.modalCtrl.create(ReportModalPage);
+            reportModal.onDidDismiss(reason => {
+              if (reason) {
+                let currentUser;
+                this.userProvider.getCurrentUser().subscribe(user => {
+                  currentUser = user;
+                });
+
+                this.emailProvider.emailReport(this.user,currentUser,reason);
+                let toast = this.toastCtrl.create({
+                  message: "Report has been sent.",
+                  duration: 3000,
+                  position: "bottom"
+                });
+
+                toast.present();
+              }
+            });
+            reportModal.present();
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
-  getIsBlocked(userId: string) {
-    let blockSubscription = this.blockProvider.checkIfBlocked(userId).subscribe(isBlocked => {
-      this.isBlocked = isBlocked;
-      blockSubscription.unsubscribe();
-    });
+  private getIsBlocked(userId: string) {
+    let blockSubscription = this.blockProvider
+      .checkIfBlocked(userId)
+      .subscribe(isBlocked => {
+        this.isBlocked = isBlocked;
+        blockSubscription.unsubscribe();
+      });
   }
 }
