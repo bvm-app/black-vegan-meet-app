@@ -192,19 +192,7 @@ export class ProfilePage {
                   currentUser = user;
                 });
 
-                this.emailProvider.emailReport(
-                  {
-                    id: this.user.id,
-                    firstName: this.user.firstName,
-                    email: this.user.email
-                  },
-                  {
-                    id: this.currentLoggedInUserId,
-                    firstName: currentUser.firstName,
-                    email: currentUser.email
-                  },
-                  reason
-                );
+                this.emailProvider.emailReport(this.user,currentUser,reason);
                 let toast = this.toastCtrl.create({
                   message: "Report has been sent.",
                   duration: 3000,
