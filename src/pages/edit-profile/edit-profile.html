@@ -44,6 +44,7 @@
         <ion-item>
           <ion-label stacked>Gender</ion-label>
           <ion-select [(ngModel)]="user.gender" name="gender" placeholder="Gender">
+            <ion-option></ion-option>
             <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
           </ion-select>
         </ion-item>
@@ -51,6 +52,7 @@
         <ion-item>
           <ion-label stacked>What are you looking for?</ion-label>
           <ion-select multiple="true" [(ngModel)]="user.preferences.intentions" name="preferenceIntention" placeholder="Your intentions">
+            <ion-option></ion-option>
             <ion-option *ngFor="let intention of intentionOptions" [value]="intention">{{ intention }}</ion-option>
           </ion-select>
         </ion-item>
