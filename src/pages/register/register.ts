@@ -33,7 +33,7 @@ interface IRegisterForm {
 })
 export class RegisterPage {
   confirmAge: boolean = false;
-  genderOptions: string[];
+  genderOptions = [];
 
   constructor(
     public navCtrl: NavController,

@@ -21,19 +21,19 @@ import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
   templateUrl: 'edit-profile.html'
 })
 export class EditProfilePage {
-  heightOptions: string[];
-  genderOptions: string[];
-  dietOptions: string[];
-  religionOptions: string[];
-  alcoholOptions: string[];
-  cigaretteOptions: string[];
-  drugOptions: string[];
-  childrenOptions: string[];
-  educationOptions: string[];
-  relationshipStatusOptions: string[];
-  intentionOptions: string[];
-  hobbyOptions: string[];
-  exerciseOptions: string[];
+  heightOptions = [];
+  genderOptions = [];
+  dietOptions = [];
+  religionOptions = [];
+  alcoholOptions = [];
+  cigaretteOptions = [];
+  drugOptions = [];
+  childrenOptions = [];
+  educationOptions = [];
+  relationshipStatusOptions = [];
+  intentionOptions = [];
+  hobbyOptions = [];
+  exerciseOptions = [];
 
   user: IUser;
   userSubscription: Subscription;

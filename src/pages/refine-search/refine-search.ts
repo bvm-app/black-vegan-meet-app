@@ -22,17 +22,17 @@ export class RefineSearchPage {
   shouldBeRemovedFromNavStackAfterInput: boolean = false;
   user: IUser;
   filters: IRefineSearchFilters | any = {};
-  heightOptions: string[] = [];
-  genderOptions: string[] = [];
-  religionOptions: string[] = [];
-  childrenOptions: string[] = [];
-  relationshipStatusOptions: string[] = [];
-  intentionOptions: string[] = [];
-  dietOptions: string[] = [];
-  educationOptions: string[] = [];
-  drugOptions: string[] = [];
-  alcoholOptions: string[] = [];
-  cigaretteOptions: string[] = [];
+  heightOptions = [];
+  genderOptions = [];
+  religionOptions = [];
+  childrenOptions = [];
+  relationshipStatusOptions = [];
+  intentionOptions = [];
+  dietOptions = [];
+  educationOptions = [];
+  drugOptions = [];
+  alcoholOptions = [];
+  cigaretteOptions = [];
 
   minBrowsingDistance = 1;
   maxBrowsingDistance = 251;
