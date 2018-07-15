@@ -34,8 +34,8 @@ export class RefineSearchPage {
   alcoholOptions: string[] = [];
   cigaretteOptions: string[] = [];
 
-  minBrowsingDistance = 10;
-  maxBrowsingDistance = 151;
+  minBrowsingDistance = 1;
+  maxBrowsingDistance = 251;
 
   constructor(
     public navCtrl: NavController,
