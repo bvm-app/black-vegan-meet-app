@@ -23,5 +23,6 @@ export enum ReligionOptions {
   JenovahWitness = 'Jenovah\'s Witness',
   SeventhDayAdventist = 'Seventh-day Adventist',
   UnitedChurchOfChrist = 'United Church of Christ',
-  Others = 'Others'
+  Others = 'Others',
+  Muslim = 'Muslim'
 }
