@@ -24,5 +24,6 @@ export enum HobbyOptions {
   Woodcrafting = 'Woodcrafting',
   FoodStyling = 'Food Styling',
   Dancing = 'Dancing',
-  Jogging = 'Jogging'
+  Jogging = 'Jogging',
+  WeightLifting = 'Weight Lifting'
 }
