@@ -29,5 +29,9 @@
     </div>
   </ion-item>
 
+  <div class="info-container" *ngIf="!isFetching && stores && stores.length <= 0">
+    <h3 style="text-align: center; padding: 0 20px;"> Oops! Looks like there are no grocery stores found by the app near your location.</h3>
+  </div>
+
   <footer></footer>
 </ion-content>

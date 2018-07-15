@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs';
 import { DataSnapshot } from 'angularfire2/database/interfaces';
 import { GeoLocationProvider } from '../geo-location/geo-location';
-import { env } from '../../app/env';
 import { MapSearchParameters } from '../../models/map-search-parameters';
+import { ENV_CREDENTIALS } from '../../app/env-credentials';
 
 /*
   Generated class for the GroceryStoresProvider provider.
@@ -60,6 +60,11 @@ export class GroceryStoresProvider {
         var idx = 0;
         let resArray = this.snapshotToArray(res);
         console.log("RES", resArray);
+
+        if (!resArray.length) {
+          resolve({ Result: 'Finished' });
+        }
+
         resArray.forEach((item, idx) => {
           let store: GroceryStore = item;
 
@@ -114,6 +119,11 @@ export class GroceryStoresProvider {
 
     this.geoLocationProvider.nearbyApi(searchParmas).then((res) => {
       res.subscribe(data => {
+
+        if (!data.length) {
+          this.groceryStoresSubject.next(this.groceryStores);
+        }
+
         data.results.forEach(element => {
           let imageUrl = undefined;
 
@@ -126,7 +136,7 @@ export class GroceryStoresProvider {
             if (element.photos) {
               imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
                 + element.photos[0].photo_reference +
-                '&key=' + env.API_KEYS.GOOGLE_MAPS;
+                '&key=' + ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS;
             }
 
             this.addStoreToList({

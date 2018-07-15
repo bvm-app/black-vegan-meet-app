@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Coordinates } from '../../models/coordinates';
 import { Observable } from '@firebase/util';
-import { env } from '../../app/env';
 import { MapSearchParameters } from '../../models/map-search-parameters';
+import { ENV_CREDENTIALS } from '../../app/env-credentials';
 
 /*
   Generated class for the GeoLocationProvider provider.
@@ -82,25 +82,25 @@ export class GeoLocationProvider {
 
     return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
       + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
-      '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + env.API_KEYS.GOOGLE_MAPS);
+      '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS);
 
     // return this.http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
     //   + this.currentPosition.coords.latitude + ',' + this.currentPosition.coords.longitude +
-    //   '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + env.API_KEYS.GOOGLE_MAPS);
+    //   '&radius=' + searchParams.radius + '&type=' + searchParams.type + '&keyword=' + searchParams.keyword + '&key=' + ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS);
   }
 
   getPhoto(photoRef): any {
     return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
     + photoRef +
-    '&key=' + env.API_KEYS.GOOGLE_MAPS);
+    '&key=' + ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS);
 
     // return this.http.get('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
     //   + photoRef +
-    //   '&key=' + env.API_KEYS.GOOGLE_MAPS);
+    //   '&key=' + ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS);
   }
 
   geocodeAddress(location: string) {
-    return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${encodeURIComponent(location.trim())}&key=${env.API_KEYS.GOOGLE_MAPS}`).toPromise().then((data: any) => {
+    return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${encodeURIComponent(location.trim())}&key=${ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS}`).toPromise().then((data: any) => {
       if (data.status === 'OK' && data.results.length > 0) {
         const coordinates: Coordinates = {
           latitude: data.results[0].geometry.location.lat,

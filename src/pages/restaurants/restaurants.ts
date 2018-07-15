@@ -19,7 +19,7 @@ import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 })
 export class RestaurantsPage {
 
-  restaurants: Restaurant[] = [];
+  restaurants: Restaurant[];
   isFetching: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -40,22 +40,27 @@ export class RestaurantsPage {
 
     this.restaurantsProvider.getRestaurants().then(res => {
 
-
       this.restaurantsProvider.restaurantsSubject.subscribe(data => {
-        this.restaurants = [];
+        const restaurants = [];
 
         data.forEach(element => {
-          this.restaurants.push(element);
+          restaurants.push(element);
         });
 
-        this.restaurants = this.restaurants.sort((l, r): number => {
+        this.restaurants = restaurants.sort((l, r): number => {
           if (l.distance < r.distance) return -1;
           if (l.distance > r.distance) return 1;
           return 0
         });
 
-        this.isFetching = false;
-
+        if (!data.length) {
+          const waitingTimeForFirebaseResponse = 2000;
+          setTimeout(() => {
+            this.isFetching = false;
+          }, waitingTimeForFirebaseResponse);
+        } else {
+          this.isFetching = false;
+        }
       });
 
       return new Promise(resolve => {

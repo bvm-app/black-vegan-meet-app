@@ -19,7 +19,7 @@ import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 })
 export class GroceryStoresPage {
 
-  stores: GroceryStore[] = [];
+  stores: GroceryStore[];
   isFetching: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -37,20 +37,26 @@ export class GroceryStoresPage {
     this.groceryStoresProvider.getGroceryStores().then(res => {
 
       this.groceryStoresProvider.groceryStoresSubject.subscribe(data => {
-        this.stores = [];
+        const stores = [];
 
         data.forEach(element => {
-          this.stores.push(element);
+          stores.push(element);
         });
 
-        this.stores = this.stores.sort((l, r): number => {
+        this.stores = stores.sort((l, r): number => {
           if (l.distance < r.distance) return -1;
           if (l.distance > r.distance) return 1;
           return 0
         });
 
-        this.isFetching = false;
-
+        if (!data.length) {
+          const waitingTimeForFirebaseResponse = 2000;
+          setTimeout(() => {
+            this.isFetching = false;
+          }, waitingTimeForFirebaseResponse);
+        } else {
+          this.isFetching = false;
+        }
       });
 
       return new Promise(resolve => {

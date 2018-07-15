@@ -12,7 +12,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 
 // Environment configs
-import { env } from './env';
+import { ENV_CREDENTIALS } from './env-credentials';
 
 // 3rd party
 import { AngularFireModule } from 'angularfire2';
@@ -85,7 +85,7 @@ import { ReportModalPageModule } from '../pages/report-modal/report-modal.module
     IonicModule.forRoot(MyApp),
     LoginPageModule,
     // AngularFireModule,
-    AngularFireModule.initializeApp(env.FIREBASE),
+    AngularFireModule.initializeApp(ENV_CREDENTIALS.FIREBASE),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RegisterPageModule,

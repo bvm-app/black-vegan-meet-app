@@ -6,8 +6,8 @@ import { Subscription, Subject } from 'rxjs';
 import { GeoLocationProvider } from '../geo-location/geo-location';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DataSnapshot } from 'angularfire2/database/interfaces';
-import { env } from '../../app/env';
 import { MapSearchParameters } from '../../models/map-search-parameters';
+import { ENV_CREDENTIALS } from '../../app/env-credentials';
 
 /*
   Generated class for the RestaurantsProvider provider.
@@ -61,6 +61,11 @@ export class RestaurantsProvider {
         var idx = 0;
         let resArray = this.snapshotToArray(res);
         console.log("RES", resArray);
+
+        if (!resArray.length) {
+          resolve({ Result: 'Finished' });
+        }
+
         resArray.forEach((item, idx) => {
           let restaurant: Restaurant = item;
 
@@ -101,7 +106,7 @@ export class RestaurantsProvider {
     this.restaurants = this.restaurants.sort((l, r): number => {
       if (l.distance < r.distance) return -1;
       if (l.distance > r.distance) return 1;
-      return 0
+      return 0;
     });
 
     this.restaurantsSubject.next(this.restaurants);
@@ -115,6 +120,11 @@ export class RestaurantsProvider {
 
     this.geoLocationProvider.nearbyApi(searchParmas).then((res) => {
       res.subscribe(data => {
+
+        if (!data.length) {
+          this.restaurantsSubject.next(this.restaurants);
+        }
+
         data.results.forEach(element => {
           let imageUrl = undefined;
 
@@ -127,7 +137,7 @@ export class RestaurantsProvider {
             if (element.photos) {
               imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
                 + element.photos[0].photo_reference +
-                '&key=' + env.API_KEYS.GOOGLE_MAPS;
+                '&key=' + ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS;
             }
 
             this.addRestaurantToList({

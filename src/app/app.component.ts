@@ -9,8 +9,8 @@ import { env } from './env';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
+import { ENV_CREDENTIALS } from './env-credentials';
 
-declare var google;
 @Component({
   templateUrl: 'app.html'
 })
@@ -26,7 +26,7 @@ export class MyApp {
     public afAuth: AngularFireAuth,
   ) {
     if (!firebase.apps.length) {
-      firebase.initializeApp(env.FIREBASE);
+      firebase.initializeApp(ENV_CREDENTIALS.FIREBASE);
     }
 
     platform.ready().then(() => {

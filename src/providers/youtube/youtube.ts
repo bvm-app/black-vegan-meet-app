@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { env } from '../../app/env';
+import { ENV_CREDENTIALS } from '../../app/env-credentials';
 
 /*
   Generated class for the YoutubeProvider provider.
@@ -12,7 +12,7 @@ import { env } from '../../app/env';
 @Injectable()
 export class YoutubeProvider {
 
-  apiKey = env.API_KEYS.YOUTUBE;
+  apiKey = ENV_CREDENTIALS.API_KEYS.YOUTUBE;
 
   constructor(public http: HttpClient) {
   }
