@@ -12,6 +12,7 @@ import { IntentionOptions } from '../../enums/IntentionOptions';
 import { BodyTypeOptions } from '../../enums/BodyTypeOptions';
 import { HobbyOptions } from '../../enums/HobbyOptions';
 import { ExerciseOptions } from '../../enums/ExerciseOptions';
+import _ from 'lodash';
 
 /*
   Generated class for the EnumProvider provider.
@@ -113,8 +114,8 @@ export class EnumProvider {
   }
 
   private getValues(enumInstance: Object) {
-    let keys = Object.keys(enumInstance);
-    return keys.map(key => enumInstance[key]);
+    const keys = Object.keys(enumInstance);
+    let values = keys.map(key => enumInstance[key]);
+    return _.orderBy(values, [value => value.toLowerCase()]);
   }
-
 }
