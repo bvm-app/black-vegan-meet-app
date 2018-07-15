@@ -38,3 +38,6 @@ UserInterfaceState.xcuserstate
 *.apk
 *.keystore
 /.vs/slnx.sqlite
+
+# App specific
+src/app/env-credentials.ts
