@@ -12,6 +12,7 @@ import { FirebaseStorageProvider } from '../../providers/firebase-storage/fireba
 import { AngularFireDatabase } from 'angularfire2/database';
 import { NotificationProvider } from '../../providers/notification/notification';
 import { EmailProvider } from '../../providers/email/email';
+import { PremiumSubscriptionProvider } from '../../providers/premium-subscription/premium-subscription';
 
 /**
  * Generated class for the ConversationPage page.
@@ -50,7 +51,8 @@ export class ConversationPage {
     public dbStorage: FirebaseStorageProvider,
     public db: AngularFireDatabase,
     public notificationProvider: NotificationProvider,
-    private emailProvider: EmailProvider
+    private emailProvider: EmailProvider,
+    private premiumSubscriptionProvider: PremiumSubscriptionProvider
   ) {}
 
   ionViewDidLoad() {
@@ -130,6 +132,11 @@ export class ConversationPage {
   }
 
   sendMessage(message: string = '', fileUrl: string = null) {
+    if (!this.premiumSubscriptionProvider.hasSubscription()) {
+      this.premiumSubscriptionProvider.presentPremiumModal();
+      return;
+    }
+
     this.message = '';
 
     if (message.trim().length === 0) return;

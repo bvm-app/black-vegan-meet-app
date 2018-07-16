@@ -74,6 +74,7 @@ import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { ReportModalPageModule } from '../pages/report-modal/report-modal.module';
+import { PremiumSubscriptionProvider } from '../providers/premium-subscription/premium-subscription';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -138,7 +139,8 @@ import { ReportModalPageModule } from '../pages/report-modal/report-modal.module
     BlockProvider,
     EmailProvider,
     Facebook,
-    GooglePlus
+    GooglePlus,
+    PremiumSubscriptionProvider
   ]
 })
 export class AppModule {

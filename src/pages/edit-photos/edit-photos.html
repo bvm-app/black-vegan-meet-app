@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="image-container" *ngIf="userImages.length < 5">
+    <div class="image-container" *ngIf="userImages.length < premiumMemberPhotosLimit && !isUploading">
       <div class="image-container-inner" (click)="addPhoto()">
         <ion-icon name="md-camera"></ion-icon>
         <input type="file" id="fileElem" accept="image/*" style="display:none" (change)="uploadImageFromWeb($event.target.files)">

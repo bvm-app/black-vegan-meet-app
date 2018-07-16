@@ -13,6 +13,7 @@ import { env } from '../../app/env';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Subscription } from 'rxjs';
 import { FirebaseStorageProvider } from '../../providers/firebase-storage/firebase-storage';
+import { PremiumSubscriptionProvider } from '../../providers/premium-subscription/premium-subscription';
 
 /**
  * Generated class for the EditPhotosPage page.
@@ -34,6 +35,12 @@ export class EditPhotosPage {
   userImages: any[] = [];
   userImagesSubscription: Subscription;
 
+  basicMemberPhotosLimit = 1;
+  advanceMemberPhotosLimit = 5;
+  premiumMemberPhotosLimit = 10;
+
+  isUploading = false;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,7 +49,8 @@ export class EditPhotosPage {
     public dbStorage: FirebaseStorageProvider,
     public toastCtrl: ToastController,
     public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public premiumSubscriptionProvider: PremiumSubscriptionProvider
   ) {
     this.dragulaService.drag.subscribe(val => {
       console.log('Is dragging:', val);
@@ -99,16 +107,20 @@ export class EditPhotosPage {
         {
           text: 'Take photo',
           handler: () => {
+            this.isUploading = true;
             this.dbStorage.uploadImageFromCamera().then(imageData => {
               this.userImages.push(imageData.downloadUrl);
+              this.isUploading = false;
             });
           }
         },
         {
           text: 'Upload from photo library',
           handler: () => {
+            this.isUploading = true;
             this.dbStorage.uploadImageFromGallery().then(imageData => {
               this.userImages.push(imageData.downloadUrl);
+              this.isUploading = false;
             });
           }
         },
@@ -123,6 +135,27 @@ export class EditPhotosPage {
   }
 
   addPhoto() {
+    if (this.userImages.length >= this.basicMemberPhotosLimit) {
+      // If no subscription, present modal
+      if (!this.premiumSubscriptionProvider.hasSubscription()) {
+        this.premiumSubscriptionProvider.presentPremiumModal();
+        return;
+      } else {
+        console.log('userImages length;', this.userImages.length);
+        if (this.userImages.length >= this.advanceMemberPhotosLimit) {
+
+          console.log('hasAdvance:', this.premiumSubscriptionProvider.hasAdvanceSubscription());
+          // If advanced subscription, limit to 5
+          if (this.premiumSubscriptionProvider.hasAdvanceSubscription()) {
+            if (this.userImages.length === this.advanceMemberPhotosLimit) {
+              this.premiumSubscriptionProvider.presentPremiumModal();
+              return;
+            }
+          }
+        }
+      }
+    }
+
     if (this.cordova) {
       this.presentActionSheet();
     } else {
@@ -132,14 +165,17 @@ export class EditPhotosPage {
   }
 
   uploadImageFromWeb(file) {
+    this.isUploading = true;
     if (file.length) {
       this.dbStorage
         .uploadImageFromWeb(file[0])
         .then(imageData => {
           this.userImages.push(imageData.downloadUrl);
+          this.isUploading = false;
         })
         .catch((err: Error) => {
           console.log('File upload error:', err.message);
+          this.isUploading = false;
         });
     }
   }

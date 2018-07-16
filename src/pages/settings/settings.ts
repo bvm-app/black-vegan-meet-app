@@ -12,6 +12,7 @@ import { IUser } from '../../models/IUser';
 import { UserProvider } from '../../providers/user/user';
 import { UserSearchProvider } from '../../providers/user-search/user-search';
 import { NotificationProvider } from '../../providers/notification/notification';
+import { PremiumSubscriptionProvider } from '../../providers/premium-subscription/premium-subscription';
 
 /**
  * Generated class for the SettingsPage page.
@@ -38,7 +39,8 @@ export class SettingsPage {
     public alertCtrl: AlertController,
     public userProvider: UserProvider,
     public userSearchProvider: UserSearchProvider,
-    public notificationProvider: NotificationProvider
+    public notificationProvider: NotificationProvider,
+    public premiumSubscriptionProvider: PremiumSubscriptionProvider
   ) {}
 
   ionViewWillEnter() {
@@ -71,6 +73,7 @@ export class SettingsPage {
             this.userProvider.unsubscribeSubscriptions();
             this.userSearchProvider.unsubscribeSubscriptions();
             this.notificationProvider.unsubscribeSubscriptions();
+            this.premiumSubscriptionProvider.unsubscribeSubscriptions();
 
             firebase.auth().signOut();
           }

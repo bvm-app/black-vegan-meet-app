@@ -3,6 +3,7 @@ import { GenderOptions } from '../enums/GenderOptions';
 import { IUserPreferences } from './IUserPreferences';
 import { RelationshipStatusOptions } from '../enums/RelationshipStatusOptions';
 import { Coordinates } from './coordinates';
+import { PremiumSubscriptionType } from '../enums/PremiumSubscriptionType';
 
 export interface IUser {
   id: string;
@@ -33,6 +34,7 @@ export interface IUser {
   createdAt?: number;
   lastActive?: number;
 
+  premiumSubscriptionType?: PremiumSubscriptionType;
   premiumSubscriptionExpiry?: string | Moment;
 
   aboutMe?: string;

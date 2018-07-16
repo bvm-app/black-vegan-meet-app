@@ -12,7 +12,7 @@ import { UserCredential, AuthProvider } from '@firebase/auth-types';
 import { RegisterPage } from '../register/register';
 import { StartPage } from '../start/start';
 import { env } from '../../app/env';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 import { UserProvider } from '../../providers/user/user';
 import { FirebaseNameOrConfigToken } from 'angularfire2';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';

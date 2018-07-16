@@ -15,6 +15,7 @@ import { INotifications } from '../../models/INotifications';
 import { SwipeProvider } from '../../providers/swipe/swipe';
 import { RefineSearchProvider } from '../../providers/refine-search/refine-search';
 import { Coordinates } from '../../models/coordinates';
+import { PremiumSubscriptionProvider } from '../../providers/premium-subscription/premium-subscription';
 
 @Component({
   selector: 'page-home',
@@ -44,7 +45,8 @@ export class HomePage {
     private notificationProvider: NotificationProvider,
     private swipeProvider: SwipeProvider,
     private modalCtrl: ModalController,
-    private refineSearchProvider: RefineSearchProvider
+    private refineSearchProvider: RefineSearchProvider,
+    private premiumSubscriptionProvider: PremiumSubscriptionProvider
   ) { }
 
   ionViewDidLeave() {
@@ -106,6 +108,7 @@ export class HomePage {
     this.userProvider.initOnlinePresence();
     this.userProvider.initCurrentUser();
     this.userProvider.initAdminStatus();
+    this.premiumSubscriptionProvider.init();
   }
 
   redirectToProfilePage() {
@@ -126,5 +129,13 @@ export class HomePage {
 
   navigateToSearchPage() {
     this.navCtrl.push('SearchPage', { filters: this.refineSearchProvider.getFilters() });
+  }
+
+  navigateToViewedMe() {
+    if (this.premiumSubscriptionProvider.hasPremiumSubscription()) {
+      this.navCtrl.push('ViewedMePage');
+    } else {
+      this.premiumSubscriptionProvider.presentPremiumModal();
+    }
   }
 }

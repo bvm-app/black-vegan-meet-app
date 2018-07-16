@@ -14,7 +14,7 @@ page-edit-photos {
       position: relative;
 
       margin: 8px;
-      width: 40%;
+      width: 25%;
 
       border: 4px dashed $primary-0;
       border-radius: 8px;
@@ -43,7 +43,8 @@ page-edit-photos {
       }
 
       &:first-child {
-        width: 60%;
+        width: 100%;
+        margin: 8px 25%;
       }
 
       .image-container-inner {
