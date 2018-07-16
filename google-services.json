@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1038454495212",
-    "firebase_url": "https://bvm-dev-firebase.firebaseio.com",
-    "project_id": "bvm-dev-firebase",
-    "storage_bucket": "bvm-dev-firebase.appspot.com"
+    "project_number": "237081629673",
+    "firebase_url": "https://black-vegan-meet.firebaseio.com",
+    "project_id": "black-vegan-meet",
+    "storage_bucket": "black-vegan-meet.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1038454495212:android:214adce29b7309e8",
+        "mobilesdk_app_id": "1:237081629673:android:214adce29b7309e8",
         "android_client_info": {
           "package_name": "com.bvm.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1038454495212-bge5n4rd0i9duqmggp68r309viqgvjgq.apps.googleusercontent.com",
+          "client_id": "237081629673-9238kfbrfvgvi7a1b78nlta5pa5b4uqu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bvm.app",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "1038454495212-8j3mnv0ru23nlbv4stfrg1bf38jghfss.apps.googleusercontent.com",
+          "client_id": "237081629673-79ecimg0ogu1d3apl01hgt3jli980c39.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA8iqkK5As2GjgdrQUWOcLHIkw5DM3cPzQ"
+          "current_key": "AIzaSyArUxrwKgh0vqLnzsgWtkQoorPO_GqvsE4"
         }
       ],
       "services": {
@@ -40,8 +40,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1038454495212-8j3mnv0ru23nlbv4stfrg1bf38jghfss.apps.googleusercontent.com",
+              "client_id": "237081629673-79ecimg0ogu1d3apl01hgt3jli980c39.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "237081629673-s9p1f00s4r29rqc308smaqngea27bv8r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bvm.app"
+              }
             }
           ]
         },

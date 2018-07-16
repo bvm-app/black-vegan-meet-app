@@ -1,11 +1,11 @@
 {
     "android": {
-        "release": {
-            "keystore": "bvm.keystore",
-            "storePassword": "password",
-            "alias": "bvm",
-            "password" : "password",
-            "keystoreType": "JKS"
-        }
+        "debug": {
+          "keystore": "bvm.keystore",
+          "storePassword": "password",
+          "alias": "bvm",
+          "password" : "password",
+          "keystoreType": "JKS"
+      }
     }
 }

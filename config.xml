@@ -21,7 +21,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-    <preference name="YouTubeDataApiKey" value="AIzaSyAnsLLV7D_TSP-UpC7gRayKScoz_YahpkA" />
+    <preference name="YouTubeDataApiKey" value="AIzaSyD4F8U-AYFasuZs9FBzvoBLabZEx_nWafE" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="CameraUsesGeolocation" value="false" />
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
@@ -117,7 +117,7 @@
         <variable name="ANDROID_SDK_VERSION" value="4.+" />
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1038454495212-hoje613t04c89ijg1gv8ivu3vpublv0l" />
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.237081629673-79ecimg0ogu1d3apl01hgt3jli980c39" />
     </plugin>
     <engine name="android" spec="7.0.0" />
 </widget>
