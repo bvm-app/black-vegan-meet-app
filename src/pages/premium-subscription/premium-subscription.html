@@ -15,7 +15,7 @@
 <ion-content>
   <div>
     <ion-list radio-group [(ngModel)]="selectedOptionId">
-      <div id="option-{{option.id}}" *ngFor="let option of options; let isFirst = first" class="section-web" [class.selected]="option.selected" (click)="changeSelectedOption(option.id)">
+      <div id="option-{{option.id}}" *ngFor="let option of options; let isFirst = first" class="section-web" [class.selected]="option.selected" (click)="changeSelectedOption(option)">
         <div class="badge">
           <div class="save">
             Save
@@ -29,7 +29,7 @@
     </ion-list>
 
 
-    <h2 *ngIf="paypalLoad">Paypal button is loading</h2>
+    <h2 *ngIf="paypalLoad && !isMobileApp">Paypal button is loading</h2>
     <div id="paypal-checkout-btn"></div>
   </div>
 </ion-content>
