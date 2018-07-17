@@ -1,0 +1,36 @@
+<!--
+  Generated template for the SeeWhoLikedYouPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Persons who liked you</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bouncing="false" no-padding>
+    <loading *ngIf="isFetching"></loading>
+    <div class="info-container" *ngIf="!isFetching && users.length === 0">
+        <h3 style="text-align: center; padding: 0 20px;">Seems like no one has viewed you yet.</h3>
+    </div>
+  <div class="users-container">
+    <div class="user" *ngFor="let user of users" (click)="navigateToProfile(user)">
+      <div class="image-container">
+        <img [src]="user?.profilePictureUrl || defaultUserImage">
+      </div>
+      <div class="details-container">
+        <p class="name">{{ user?.username }}</p>
+        <p class="name" *ngIf="user.firstName || user.lastName">{{ user?.firstName }} {{ user?.lastName }}</p>
+
+      </div>
+      <div class="chevron-container">
+        <ion-icon name="ios-arrow-forward"></ion-icon>
+      </div>
+    </div>
+  </div>
+</ion-content>

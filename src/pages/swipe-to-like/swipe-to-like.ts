@@ -29,6 +29,8 @@ import { GeoLocationProvider } from "../../providers/geo-location/geo-location";
 import { UserSearchProvider } from "../../providers/user-search/user-search";
 import { take } from "rxjs/operators";
 import { UserProvider } from "../../providers/user/user";
+import { SeeWhoLikedYouPage } from "../see-who-liked-you/see-who-liked-you";
+import { PremiumSubscriptionProvider } from "../../providers/premium-subscription/premium-subscription";
 /**
  * Generated class for the SwipeToLikePage page.
  *
@@ -59,6 +61,8 @@ export class SwipeToLikePage {
   isFetching = true;
 
   isQuickView: boolean = false;
+  isPremiumSubscriber: boolean = false;
+  isAdvancedSubscriber: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -70,7 +74,8 @@ export class SwipeToLikePage {
     private userSearchProvider: UserSearchProvider,
     private userProvider: UserProvider,
     private viewCtrl: ViewController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private premiumSubscriptionProvider: PremiumSubscriptionProvider
   ) {
     this.stackConfig = {
       throwOutConfidence: (offsetX, offsetY, element) => {
@@ -96,6 +101,21 @@ export class SwipeToLikePage {
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  goToSeeWhoLikedYouPage() {
+    //todo add see who liked you
+    this.navCtrl.push(SeeWhoLikedYouPage);
+  }
+
+  ionViewDidEnter() {
+    // console.log('this user has subscription', this.premiumSubscriptionProvider.hasAdvanceSubscription());
+    if (!this.isQuickView) {
+      if (this.premiumSubscriptionProvider.hasSubscription()) {
+        this.isPremiumSubscriber = this.premiumSubscriptionProvider.hasPremiumSubscription();
+        this.isAdvancedSubscriber = this.premiumSubscriptionProvider.hasAdvanceSubscription();
+      }
+    }
   }
 
   ionViewDidLeave() {
@@ -125,9 +145,9 @@ export class SwipeToLikePage {
     let removedCard = this.potentialMatches.pop();
 
     if (liked) {
-      this.recentCard = 'You liked ' + removedCard.username;
+      this.recentCard = "You liked " + removedCard.username;
     } else {
-      this.recentCard = 'You disliked ' + removedCard.username;
+      this.recentCard = "You disliked " + removedCard.username;
     }
 
     this.updatePotentialMatches(this.allPotentialMatches.indexOf(removedCard));
@@ -136,12 +156,12 @@ export class SwipeToLikePage {
 
     if (this.potentialMatches.length <= 0 && this.isQuickView) {
       let alert = this.alertCtrl.create({
-        title: 'Notice',
-        message: 'That\'s it for the quick view. Happy dating! ' ,
+        title: "Notice",
+        message: "That's it for the quick view. Happy dating! ",
         buttons: [
           {
-            text: 'Okay',
-            role: 'cancel',
+            text: "Okay",
+            role: "cancel",
             handler: () => {
               this.dismiss();
             }
@@ -242,6 +262,22 @@ export class SwipeToLikePage {
               }
 
               this.updatePotentialMatches(this.allPotentialMatches.length);
+              if(this.potentialMatches.length <= 0 && this.isQuickView){
+                let alert = this.alertCtrl.create({
+                  title: "Notice",
+                  message: "Sorry, you do not have any potential matches as of yet. Improve your profile and get some matches",
+                  buttons: [
+                    {
+                      text: "Okay",
+                      role: "cancel",
+                      handler: () => {
+                        this.dismiss();
+                      }
+                    }
+                  ]
+                });
+                alert.present();
+              }
               this.isFetching = false;
             });
         });

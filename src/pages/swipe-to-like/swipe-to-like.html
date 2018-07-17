@@ -12,6 +12,9 @@
     <ion-buttons end *ngIf="isQuickView">
       <button ion-button (click)="dismiss()">Close</button>
     </ion-buttons>
+    <ion-buttons end *ngIf="isPremiumSubscriber || isAdvancedSubscriber">
+      <button ion-button (click)="goToSeeWhoLikedYouPage()">See Who Liked You</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

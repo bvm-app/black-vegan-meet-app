@@ -77,6 +77,7 @@ import { ReportModalPageModule } from '../pages/report-modal/report-modal.module
 import { PremiumSubscriptionProvider } from '../providers/premium-subscription/premium-subscription';
 import { SwipeToLikePage } from '../pages/swipe-to-like/swipe-to-like';
 import { SwipeToLikePageModule } from '../pages/swipe-to-like/swipe-to-like.module';
+import { SeeWhoLikedYouPageModule } from '../pages/see-who-liked-you/see-who-liked-you.module';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -106,7 +107,8 @@ import { SwipeToLikePageModule } from '../pages/swipe-to-like/swipe-to-like.modu
     ForgotPasswordPageModule,
     ReportModalPageModule,
     HttpModule,
-    SwipeToLikePageModule
+    SwipeToLikePageModule,
+    SeeWhoLikedYouPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage, SwipeToLikePage],
