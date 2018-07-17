@@ -23,6 +23,7 @@ import {
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ElasticModule } from 'ng-elastic';
+import { InAppPurchase } from '@ionic-native/in-app-purchase';
 
 // Services/Providers
 import { FirebaseStorageProvider } from '../providers/firebase-storage/firebase-storage';
@@ -145,7 +146,8 @@ import { SeeWhoLikedYouPageModule } from '../pages/see-who-liked-you/see-who-lik
     EmailProvider,
     Facebook,
     GooglePlus,
-    PremiumSubscriptionProvider
+    PremiumSubscriptionProvider,
+    InAppPurchase
   ]
 })
 export class AppModule {
