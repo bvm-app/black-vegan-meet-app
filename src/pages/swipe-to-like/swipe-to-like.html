@@ -7,7 +7,11 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Swipe to Like</ion-title>
+    <ion-title *ngIf="!isQuickView">Swipe to Like</ion-title>
+    <ion-title *ngIf="isQuickView">Quick View</ion-title>
+    <ion-buttons end *ngIf="isQuickView">
+      <button ion-button (click)="dismiss()">Close</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -43,7 +47,7 @@
       </div>
     </div>
 
-    <div class="info-container" *ngIf="potentialMatches && potentialMatches.length <= 0">
+    <div class="info-container" *ngIf="potentialMatches && potentialMatches.length <= 0 && !isQuickView">
       <h3 style="text-align: center; padding: 0 20px;"> Sorry! That's all of your potential matches. Come back later to see if there are more.</h3>
     </div>
 

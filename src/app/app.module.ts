@@ -75,6 +75,8 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { ReportModalPageModule } from '../pages/report-modal/report-modal.module';
 import { PremiumSubscriptionProvider } from '../providers/premium-subscription/premium-subscription';
+import { SwipeToLikePage } from '../pages/swipe-to-like/swipe-to-like';
+import { SwipeToLikePageModule } from '../pages/swipe-to-like/swipe-to-like.module';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -103,10 +105,11 @@ import { PremiumSubscriptionProvider } from '../providers/premium-subscription/p
     PremiumSubscriptionPageModule,
     ForgotPasswordPageModule,
     ReportModalPageModule,
-    HttpModule
+    HttpModule,
+    SwipeToLikePageModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, HomePage],
+  entryComponents: [MyApp, HomePage, SwipeToLikePage],
   providers: [
     StatusBar,
     SplashScreen,

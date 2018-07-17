@@ -16,6 +16,7 @@ import { SwipeProvider } from '../../providers/swipe/swipe';
 import { RefineSearchProvider } from '../../providers/refine-search/refine-search';
 import { Coordinates } from '../../models/coordinates';
 import { PremiumSubscriptionProvider } from '../../providers/premium-subscription/premium-subscription';
+import { SwipeToLikePage } from '../swipe-to-like/swipe-to-like';
 
 @Component({
   selector: 'page-home',
@@ -114,7 +115,19 @@ export class HomePage {
   redirectToProfilePage() {
     if (window.localStorage.getItem('isNewUser')) {
       window.localStorage.removeItem('isNewUser');
-      this.modalCtrl.create('EditProfilePage' , { isNewUser: true }).present();
+      let newUserModal = this.modalCtrl.create('EditProfilePage' , { isNewUser: true });
+      newUserModal.onDidDismiss(data => {
+        let quickViewModal = this.modalCtrl.create(SwipeToLikePage, {
+          isQuickView: true
+        });
+        quickViewModal.present();
+      });
+      newUserModal.present();
+    }else{
+      let quickViewModal = this.modalCtrl.create(SwipeToLikePage, {
+        isQuickView: true
+      });
+      quickViewModal.present();
     }
   }
 
