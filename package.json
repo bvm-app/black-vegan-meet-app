@@ -28,6 +28,7 @@
     "@ionic-native/file-path": "4.7.0",
     "@ionic-native/geolocation": "4.7.0",
     "@ionic-native/google-plus": "^4.9.0",
+    "@ionic-native/in-app-purchase": "^4.9.2",
     "@ionic-native/network": "4.7.0",
     "@ionic-native/paypal": "^4.8.0",
     "@ionic-native/splash-screen": "4.7.0",
@@ -36,6 +37,7 @@
     "angular2-swing": "0.14.0",
     "angularfire2": "5.0.0-rc.10",
     "card.io.cordova.mobilesdk": "^2.1.0",
+    "cc.fovea.cordova.purchase": "^7.1.3",
     "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-android": "7.0.0",
     "cordova-plugin-browsertab": "^0.2.0",
@@ -50,6 +52,7 @@
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googleplus": "^5.3.0",
     "cordova-plugin-inappbrowser": "^3.0.0",
+    "cordova-plugin-inapppurchase": "^1.2.0",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-network-information": "^2.0.1",
@@ -108,6 +111,10 @@
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1038454495212-hoje613t04c89ijg1gv8ivu3vpublv0l"
+      },
+      "cordova-plugin-inapppurchase": {},
+      "cc.fovea.cordova.purchase": {
+        "BILLING_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt+wH8SO7ShFMdLGlGt5/5BTbVyEIlg/uk35TM6sPJw2V5yu8djR+KT+SD7IXsRYQU7H6bIAmKM7VVQfoUlynZSu1J15N/977YJKIaYKQxlGuZOvXi6RJXqeS2YtvDEpkI4NvDPGjruMrp8JacBUod0+fQYjokxvma3Qtc1CX6YqJNGAxmeQyu4btkqruLtkt577SwSVhA4C8253FUyEaW5HY7CE719dD4SS3CELMEguffhE1lVnA0o4kkahCM53bhm90d1PUmiWkm5Vzx49pTqfndxDPMEsMclNFSips403JMnUjRMwq/FHYxLMKB4KuFuk24aZJY1h7KMu+Qn8E9QIDAQAB"
       }
     },
     "platforms": [

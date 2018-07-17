@@ -7,4 +7,5 @@ export interface IPremiumOption {
   savePercentage: number;
   selected: boolean;
   duration: number;
+  inAppId?: string;
 }
