@@ -28,7 +28,7 @@
         <ion-item>
           <ion-label stacked>Height</ion-label>
           <ion-select [(ngModel)]="user.height" name="height" placeholder="Height">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let height of heightOptions" [value]="height">{{ height }}</ion-option>
           </ion-select>
         </ion-item>
@@ -36,7 +36,7 @@
         <ion-item>
           <ion-label stacked>Relationship Status</ion-label>
           <ion-select [(ngModel)]="user.relationshipStatus" name="relationshipStatus" placeholder="Relationship Status">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let relationshipStatus of relationshipStatusOptions" [value]="relationshipStatus">{{ relationshipStatus }}</ion-option>
           </ion-select>
         </ion-item>
@@ -44,7 +44,7 @@
         <ion-item>
           <ion-label stacked>Gender</ion-label>
           <ion-select [(ngModel)]="user.gender" name="gender" placeholder="Gender">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</ion-option>
           </ion-select>
         </ion-item>
@@ -52,7 +52,7 @@
         <ion-item>
           <ion-label stacked>What are you looking for?</ion-label>
           <ion-select multiple="true" [(ngModel)]="user.preferences.intentions" name="preferenceIntention" placeholder="Your intentions">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let intention of intentionOptions" [value]="intention">{{ intention }}</ion-option>
           </ion-select>
         </ion-item>
@@ -90,7 +90,7 @@
         <ion-item>
           <ion-label stacked>Diet</ion-label>
           <ion-select [(ngModel)]="user.preferences.diet" name="preferenceDiet" placeholder="Select">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let diet of dietOptions" [value]="diet">{{ diet }}</ion-option>
           </ion-select>
         </ion-item>
@@ -98,7 +98,7 @@
         <ion-item>
           <ion-label stacked>Religion</ion-label>
           <ion-select [(ngModel)]="user.preferences.religion" name="preferenceReligion" placeholder="Select">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let religion of religionOptions" [value]="religion">{{ religion }}</ion-option>
           </ion-select>
         </ion-item>
@@ -106,7 +106,7 @@
         <ion-item>
           <ion-label stacked>Alcohol</ion-label>
           <ion-select [(ngModel)]="user.preferences.alcohol" name="preferenceAlcohol" placeholder="Select">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let alcohol of alcoholOptions" [value]="alcohol">{{ alcohol }}</ion-option>
           </ion-select>
         </ion-item>
@@ -114,7 +114,7 @@
         <ion-item>
           <ion-label stacked>Smoke</ion-label>
           <ion-select [(ngModel)]="user.preferences.cigarette" name="preferenceCigarette" placeholder="Select">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let cigarette of cigaretteOptions" [value]="cigarette">{{ cigarette }}</ion-option>
           </ion-select>
         </ion-item>
@@ -122,7 +122,7 @@
         <ion-item>
           <ion-label stacked>Drugs</ion-label>
           <ion-select [(ngModel)]="user.preferences.drug" name="preferenceDrug" placeholder="Select">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let drug of drugOptions" [value]="drug">{{ drug }}</ion-option>
           </ion-select>
         </ion-item>
@@ -130,7 +130,7 @@
         <ion-item>
           <ion-label stacked>Children</ion-label>
           <ion-select [(ngModel)]="user.preferences.children" name="preferenceChildren" placeholder="Select">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let children of childrenOptions" [value]="children">{{ children }}</ion-option>
           </ion-select>
         </ion-item>
@@ -138,7 +138,7 @@
         <ion-item>
           <ion-label stacked>Education</ion-label>
           <ion-select [(ngModel)]="user.preferences.education" name="preferenceEducation" placeholder="Select">
-            <ion-option></ion-option>
+            <!-- <ion-option></ion-option> -->
             <ion-option *ngFor="let education of educationOptions" [value]="education">{{ education }}</ion-option>
           </ion-select>
         </ion-item>
