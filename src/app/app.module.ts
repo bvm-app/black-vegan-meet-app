@@ -70,7 +70,6 @@ import { BlockProvider } from '../providers/block/block';
 import { EmailProvider } from '../providers/email/email';
 import { HttpModule } from '@angular/http';
 import { ForgotPasswordPageModule } from '../pages/forgot-password/forgot-password.module';
-import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { ReportModalPageModule } from '../pages/report-modal/report-modal.module';
@@ -78,6 +77,7 @@ import { PremiumSubscriptionProvider } from '../providers/premium-subscription/p
 import { SwipeToLikePage } from '../pages/swipe-to-like/swipe-to-like';
 import { SwipeToLikePageModule } from '../pages/swipe-to-like/swipe-to-like.module';
 import { SeeWhoLikedYouPageModule } from '../pages/see-who-liked-you/see-who-liked-you.module';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -145,7 +145,8 @@ import { SeeWhoLikedYouPageModule } from '../pages/see-who-liked-you/see-who-lik
     EmailProvider,
     Facebook,
     GooglePlus,
-    PremiumSubscriptionProvider
+    PremiumSubscriptionProvider,
+    AdMobFree
   ]
 })
 export class AppModule {

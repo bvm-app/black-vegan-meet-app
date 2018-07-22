@@ -17,6 +17,7 @@ import { RefineSearchProvider } from '../../providers/refine-search/refine-searc
 import { Coordinates } from '../../models/coordinates';
 import { PremiumSubscriptionProvider } from '../../providers/premium-subscription/premium-subscription';
 import { SwipeToLikePage } from '../swipe-to-like/swipe-to-like';
+import { AdMobFreeBannerConfig, AdMobFree } from '@ionic-native/admob-free';
 
 @Component({
   selector: 'page-home',
@@ -47,7 +48,8 @@ export class HomePage {
     private swipeProvider: SwipeProvider,
     private modalCtrl: ModalController,
     private refineSearchProvider: RefineSearchProvider,
-    private premiumSubscriptionProvider: PremiumSubscriptionProvider
+    private premiumSubscriptionProvider: PremiumSubscriptionProvider,
+    private admob: AdMobFree
   ) { }
 
   ionViewDidLeave() {
@@ -112,10 +114,14 @@ export class HomePage {
     this.premiumSubscriptionProvider.init();
   }
 
+  ionViewDidEnter() {
+    this.showBanner();
+  }
+
   redirectToProfilePage() {
     if (window.localStorage.getItem('isNewUser')) {
       window.localStorage.removeItem('isNewUser');
-      let newUserModal = this.modalCtrl.create('EditProfilePage' , { isNewUser: true });
+      let newUserModal = this.modalCtrl.create('EditProfilePage', { isNewUser: true });
       newUserModal.onDidDismiss(data => {
         let quickViewModal = this.modalCtrl.create(SwipeToLikePage, {
           isQuickView: true
@@ -123,7 +129,7 @@ export class HomePage {
         quickViewModal.present();
       });
       newUserModal.present();
-    }else{
+    } else {
       let quickViewModal = this.modalCtrl.create(SwipeToLikePage, {
         isQuickView: true
       });
@@ -150,5 +156,26 @@ export class HomePage {
     } else {
       this.premiumSubscriptionProvider.presentPremiumModal();
     }
+  }
+
+  showBanner() {
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-4917220357544982/9420529379',
+      bannerAtTop: true,
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then((res) => {
+      // success
+      console.log("SUCCESS BANNER: ", res);
+      this.admob.banner.show();
+    }).catch( e => {
+      console.log("ERROR: ", e);
+    });
+
+
   }
 }

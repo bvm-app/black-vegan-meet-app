@@ -4,6 +4,7 @@ import { GroceryStoresProvider } from '../../providers/grocery-stores/grocery-st
 import { GroceryStore } from '../../models/grocery-store';
 import { GroceryStoreModalPage } from '../grocery-store-modal/grocery-store-modal';
 import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
+import { AdMobFreeBannerConfig, AdMobFree } from '../../../node_modules/@ionic-native/admob-free';
 
 /**
  * Generated class for the GroceryStoresPage page.
@@ -24,11 +25,30 @@ export class GroceryStoresPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private groceryStoresProvider: GroceryStoresProvider,
-    private geoLocationProvider: GeoLocationProvider) {
+    private admob: AdMobFree) {
   }
 
   openStore(store: GroceryStore) {
     this.navCtrl.push(GroceryStoreModalPage, { Store: store, Type: 'Display' });
+  }
+
+
+  showBanner() {
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-4917220357544982/9420529379'
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then(() => {
+      // success
+      console.log("SUCCESS BANNER");
+    }).catch(e => {
+      console.log("ERROR: ", e);
+    });
+
   }
 
   getGroceryStores() {
@@ -75,6 +95,10 @@ export class GroceryStoresPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad GroceryStoresPage');
     this.getGroceryStores();
+  }
+
+  ionViewDidEnter () {
+    this.showBanner();
   }
 
 }
