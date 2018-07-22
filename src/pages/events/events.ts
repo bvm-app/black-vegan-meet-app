@@ -9,6 +9,7 @@ import { take } from 'rxjs/operators';
 import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import { EventDetailPage } from '../event-detail/event-detail';
 import * as moment from 'moment';
+import { AdMobFree, AdMobFreeBannerConfig } from '../../../node_modules/@ionic-native/admob-free';
 
 /**
  * Generated class for the EventsPage page.
@@ -35,8 +36,27 @@ export class EventsPage {
     public geolocation: Geolocation,
     public eventProvider: EventProvider,
     private db: AngularFireDatabase,
-    private geolocationProvider: GeoLocationProvider
+    private geolocationProvider: GeoLocationProvider,
+    private admob: AdMobFree
   ) {
+  }
+
+  showBanner() {
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-4917220357544982/9420529379'
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then(() => {
+      // success
+      this.admob.banner.show();
+      console.log("SUCCESS BANNER");
+    }).catch(e => {
+      console.log("ERROR: ", e);
+    });
   }
 
   ionViewDidLoad() {
@@ -46,6 +66,10 @@ export class EventsPage {
       .subscribe(data => {
         this.getFirebaseEvents(data);
       }, error => this.getFirebaseEvents());
+  }
+
+  ionViewDidEnter() {
+    this.showBanner();
   }
 
   getFirebaseEvents(data: Event[] = []) {

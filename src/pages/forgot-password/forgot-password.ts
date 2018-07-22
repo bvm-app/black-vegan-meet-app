@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AdMobFree, AdMobFreeBannerConfig } from '../../../node_modules/@ionic-native/admob-free';
 
 /**
  * Generated class for the ForgotPasswordPage page.
@@ -24,7 +25,8 @@ export class ForgotPasswordPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private afAuth: AngularFireAuth, private formBuilder: FormBuilder,
-    private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+    private loadingCtrl: LoadingController, private toastCtrl: ToastController,
+    private admob: AdMobFree) {
 
     this.forgotPasswordForm = formBuilder.group({
       email: ['',
@@ -34,6 +36,28 @@ export class ForgotPasswordPage {
           Validators.required])
       ],
     });
+  }
+
+  showBanner() {
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-4917220357544982/9420529379'
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then(() => {
+      // success
+      this.admob.banner.show();
+      console.log("SUCCESS BANNER");
+    }).catch(e => {
+      console.log("ERROR: ", e);
+    });
+  }
+
+  ionViewDidEnter() {
+    this.showBanner();
   }
 
   ionViewDidLoad() {

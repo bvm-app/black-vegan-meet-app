@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { FirebaseStorageProvider } from '../../providers/firebase-storage/firebase-storage';
 import { UserProvider } from '../../providers/user/user';
+import { AdMobFreeBannerConfig, AdMobFree } from '../../../node_modules/@ionic-native/admob-free';
 /**
  * Generated class for the GroceryStoreModalPage page.
  *
@@ -49,7 +50,7 @@ export class GroceryStoreModalPage {
     private loadingCtrl: LoadingController, private dragulaService: DragulaService,
     private alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
     private db: AngularFireDatabase, private dbStorage: FirebaseStorageProvider,
-    private userProvider: UserProvider) {
+    private admob: AdMobFree, private userProvider: UserProvider) {
 
 
     this.storeForm = formBuilder.group({
@@ -280,6 +281,24 @@ export class GroceryStoreModalPage {
       .present();
   }
 
+  showBanner() {
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-4917220357544982/9420529379'
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then(() => {
+      // success
+      this.admob.banner.show();
+      console.log("SUCCESS BANNER");
+    }).catch(e => {
+      console.log("ERROR: ", e);
+    });
+  }
+
   ionViewWillEnter() {
     this.storeImages = [];
     this.isAdmin = this.userProvider.getAdminStatus();
@@ -309,6 +328,9 @@ export class GroceryStoreModalPage {
     console.log('ionViewDidLoad GroceryStoreModalPage');
   }
 
+  ionViewDidEnter() {
+    this.showBanner();
+  }
 
   // Taken from:
   // http://masteringionic.com/blog/2017-12-15-creating-a-sortable-list-with-ionic-and-dragula/

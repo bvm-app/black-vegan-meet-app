@@ -11,6 +11,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Coordinates } from '../../models/coordinates';
+import { AdMobFree, AdMobFreeBannerConfig } from '../../../node_modules/@ionic-native/admob-free';
 
 /**
  * Generated class for the EventModalPage page.
@@ -63,7 +64,8 @@ export class EventModalPage {
     private dragulaService: DragulaService,
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private admob: AdMobFree
   ) {
     this.eventForm = formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(30), Validators.required])],
@@ -88,6 +90,28 @@ export class EventModalPage {
     });
   }
 
+  showBanner() {
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-4917220357544982/9420529379'
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then(() => {
+      // success
+      this.admob.banner.show();
+      console.log("SUCCESS BANNER");
+    }).catch(e => {
+      console.log("ERROR: ", e);
+    });
+  }
+
+  ionViewDidEnter() {
+    this.showBanner();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventModalPage');
   }
@@ -97,7 +121,7 @@ export class EventModalPage {
     this.eventImages = [];
     this.isAdmin = this.userProvider.getAdminStatus();
 
-    
+
     let type = this.navParams.get('Type');
 
     this.addModal = (type === 'Add');

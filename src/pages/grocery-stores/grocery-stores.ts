@@ -32,7 +32,6 @@ export class GroceryStoresPage {
     this.navCtrl.push(GroceryStoreModalPage, { Store: store, Type: 'Display' });
   }
 
-
   showBanner() {
     let bannerConfig: AdMobFreeBannerConfig = {
       isTesting: true, // Remove in production
@@ -44,11 +43,11 @@ export class GroceryStoresPage {
 
     this.admob.banner.prepare().then(() => {
       // success
+      this.admob.banner.show();
       console.log("SUCCESS BANNER");
     }).catch(e => {
       console.log("ERROR: ", e);
     });
-
   }
 
   getGroceryStores() {
@@ -97,7 +96,7 @@ export class GroceryStoresPage {
     this.getGroceryStores();
   }
 
-  ionViewDidEnter () {
+  ionViewDidEnter() {
     this.showBanner();
   }
 
