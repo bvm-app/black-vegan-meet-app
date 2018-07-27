@@ -25,8 +25,7 @@ export class ForgotPasswordPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private afAuth: AngularFireAuth, private formBuilder: FormBuilder,
-    private loadingCtrl: LoadingController, private toastCtrl: ToastController,
-    private admob: AdMobFree) {
+    private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
 
     this.forgotPasswordForm = formBuilder.group({
       email: ['',
@@ -36,28 +35,6 @@ export class ForgotPasswordPage {
           Validators.required])
       ],
     });
-  }
-
-  showBanner() {
-    let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true,
-      id: 'ca-app-pub-4917220357544982/9420529379'
-    };
-
-    this.admob.banner.config(bannerConfig);
-
-    this.admob.banner.prepare().then(() => {
-      // success
-      this.admob.banner.show();
-      console.log("SUCCESS BANNER");
-    }).catch(e => {
-      console.log("ERROR: ", e);
-    });
-  }
-
-  ionViewDidEnter() {
-    this.showBanner();
   }
 
   ionViewDidLoad() {

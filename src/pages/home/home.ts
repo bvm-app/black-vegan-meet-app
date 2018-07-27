@@ -24,6 +24,7 @@ import { AdMobFreeBannerConfig, AdMobFree } from '@ionic-native/admob-free';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  cordova = window['cordova'];
   defaultUserImage = env.DEFAULT.userImagePlaceholder;
   icons = env.DEFAULT.icons;
   maximumProspectDatesCount = 25;
@@ -55,6 +56,9 @@ export class HomePage {
   ionViewDidLeave() {
     if (this.currentLoggedInUserSubscription)
       this.currentLoggedInUserSubscription.unsubscribe();
+
+    this.hideBanner();
+
   }
 
   ionViewWillEnter() {
@@ -158,12 +162,16 @@ export class HomePage {
     }
   }
 
+  hideBanner() {
+    this.admob.banner.hide();
+  }
+
   showBanner() {
     let bannerConfig: AdMobFreeBannerConfig = {
       isTesting: true, // Remove in production
       autoShow: true,
       id: 'ca-app-pub-4917220357544982/9420529379',
-      bannerAtTop: true,
+      size: 'BANNER'
     };
 
     this.admob.banner.config(bannerConfig);
@@ -172,10 +180,8 @@ export class HomePage {
       // success
       console.log("SUCCESS BANNER: ", res);
       this.admob.banner.show();
-    }).catch( e => {
+    }).catch(e => {
       console.log("ERROR: ", e);
     });
-
-
   }
 }

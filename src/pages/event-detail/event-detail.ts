@@ -36,7 +36,6 @@ export class EventDetailPage {
     public navParams: NavParams,
     private eventProvider: EventProvider,
     private userProvider: UserProvider,
-    private admob: AdMobFree
   ) {
   }
 
@@ -60,34 +59,12 @@ export class EventDetailPage {
 
   }
 
-  showBanner() {
-    let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true,
-      id: 'ca-app-pub-4917220357544982/9420529379'
-    };
-
-    this.admob.banner.config(bannerConfig);
-
-    this.admob.banner.prepare().then(() => {
-      // success
-      this.admob.banner.show();
-      console.log("SUCCESS BANNER");
-    }).catch(e => {
-      console.log("ERROR: ", e);
-    });
-  }
-
   openEditPage() {
     this.navCtrl.push(EventModalPage, { Event: this.event, Type: 'Edit' });
   }
 
   ionViewWillEnter() {
     this.isAdmin = this.userProvider.getAdminStatus();
-  }
-
-  ionViewDidEnter() {
-    this.showBanner();
   }
 
   loadMap() {

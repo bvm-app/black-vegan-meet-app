@@ -65,7 +65,6 @@ export class EventModalPage {
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private admob: AdMobFree
   ) {
     this.eventForm = formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(30), Validators.required])],
@@ -88,28 +87,6 @@ export class EventModalPage {
       console.log('Is dropped:', val);
       this.onDrop(val[2]);
     });
-  }
-
-  showBanner() {
-    let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true,
-      id: 'ca-app-pub-4917220357544982/9420529379'
-    };
-
-    this.admob.banner.config(bannerConfig);
-
-    this.admob.banner.prepare().then(() => {
-      // success
-      this.admob.banner.show();
-      console.log("SUCCESS BANNER");
-    }).catch(e => {
-      console.log("ERROR: ", e);
-    });
-  }
-
-  ionViewDidEnter() {
-    this.showBanner();
   }
 
   ionViewDidLoad() {

@@ -50,7 +50,7 @@ export class GroceryStoreModalPage {
     private loadingCtrl: LoadingController, private dragulaService: DragulaService,
     private alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
     private db: AngularFireDatabase, private dbStorage: FirebaseStorageProvider,
-    private admob: AdMobFree, private userProvider: UserProvider) {
+    private userProvider: UserProvider) {
 
 
     this.storeForm = formBuilder.group({
@@ -281,24 +281,6 @@ export class GroceryStoreModalPage {
       .present();
   }
 
-  showBanner() {
-    let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true,
-      id: 'ca-app-pub-4917220357544982/9420529379'
-    };
-
-    this.admob.banner.config(bannerConfig);
-
-    this.admob.banner.prepare().then(() => {
-      // success
-      this.admob.banner.show();
-      console.log("SUCCESS BANNER");
-    }).catch(e => {
-      console.log("ERROR: ", e);
-    });
-  }
-
   ionViewWillEnter() {
     this.storeImages = [];
     this.isAdmin = this.userProvider.getAdminStatus();
@@ -326,10 +308,6 @@ export class GroceryStoreModalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GroceryStoreModalPage');
-  }
-
-  ionViewDidEnter() {
-    this.showBanner();
   }
 
   // Taken from:

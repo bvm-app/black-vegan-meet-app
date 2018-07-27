@@ -24,30 +24,11 @@ export class GroceryStoresPage {
   isFetching: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private groceryStoresProvider: GroceryStoresProvider,
-    private admob: AdMobFree) {
+    private groceryStoresProvider: GroceryStoresProvider) {
   }
 
   openStore(store: GroceryStore) {
     this.navCtrl.push(GroceryStoreModalPage, { Store: store, Type: 'Display' });
-  }
-
-  showBanner() {
-    let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true,
-      id: 'ca-app-pub-4917220357544982/9420529379'
-    };
-
-    this.admob.banner.config(bannerConfig);
-
-    this.admob.banner.prepare().then(() => {
-      // success
-      this.admob.banner.show();
-      console.log("SUCCESS BANNER");
-    }).catch(e => {
-      console.log("ERROR: ", e);
-    });
   }
 
   getGroceryStores() {
@@ -95,9 +76,4 @@ export class GroceryStoresPage {
     console.log('ionViewDidLoad GroceryStoresPage');
     this.getGroceryStores();
   }
-
-  ionViewDidEnter() {
-    this.showBanner();
-  }
-
 }

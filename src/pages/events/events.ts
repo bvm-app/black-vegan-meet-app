@@ -37,26 +37,7 @@ export class EventsPage {
     public eventProvider: EventProvider,
     private db: AngularFireDatabase,
     private geolocationProvider: GeoLocationProvider,
-    private admob: AdMobFree
   ) {
-  }
-
-  showBanner() {
-    let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true,
-      id: 'ca-app-pub-4917220357544982/9420529379'
-    };
-
-    this.admob.banner.config(bannerConfig);
-
-    this.admob.banner.prepare().then(() => {
-      // success
-      this.admob.banner.show();
-      console.log("SUCCESS BANNER");
-    }).catch(e => {
-      console.log("ERROR: ", e);
-    });
   }
 
   ionViewDidLoad() {
@@ -66,10 +47,6 @@ export class EventsPage {
       .subscribe(data => {
         this.getFirebaseEvents(data);
       }, error => this.getFirebaseEvents());
-  }
-
-  ionViewDidEnter() {
-    this.showBanner();
   }
 
   getFirebaseEvents(data: Event[] = []) {
