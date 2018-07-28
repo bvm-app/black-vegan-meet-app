@@ -4,6 +4,7 @@ import { GroceryStoresProvider } from '../../providers/grocery-stores/grocery-st
 import { GroceryStore } from '../../models/grocery-store';
 import { GroceryStoreModalPage } from '../grocery-store-modal/grocery-store-modal';
 import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
+import { AdMobFreeBannerConfig, AdMobFree } from '../../../node_modules/@ionic-native/admob-free';
 
 /**
  * Generated class for the GroceryStoresPage page.
@@ -23,8 +24,7 @@ export class GroceryStoresPage {
   isFetching: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private groceryStoresProvider: GroceryStoresProvider,
-    private geoLocationProvider: GeoLocationProvider) {
+    private groceryStoresProvider: GroceryStoresProvider) {
   }
 
   openStore(store: GroceryStore) {
@@ -76,5 +76,4 @@ export class GroceryStoresPage {
     console.log('ionViewDidLoad GroceryStoresPage');
     this.getGroceryStores();
   }
-
 }

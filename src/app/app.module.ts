@@ -31,6 +31,10 @@ import { EnumProvider } from '../providers/enum/enum';
 import { ViewedMeProvider } from '../providers/viewed-me/viewed-me';
 import { UserSearchProvider } from '../providers/user-search/user-search';
 import { RefineSearchProvider } from '../providers/refine-search/refine-search';
+import { GroceryStoresProvider } from '../providers/grocery-stores/grocery-stores';
+import { GeoLocationProvider } from '../providers/geo-location/geo-location';
+import { RestaurantsProvider } from '../providers/restaurants/restaurants';
+import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscription-options/premium-subscription-options';
 
 
 // Components
@@ -44,13 +48,10 @@ import { ComponentsModule } from '../components/components.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { UserProvider } from '../providers/user/user';
 import { RegisterPageModule } from '../pages/register/register.module';
-import { StartPageModule } from '../pages/start/start.module';
 import { GroceryStoreModalPageModule } from '../pages/grocery-store-modal/grocery-store-modal.module';
-import { GroceryStoresProvider } from '../providers/grocery-stores/grocery-stores';
-import { GeoLocationProvider } from '../providers/geo-location/geo-location';
+import { StartPageModule } from '../pages/start/start.module';
 
 import { RefineSearchPageModule } from '../pages/refine-search/refine-search.module';
-import { RestaurantsProvider } from '../providers/restaurants/restaurants';
 import { RestaurantModalPageModule } from '../pages/restaurant-modal/restaurant-modal.module';
 import { RestaurantsPageModule } from '../pages/restaurants/restaurants.module';
 import { SwipeProvider } from '../providers/swipe/swipe';
@@ -63,14 +64,12 @@ import { EventModalPageModule } from '../pages/event-modal/event-modal.module';
 import { EventDetailPageModule } from '../pages/event-detail/event-detail.module';
 import { PaypalProvider } from '../providers/paypal/paypal';
 import { PremiumSubscriptionPageModule } from '../pages/premium-subscription/premium-subscription.module';
-import { PremiumSubscriptionOptionsProvider } from '../providers/premium-subscription-options/premium-subscription-options';
 import { PayPal } from '@ionic-native/paypal';
 import { UserTransactionProvider } from '../providers/user-transaction/user-transaction';
 import { BlockProvider } from '../providers/block/block';
 import { EmailProvider } from '../providers/email/email';
 import { HttpModule } from '@angular/http';
 import { ForgotPasswordPageModule } from '../pages/forgot-password/forgot-password.module';
-import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { ReportModalPageModule } from '../pages/report-modal/report-modal.module';
@@ -78,6 +77,7 @@ import { PremiumSubscriptionProvider } from '../providers/premium-subscription/p
 import { SwipeToLikePage } from '../pages/swipe-to-like/swipe-to-like';
 import { SwipeToLikePageModule } from '../pages/swipe-to-like/swipe-to-like.module';
 import { SeeWhoLikedYouPageModule } from '../pages/see-who-liked-you/see-who-liked-you.module';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -145,7 +145,8 @@ import { SeeWhoLikedYouPageModule } from '../pages/see-who-liked-you/see-who-lik
     EmailProvider,
     Facebook,
     GooglePlus,
-    PremiumSubscriptionProvider
+    PremiumSubscriptionProvider,
+    AdMobFree
   ]
 })
 export class AppModule {

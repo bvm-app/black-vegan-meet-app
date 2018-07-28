@@ -9,6 +9,7 @@ import { take } from 'rxjs/operators';
 import { GeoLocationProvider } from '../../providers/geo-location/geo-location';
 import { EventDetailPage } from '../event-detail/event-detail';
 import * as moment from 'moment';
+import { AdMobFree, AdMobFreeBannerConfig } from '../../../node_modules/@ionic-native/admob-free';
 
 /**
  * Generated class for the EventsPage page.
@@ -35,7 +36,7 @@ export class EventsPage {
     public geolocation: Geolocation,
     public eventProvider: EventProvider,
     private db: AngularFireDatabase,
-    private geolocationProvider: GeoLocationProvider
+    private geolocationProvider: GeoLocationProvider,
   ) {
   }
 

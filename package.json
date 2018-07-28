@@ -20,6 +20,7 @@
     "@angular/http": "5.2.10",
     "@angular/platform-browser": "5.2.10",
     "@angular/platform-browser-dynamic": "5.2.10",
+    "@ionic-native/admob-free": "^4.10.0",
     "@ionic-native/browser-tab": "^4.9.0",
     "@ionic-native/camera": "4.7.0",
     "@ionic-native/core": "4.7.0",
@@ -37,7 +38,9 @@
     "angularfire2": "5.0.0-rc.10",
     "card.io.cordova.mobilesdk": "^2.1.0",
     "com.paypal.cordova.mobilesdk": "^3.5.0",
+    "cordova-admob-sdk": "^0.17.0",
     "cordova-android": "7.0.0",
+    "cordova-plugin-admob-free": "^0.17.3",
     "cordova-plugin-browsertab": "^0.2.0",
     "cordova-plugin-buildinfo": "^2.0.1",
     "cordova-plugin-camera": "^4.0.3",
@@ -55,6 +58,7 @@
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-whitelist": "^1.3.3",
+    "cordova-promise-polyfill": "0.0.2",
     "cordova-universal-links-plugin": "^1.2.1",
     "firebase": "^5.0.4",
     "ionic-angular": "3.9.2",
@@ -108,7 +112,8 @@
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1038454495212-hoje613t04c89ijg1gv8ivu3vpublv0l"
-      }
+      },
+      "cordova-plugin-admob-free": {}
     },
     "platforms": [
       "android"

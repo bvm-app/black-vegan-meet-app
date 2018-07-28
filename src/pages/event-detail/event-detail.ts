@@ -5,6 +5,7 @@ import { EventProvider } from '../../providers/event/event';
 import { env } from '../../app/env';
 import { UserProvider } from '../../providers/user/user';
 import { EventModalPage } from '../event-modal/event-modal';
+import { AdMobFreeBannerConfig, AdMobFree } from '../../../node_modules/@ionic-native/admob-free';
 
 /**
  * Generated class for the EventDetailPage page.
@@ -34,7 +35,7 @@ export class EventDetailPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private eventProvider: EventProvider,
-    private userProvider: UserProvider
+    private userProvider: UserProvider,
   ) {
   }
 
@@ -61,7 +62,6 @@ export class EventDetailPage {
   openEditPage() {
     this.navCtrl.push(EventModalPage, { Event: this.event, Type: 'Edit' });
   }
-
 
   ionViewWillEnter() {
     this.isAdmin = this.userProvider.getAdminStatus();
