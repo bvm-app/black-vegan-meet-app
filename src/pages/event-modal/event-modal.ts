@@ -11,6 +11,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Coordinates } from '../../models/coordinates';
+import { AdMobFree, AdMobFreeBannerConfig } from '../../../node_modules/@ionic-native/admob-free';
 
 /**
  * Generated class for the EventModalPage page.
@@ -63,7 +64,7 @@ export class EventModalPage {
     private dragulaService: DragulaService,
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {
     this.eventForm = formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(30), Validators.required])],
@@ -97,7 +98,7 @@ export class EventModalPage {
     this.eventImages = [];
     this.isAdmin = this.userProvider.getAdminStatus();
 
-    
+
     let type = this.navParams.get('Type');
 
     this.addModal = (type === 'Add');
