@@ -15,5 +15,8 @@ export enum ExerciseOptions {
   Golf = 'Golf',
   Lacrosse = 'Lacrosse',
   Rowing = 'Rowing',
-  Tennis = 'Tennis'
+  Tennis = 'Tennis',
+  Jogging = 'Jogging',
+  WeightLifting = 'Weight Lifting',
+  Walking = 'Walking'
 }

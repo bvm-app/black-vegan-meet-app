@@ -44,6 +44,7 @@ import { PremiumSubscriptionProvider } from "../../providers/premium-subscriptio
   templateUrl: "swipe-to-like.html"
 })
 export class SwipeToLikePage {
+  cordova = window["cordova"];
   @ViewChild(Slides) slides: Slides;
   @ViewChild("myswing1") swingStack: SwingStackComponent;
   @ViewChildren("mycards1") swingCards: QueryList<SwingCardComponent>;
@@ -309,6 +310,7 @@ export class SwipeToLikePage {
   }
 
   formatAddress(user: IUser) {
+    if(this.cordova) return false;
     return this.userProvider.formatAddress(user);
   }
 

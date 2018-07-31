@@ -43,6 +43,8 @@ export class GroceryStoresPage {
           stores.push(element);
         });
 
+        console.log('stores', stores)
+
         this.stores = stores.sort((l, r): number => {
           if (l.distance < r.distance) return -1;
           if (l.distance > r.distance) return 1;

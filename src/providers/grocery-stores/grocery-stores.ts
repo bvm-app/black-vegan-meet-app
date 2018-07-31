@@ -55,6 +55,8 @@ export class GroceryStoresProvider {
 
     this.getStoresUsingPlacesApi();
 
+    console.log('this grocery stores', this.groceryStores);
+
     return new Promise(resolve => {
       firebase.database().ref('/groceryStore').once('value').then((res: DataSnapshot) => {
         var idx = 0;
@@ -112,12 +114,106 @@ export class GroceryStoresProvider {
   }
 
   getStoresUsingPlacesApi() {
-    let searchParmas = new MapSearchParameters();
-    searchParmas.radius = 5000;
-    searchParmas.keyword = "vegan";
-    searchParmas.type = "store";
+    let searchParams = new MapSearchParameters();
+    searchParams.radius = 5000;
+    searchParams.keyword = "vegan";
+    searchParams.type = "store";
 
-    this.geoLocationProvider.nearbyApi(searchParmas).then((res) => {
+    this.geoLocationProvider.nearbyApi(searchParams).then((res) => {
+      res.subscribe(data => {
+
+        if (!data.length) {
+          this.groceryStoresSubject.next(this.groceryStores);
+        }
+
+        data.results.forEach(element => {
+          let imageUrl = undefined;
+
+          this.geoLocationProvider.getDistanceFromCurrentLocation({
+            latitude: element.geometry.location.lat,
+            longitude: element.geometry.location.lng,
+            latitudeType: 'N',
+            longitudeType: 'E'
+          }).then((distance) => {
+            if (element.photos) {
+              imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
+                + element.photos[0].photo_reference +
+                '&key=' + ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS;
+            }
+
+            this.addStoreToList({
+              id: element.id,
+              name: element.name,
+              coordinates: {
+                latitude: element.geometry.location.lat,
+                longitude: element.geometry.location.lng,
+                latitudeType: 'N',
+                longitudeType: 'E'
+              },
+              image_url: imageUrl,
+              images: [imageUrl],
+              distance: distance,
+              isAppStore: false
+            });
+          }).catch(() => {
+            // this.navCtrl.pop();
+          });
+        });
+      });
+    });
+
+    searchParams.radius = 5000;
+    searchParams.keyword = "herb shops";
+    searchParams.type = "store";
+
+    this.geoLocationProvider.nearbyApi(searchParams).then((res) => {
+      res.subscribe(data => {
+
+        if (!data.length) {
+          this.groceryStoresSubject.next(this.groceryStores);
+        }
+
+        data.results.forEach(element => {
+          let imageUrl = undefined;
+
+          this.geoLocationProvider.getDistanceFromCurrentLocation({
+            latitude: element.geometry.location.lat,
+            longitude: element.geometry.location.lng,
+            latitudeType: 'N',
+            longitudeType: 'E'
+          }).then((distance) => {
+            if (element.photos) {
+              imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
+                + element.photos[0].photo_reference +
+                '&key=' + ENV_CREDENTIALS.API_KEYS.GOOGLE_MAPS;
+            }
+
+            this.addStoreToList({
+              id: element.id,
+              name: element.name,
+              coordinates: {
+                latitude: element.geometry.location.lat,
+                longitude: element.geometry.location.lng,
+                latitudeType: 'N',
+                longitudeType: 'E'
+              },
+              image_url: imageUrl,
+              images: [imageUrl],
+              distance: distance,
+              isAppStore: false
+            });
+          }).catch(() => {
+            // this.navCtrl.pop();
+          });
+        });
+      });
+    });
+
+    searchParams.radius = 5000;
+    searchParams.keyword = "farmer products";
+    searchParams.type = "store";
+
+    this.geoLocationProvider.nearbyApi(searchParams).then((res) => {
       res.subscribe(data => {
 
         if (!data.length) {
