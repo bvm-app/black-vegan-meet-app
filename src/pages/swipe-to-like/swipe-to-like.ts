@@ -310,7 +310,7 @@ export class SwipeToLikePage {
   }
 
   formatAddress(user: IUser) {
-    if(this.cordova) return false;
+    if(!this.cordova) return false;
     return this.userProvider.formatAddress(user);
   }
 

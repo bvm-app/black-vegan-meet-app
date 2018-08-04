@@ -163,10 +163,14 @@ export class HomePage {
   }
 
   hideBanner() {
+    if(!this.cordova) return false;
+
     this.admob.banner.hide();
   }
 
   showBanner() {
+    if(!this.cordova) return false;
+
     let bannerConfig: AdMobFreeBannerConfig = {
       isTesting: true, // Remove in production
       autoShow: true,
